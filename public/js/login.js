@@ -15,7 +15,7 @@ const $studentLoginButton = document.querySelector('#studentLoginButton')
 
 $studentLoginButton.addEventListener('click',(e)=>{
     //console.log("Clicked Login")    
-    goToQuestionPage("http://localhost:3000/users/login")
+    goToQuestionPage()   
 })
 
 
@@ -23,7 +23,7 @@ $studentLoginButton.addEventListener('click',(e)=>{
 async function goToQuestionPage(){
   
     
-    var response = await fetch("http://localhost:3000/users/login", {
+    var response = await fetch("/users/login", {
       
     // Adding method type
     method: "POST",
