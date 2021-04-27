@@ -47,8 +47,8 @@ async function goToQuestionPage(){
             $testApp.style.display = "block"
             $loginForm.style.display = "none"            
     }
-var data = await response.json()
-USERID = data.user._id
-TOKEN = data.token
+//var data = await response.json()
+//USERID = data.user._id
+//TOKEN = data.token
 
 }
