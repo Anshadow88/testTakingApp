@@ -23,7 +23,9 @@ $studentLoginButton.addEventListener('click',(e)=>{
 async function goToQuestionPage(){
   
     
-    var response = await fetch("https://physicstree.herokuapp.com/users/login", {
+   // var response = await fetch("https://physicstree.herokuapp.com/users/login", {
+   //THIS WORKS
+   var response = await fetch("/users/login", {
       
     // Adding method type
     method: "POST",
@@ -47,8 +49,8 @@ async function goToQuestionPage(){
             $testApp.style.display = "block"
             $loginForm.style.display = "none"            
     }
-//var data = await response.json()
-//USERID = data.user._id
-//TOKEN = data.token
+var data = await response.json()
+USERID = data.user._id
+TOKEN = data.token
 
 }
