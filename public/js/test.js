@@ -34,7 +34,7 @@ $previousQuestionButton.addEventListener('click',(e)=>{
 })
 
 async function getQuestion(id){  
-    const response = await fetch("/questions/"+id)
+    const response = await fetch("https://physicstree.herokuapp.com/questions/"+id)
     var data = await response.json();
     console.log(data)
     var modifiedString = data.toString()    
@@ -44,7 +44,7 @@ async function getQuestion(id){
 
 async function getQuestionsOfChapter(chapt){     
         console.log("Global: "+TOKEN)
-        const response  = await fetch("/questions/chapter", {          
+        const response  = await fetch("https://physicstree.herokuapp.com/questions/chapter", {          
         // Adding method type
         method: "POST",
           
