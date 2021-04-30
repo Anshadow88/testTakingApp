@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const quesRoutes = require('./quesRoutes')
 const userRoutes = require('./userRoutes')
 const cors = require('cors')
-
+const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
 require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
