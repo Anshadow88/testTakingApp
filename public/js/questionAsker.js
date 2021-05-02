@@ -12,9 +12,9 @@ var chapterSelected="0"
 var availableQuestionsArray = []
 currentQuestionCount=0
 
-$classSelect.addEventListener('click',(e)=>{    
-    classSelected = $classSelect.value
-})
+// $classSelect.addEventListener('click',(e)=>{    
+//     classSelected = $classSelect.value
+// })
 
 $chapterSelect.addEventListener('click',(e)=>{    
     chapterSelected = $chapterSelect.value

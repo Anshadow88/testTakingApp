@@ -42,6 +42,30 @@ const userSchema = new mongoose.Schema( {
         }
 
     },
+    questions: [{
+        questionID:{
+            type: String,
+            required: true
+        },
+        correct:{
+            type: Boolean
+
+        }     
+
+    }],
+    testsTaken: [{
+        testID:{
+            type: String,
+            required: true
+        },
+        marks:{
+            type: Number
+
+        },maxMarks:{
+            type: Number
+        }     
+
+    }],
     tokens: [{
         token:{
             type: String,

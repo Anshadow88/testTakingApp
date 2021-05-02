@@ -52,11 +52,11 @@
         <div id = "testApp">
           <h1>Quiz & Test Section</h1>
           
-           <select class="form-select" id="classSelect">
+           <!-- <select class="form-select" id="classSelect">
             <option selected>Select Exam</option>
             <option value="NEET">NEET</option>
             <option value="JEE">JEE</option>
-           </select>
+           </select> -->
           
            <select class="form-select" id="chapterSelect">
             <option selected>Select Chapter</option>
@@ -87,26 +87,32 @@
             <option value="NEET">PYQ</option>
             <option value="JEE">New Questions </option>
            </select> -->
-
-           <button type="button" style="margin: 10%" class="btn btn-danger" id="getQuestionButton">Get Next Question</button>
+           <input type="text" id = "testName">
+           <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button>
+           <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button> 
            
           
            <h3 style="text-align: left;">Ques.</h3>
             <div class="well">
             <p id = "question">What is the name of the capital of India??????????????</p>
             </div>
-            <div class="container">
-            <button type="button" style="margin: 10px " class="btn btn-primary" id="optionAButton">A</button>
-            <button type="button" style="margin: 10px " class="btn btn-primary" id="optionBButton">B</button>
-            <button type="button" style="margin: 10px "class="btn btn-primary" id="optionCButton">C</button>
-            <button type="button" style="margin: 10px " class="btn btn-primary" id="optionDButton">D</button>
-            </div>
+            <!-- <div class="container">
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="selectQuestion">Select This Question</button>
+            </div> -->
 
           
            <div class="container">
+            <div>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionCButton">Option C</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionDButton">Option D</button>
+        
+            </div>
+
+            <h3 id="lastQuestionStatus">Last Question Was: _________</h3>
              
            <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous Question</button>
-
            <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">Next Question</button>
           </div>
         </div>
@@ -126,6 +132,7 @@
 </body>
 
 <script src="/js/login.js"></script>
-<script src="/js/test.js"></script>
+<!-- <script src="/js/questionAsker.js"></script> -->
 
+<script src="/js/testTaker.js"></script>
 </html>

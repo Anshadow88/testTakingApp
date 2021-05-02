@@ -1,20 +1,9 @@
 const express = require('express')
 const router = express.Router()
-
-const Question = require('./models/Question')
-
+const Question = require('./models/QuestionModel')
 const auth = require('./middleware/auth')
 
 
-
-// router.get('/questions', async (req, res) => {
-//     try {
-//         const questions = await Question.find()
-//         return res.status(200).json(questions)
-//     } catch (error) {
-//         return res.status(500).json({"error":error})
-//     }
-// })
 
 // create one quiz question
 router.post('/questions', async (req, res) => {

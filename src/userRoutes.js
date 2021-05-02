@@ -1,6 +1,6 @@
 const express = require('express')
 const router = new express.Router()
-const User = require('./models/user')
+const User = require('./models/userModel')
 const jwt = require('jsonwebtoken')
 const auth = require('./middleware/auth.js')
 const multer = require('multer')
@@ -184,6 +184,52 @@ router.patch('/users/me',auth, async(req,res)=>{
         res.status(400).send(e)
     }
 
+})
+//update TestResult
+router.patch('/userTestUpdate/:id',async(req,res)=>{
+    const updates = Object.keys(req.body)
+    console.log(updates)
+    try{
+        const user = await User.findOne({_id: req.params.id})
+        if(!user){return res.status(404).send()}
+        
+        updates.forEach((update)=>{
+            console.log(update)
+            user[update] = req.body[update]
+        })
+
+        await user.save()
+        //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        res.send(user)
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+router.patch('/userQuestionUpdate/:id',async(req,res)=>{
+    const updates = Object.keys(req.body)
+    console.log(updates)
+    try{
+        const user = await User.findOne({_id: req.params.id})
+        if(!user){return res.status(404).send()}
+        
+        updates.forEach((update)=>{
+            console.log(update)
+            user[update] = req.body[update]
+        })
+
+        await user.save()
+        //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        res.send(user)
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
 })
 
 module.exports = router

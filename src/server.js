@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const quesRoutes = require('./quesRoutes')
 const userRoutes = require('./userRoutes')
+const testRoutes = require('./testRoutes')
 const cors = require('cors')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
@@ -18,6 +19,7 @@ app.use(express.json()) // we need to tell server to use json as well
 app.use(express.static(publicDirectoryPath))
 app.use(quesRoutes)
 app.use(userRoutes)
+app.use(testRoutes)
 
 //mongoose.connect("mongodb+srv://Anshul:shrijibaba@cluster0.nebpp.mongodb.net/PhysicsClass11&12?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology:true})
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology:true})
