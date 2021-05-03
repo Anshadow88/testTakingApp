@@ -92,7 +92,7 @@
            <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button> 
            
           
-           <h3 style="text-align: left;">Ques.</h3>
+           <h3 id = "questionNumber" style="text-align: left;">Ques.</h3>
             <div class="well">
             <p id = "question">What is the name of the capital of India??????????????</p>
             </div>
@@ -110,10 +110,20 @@
         
             </div>
 
-            <h3 id="lastQuestionStatus">Last Question Was: _________</h3>
-             
-           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous Question</button>
-           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">Next Question</button>
+           <div class="container"> 
+           <p id="lastQuestionStatus"></p>
+           <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
+           <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
+           </div>
+          
+           <div class="container">
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
+           <span style = "display:inline-block" id ="confirmationMenu"> 
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="confirmSubmitButton">Confirm</button>
+           </span>
+           </div>
+
           </div>
         </div>
           

@@ -23,21 +23,33 @@ router.post('/testPaperWithName', async (req, res) => {
         console.log(req.body)
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})  
+
+        let isGiven = false
+        for(j=0;j<testPaper['result'].length;j++)
+        {
+            console.log("105 "+testPaper['result'][j].userID)
+           if(req.body.userID==testPaper['result'][j].userID)
+           {
+             console.log("106")
+             console.log("this user has alreaddy given the test")
+             isGiven = true
+            }
+        }
         
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
-        {//var questionsOfChapter = await Question.find({ _id:testPaper.questions[i].questionID }).exec()
-            allQuestionsIDs.push(testPaper.questions[i].questionID)
+        {
+               allQuestionsIDs.push(testPaper.questions[i].questionID)
         }
-        //console.log(allQuestions)
-        var questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
+        let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
+        let testPaperID = testPaper.id
         
        // console.log(questionsOfChapter)
 
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json(questionsOfChapter)
+            return res.status(200).json({questionsOfChapter,testPaperID,isGiven})
         }
     } catch (error) {
         return res.status(500).json({"error":error})
@@ -48,15 +60,34 @@ router.post('/testPaperWithName', async (req, res) => {
 
 router.patch('/testPaper/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
-    console.log(updates)
+    console.log("101"+updates)
+  //  console.log(updates.result[0].userID)
     try{
+        console.log("102")
         const testPaper = await TestPaper.findOne({_id: req.params.id})
+        console.log("103")
         if(!testPaper){return res.status(404).send()}
+        console.log("104")
         
-        updates.forEach((update)=>{
-            console.log(update)
-            testPaper[update] = req.body[update]
-        })
+        // for(j=0;j<testPaper['result'].length;j++)
+        // {
+        //     console.log("105")
+        //    if(req.body['result'][0].userID==testPaper['result'][j].userID)
+        //    {
+        //      console.log("106")
+        //      console.log("this user has alreaddy given the test")
+        //     return res.status(401).send()
+        //     }
+        // }
+        
+         console.log("107")
+        //     updates.forEach((update)=>{
+        //     console.log(update)
+        //     testPaper[update].push(req.body[update][0])
+        // })
+
+        testPaper['result'].push(req.body['result'][0])
+        
 
         await testPaper.save()
         //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
