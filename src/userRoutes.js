@@ -61,10 +61,11 @@ router.post('/users/login', async(req,res)=>{
     }
 })
 
+
 const upload = multer({
     //dest: 'avatars',
     limit:{
-        fileSize: 1000000
+        fileSize: 50000
     },
     fileFilter(req,file,cb){
         // cb(new Error('File must be a pdf'))
@@ -78,7 +79,7 @@ const upload = multer({
     }
 })
 
-router.post('/users/me/avatar',auth,upload.single('avatar'), async(req,res)=>{
+router.post('/users/avatar',auth,upload.single('avatar'), async(req,res)=>{
     const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
     
     req.user.avatar = buffer

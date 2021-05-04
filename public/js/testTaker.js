@@ -1,5 +1,9 @@
 const $testStartbutton = document.querySelector('#getTestButton')
 const $testName = document.querySelector('#testName')
+//const $reviewButton = document.querySelector('#reviewButton')
+const $messageReview = document.querySelector('#messageReview')
+const $time = document.querySelector('#time')
+
 
 const $OptionAButton = document.querySelector('#OptionAButton')
 const $OptionBButton = document.querySelector('#OptionBButton')
@@ -16,6 +20,7 @@ const $confirmationMenu = document.querySelector('#confirmationMenu')
 
 const $questionNumber = document.querySelector('#questionNumber')
 const $questionText = document.querySelector('#question')
+const $image = document.querySelector('#image')
 
 const $getQuestionButton = document.querySelector('#getQuestionButton')
 const $nextQuestionButton = document.querySelector('#nextQuestionButton')
@@ -33,6 +38,7 @@ confirmationMenu.style.display ='none'
 submitTestButton.style.display = 'none'
 
 $testStartbutton.addEventListener('click',GetTest)
+//$reviewButton.addEventListener('click',GetTest)
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
@@ -60,29 +66,30 @@ $cancelSubmitButton.addEventListener('click',(e)=>{
 })
 
 function CheckOptionA(){
-    console.log("A")
+    //console.log("A")
     CheckAnswer('A',availableQuestions[questionCount])
 }
 function CheckOptionB(){
-    console.log("B")
+    //console.log("B")
     CheckAnswer('B',availableQuestions[questionCount])
 }function CheckOptionC(){
-    console.log("C")
+    //console.log("C")
     CheckAnswer('C',availableQuestions[questionCount])
 }function CheckOptionD(){
-    console.log("D")
+    //console.log("D")
     CheckAnswer('D',availableQuestions[questionCount])
 }
 
 
 function GetTest()
 {
+    $testStartbutton.style.display='none'
     testName = $testName.value
     loadTest(testName)
 }
 
 async function loadTest(testName){     
-        console.log("Global: "+TOKEN)
+        //console.log("Global: "+TOKEN)
         const response  = await fetch("/testPaperWithName", {          
         // Adding method type
         method: "POST",
@@ -102,25 +109,28 @@ async function loadTest(testName){
         }).then().then()
 
         var data = await response.json()   
-        console.log(data)
+        //console.log(data)
 
         TESTID = data.testPaperID
-       // console.log(testPaperID)
+       // //console.log(testPaperID)
+        isGiven = data.isGiven
+        if(isGiven==true)
+        $messageReview.innerHTML = 'This is your Re-Attempt. You can attempt the questions again and get new score but the score in report card will remain unchanged.'
+        
 
         for(i=0;i<data.questionsOfChapter.length;i++){
             var newQues = new Quest(data.questionsOfChapter[i]._id,
                                     data.questionsOfChapter[i].question,
                                     data.questionsOfChapter[i].answer)
             availableQuestions.push(newQues)
+            if(isGiven)
+            newQues.originalAttempt(data.previousAttempt[i].status)
             //console.log(newQues)
             
         }       
-        isGiven = data.isGiven
-        if(isGiven==true)
-        console.log('This is your RE_ATTEMPT')
         
-
         DisplayCurrentQuestion()
+        //startTimer(900,$time)
     }
 
 async function saveTestResult(testName){     
@@ -129,7 +139,7 @@ async function saveTestResult(testName){
             questionwiseResut.push({questionID: availableQuestions[i].id,
                                     status: availableQuestions[i].getAttempted()})
         }
-        console.log(questionwiseResut)
+        //console.log(questionwiseResut)
         const response  = await fetch("/testPaper/"+TESTID, {          
         // Adding method type
         method: "PATCH",
@@ -139,7 +149,7 @@ async function saveTestResult(testName){
         },
         // Adding body or contents to send
         body: JSON.stringify({
-                result:[{userID:USERID,
+                result:[{userID:USERID,name:USERNAME,
                 marksObtained:marksFinal,
                 maxMarks : maxMarks,
                 questions : questionwiseResut}]
@@ -152,7 +162,7 @@ async function saveTestResult(testName){
         }).then().then()
 
         var data = await response.json()   
-        console.log(data)
+        //console.log(data)
 
        
     }
@@ -163,7 +173,7 @@ async function saveTestResult(testName){
 async function getQuestion(id){  
         const response = await fetch("/questions/"+id)
         var data = await response.json();
-        console.log(data)
+        //console.log(data)
         var modifiedString = data.toString()    
         modifiedString = inputQuestionText.replace(/(\r\n|\r|\n)/g, '<br>')
         $questionText.innerHTML = modifiedString
@@ -174,56 +184,67 @@ function DisplayCurrentQuestion()
     $questionText.innerHTML = availableQuestions[questionCount].question
     MathJax.typeset()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
+    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
     
 }
 
 function DisplayNextQuestion()
 {
-    console.log(availableQuestions.length +">"+questionCount)
+    //console.log(availableQuestions.length +">"+questionCount)
     if(questionCount<availableQuestions.length-1)
     {questionCount++
     $questionText.innerHTML = availableQuestions[questionCount].question}
     $lastQuestionStatus.innerHTML = ""
     //SWO SUBMIT BUTTON ON LAST
-    if(questionCount==availableQuestions.length-1)
-    {$nextQuestionButton.style.display='none'
-    $submitTestButton.style.display =''}
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
+    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
+    if(questionCount==availableQuestions.length-1)
+    {
+        $submitTestButton.style.display =''
+    }
+    
+   
 }
 
 function DisplayPreviousQuestion()
 {
-    console.log(0 +"<"+questionCount)
+    //console.log(0 +"<"+questionCount)
     if(questionCount>0)
     {questionCount--
-    $questionText.innerHTML = availableQuestions[questionCount].question}
-    $lastQuestionStatus.innerHTML = ""
-    $nextQuestionButton.style.display=''    
+    $questionText.innerHTML = availableQuestions[questionCount].question}  
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
+
+    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
+    
 }
 
 function CheckAnswer(markedAnswer,question)
 {
     try{
         question.markAttemped(markedAnswer)
+        if(isGiven==false){
         if(questionCount < availableQuestions.length-1)
         $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()
         else
-        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+" !!!!Please Submit Answers"
-        
-
-    
+        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". :Please Submit Answers before leaving"
+        }
+        if(isGiven==true){
+            $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". Correct Answer: "+question.getAnswer()+". Originally Answered: "+question.getSavedAnswer()
+        }
     }
     catch(err){
-        console.log(err)
+        //console.log(err)
     }
 }
 
 function CalculateFinalScore()
 {
     let marks=0
+    let correct=0
+    let incorrect=0
+    let left=0
     try{
         for(i=0;i<availableQuestions.length;i++)
         {
@@ -232,12 +253,17 @@ function CalculateFinalScore()
              if(availableQuestions[i].getAttempted()==availableQuestions[i].getAnswer())
              {
                 marks = marks+4
+                correct++
              }else
-                marks =marks-1
+                {marks =marks-1
+                incorrect++}
             }
 
         }
-        console.log('Marks ='+marks+' out of '+ availableQuestions.length*4)
+      //  //console.log('Marks ='+marks+' out of '+ availableQuestions.length*4)
+       // //console.log('Correct: '+correct+'. Incorrect: '+incorrect+'. UnAttemped: '+left)
+        $questionNumber.innerHTML = 'RESULT: '
+        $questionText.innerHTML = 'Marks ='+marks+'<br/> Out of '+ availableQuestions.length*4+'<br/> Correct: '+correct+'<br/> Incorrect: '+incorrect+'<br/> UnAttemped: '+left
         marksFinal = marks
         maxMarks = availableQuestions.length*4
 
@@ -247,6 +273,22 @@ function CalculateFinalScore()
     catch(err){}
 }
 
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.innerHTML = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
 
 let Quest = class{
 
@@ -260,9 +302,10 @@ let Quest = class{
         //status=true for correct,false for incorrect,undefined = unattempted
         this.status=status
     }
+    originalAttempt(savedAnswer){
+        this.savedAnswer = savedAnswer
 
-
-    
+    }    
     getQuestion = function()
     {
         return this.question
@@ -281,5 +324,10 @@ let Quest = class{
     getAttempted = function()
     {
         return this.status
+    }
+
+    getSavedAnswer = function()
+    {
+        return this.savedAnswer
     }
 }

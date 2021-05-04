@@ -6,6 +6,7 @@ const $testApp = document.querySelector('#testApp')
 $testApp.style.display = "none"
 window.USERID= ""
 window.TOKEN=""
+window.USERNAME=""
 
 const $teacherEmail = document.querySelector('#teacherName')
 const $teacherPassword = document.querySelector('#teacherPassword')
@@ -52,5 +53,5 @@ async function goToQuestionPage(){
 var data = await response.json()
 USERID = data.user._id
 TOKEN = data.token
-
+USERNAME = data.name
 }

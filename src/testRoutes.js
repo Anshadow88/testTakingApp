@@ -25,6 +25,7 @@ router.post('/testPaperWithName', async (req, res) => {
         const testPaper = await TestPaper.findOne({name:testName})  
 
         let isGiven = false
+        let previousAttempt
         for(j=0;j<testPaper['result'].length;j++)
         {
             console.log("105 "+testPaper['result'][j].userID)
@@ -32,6 +33,7 @@ router.post('/testPaperWithName', async (req, res) => {
            {
              console.log("106")
              console.log("this user has alreaddy given the test")
+             previousAttempt = testPaper['result'][j].questions
              isGiven = true
             }
         }
@@ -49,7 +51,7 @@ router.post('/testPaperWithName', async (req, res) => {
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json({questionsOfChapter,testPaperID,isGiven})
+            return res.status(200).json({questionsOfChapter,testPaperID,isGiven,previousAttempt})
         }
     } catch (error) {
         return res.status(500).json({"error":error})
@@ -69,23 +71,7 @@ router.patch('/testPaper/:id',async(req,res)=>{
         if(!testPaper){return res.status(404).send()}
         console.log("104")
         
-        // for(j=0;j<testPaper['result'].length;j++)
-        // {
-        //     console.log("105")
-        //    if(req.body['result'][0].userID==testPaper['result'][j].userID)
-        //    {
-        //      console.log("106")
-        //      console.log("this user has alreaddy given the test")
-        //     return res.status(401).send()
-        //     }
-        // }
-        
          console.log("107")
-        //     updates.forEach((update)=>{
-        //     console.log(update)
-        //     testPaper[update].push(req.body[update][0])
-        // })
-
         testPaper['result'].push(req.body['result'][0])
         
 
@@ -100,6 +86,10 @@ router.patch('/testPaper/:id',async(req,res)=>{
     }
 
 })
+
+
+
+ 
 
 
 

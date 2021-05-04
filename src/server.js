@@ -7,10 +7,13 @@ const testRoutes = require('./testRoutes')
 const cors = require('cors')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
+
 require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+
+app.use('/uploads', express.static('uploads')); 
 
 const port = process.env.PORT
 app.use(cors()) // We're telling express to use CORS

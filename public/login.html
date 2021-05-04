@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         
-        <img style="float: left" class="img-responsive" src="./img/physicstree.png" alt="Chania" width="100" height="100">         
+        <img style="float: left" class="img-responsive" src="img/physicstree.png" alt="Chania" width="100" height="100">         
         <h1 style="float: left">The Physics Tree @9560883948</h1>
       </div>
 
@@ -50,7 +50,7 @@
 
       <div class = "container">          
         <div id = "testApp">
-          <h1>Quiz & Test Section</h1>
+          <h3>Quiz & Test Section</h3>
           
            <!-- <select class="form-select" id="classSelect">
             <option selected>Select Exam</option>
@@ -58,7 +58,7 @@
             <option value="JEE">JEE</option>
            </select> -->
           
-           <select class="form-select" id="chapterSelect">
+           <!-- <select class="form-select" id="chapterSelect">
             <option selected>Select Chapter</option>
             <option value="1">Vectors</option>
             <option value="2">Kinematics</option>
@@ -80,27 +80,41 @@
             <option value="18">EM Waves</option>
             <option value="19">Modern Physics</option>
             <option value="20">Semiconductors</option>
-           </select>
+           </select> -->
 
            <!-- <select class="form-select" id="classSelect">
             <option selected>Types of Questions</option>
             <option value="NEET">PYQ</option>
             <option value="JEE">New Questions </option>
            </select> -->
-           <input type="text" id = "testName">
-           <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button>
-           <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button> 
+           <div class="container">
            
+           <div class="well" >
+            <p>Test Code: <input  type="text" id = "testName"> 
+              <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button>
+              <!-- <button type="button" style="margin: 10px" class="btn btn-danger" id="reviewButton">Review Answers</button>  -->
+
+            </p> 
+            <p id="messageReview"></p>        
+            
+           <!-- <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button> -->
+           
+          </div>
+          <!-- <body>
+            <div>Time Remaining <h3 id="time">15:00</h3> minutes!</div>
+        </body> -->
           
-           <h3 id = "questionNumber" style="text-align: left;">Ques.</h3>
+           <h4 id = "questionNumber" style="text-align: left;">Tips:</h4>
             <div class="well">
-            <p id = "question">What is the name of the capital of India??????????????</p>
+            <p id = "question">1. Enter Test Code and click Start. </br/>
+              2. After Solving the Question, click next to solve another question.</br/>
+              3. At the last question a Submit Button will appear the test</p>
             </div>
             <!-- <div class="container">
             <button type="button" style="margin: 10px " class="btn btn-primary" id="selectQuestion">Select This Question</button>
             </div> -->
 
-          
+            <img id ="image">
            <div class="container">
             <div>
             <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>

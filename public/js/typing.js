@@ -7,6 +7,7 @@ const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
 const $postQuestionButton = document.querySelector('#postQuestionButton')
 
+let QUESID
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 
 let $chapterNumberButtons = document.getElementsByName('chapterNumber')
@@ -14,6 +15,13 @@ let $correctAnswerButtons = document.getElementsByName('correctAnswer')
 
 var selectedChapter = ""
 var selectedAnswer = ""
+
+const inputImage = document.getElementById('image');
+let imageFile
+// add event listener
+inputImage.addEventListener('change', () => {
+    imageFile = inputImage.files[0]
+});
 
 $showMathButton.addEventListener('click',(e)=>{
 
@@ -44,10 +52,28 @@ $postQuestionButton.addEventListener('click',(e)=>{
     postQuestion()
 })
 
+const uploadFile = (file) => {
+
+    // add file to FormData object
+    const fd = new FormData();
+    fd.append('avatar', file);
+
+    // send `POST` request
+    fetch('/questions/'+QUESID+'/image', {
+        method: 'POST',
+        body: fd
+    })
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .catch(err => console.error(err));
+    $successMessageText.innerHTML = "SUCCESS Post Next Question"    
+}
+
+
 async function postQuestion(){
   
     
-    fetch("http://localhost:3000/questions", {
+    const response = await fetch("/questions", {
       
     // Adding method type
     method: "POST",
@@ -66,15 +92,11 @@ async function postQuestion(){
 })
   
 // Converting to JSON
-.then(response => {
-                    response.json()
-                    if(response.status==201)
-                    {
-                        //Show Success
-                        $successMessageText.innerHTML = "SUCCESS: Please write next Question"
-                    }
-})
-  
-// Displaying results to console
-.then()
+.then().then()
+
+var data = await response.json()
+console.log(data)
+QUESID = data._id
+
+uploadFile(imageFile)
 }
