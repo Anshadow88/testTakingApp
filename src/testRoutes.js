@@ -20,7 +20,7 @@ router.post('/testPaper', async (req, res) => {
 // get one quiz 
 router.post('/testPaperWithName', async (req, res) => {
     try {
-        console.log(req.body)
+       // console.log(req.body)
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})  
 
@@ -28,11 +28,11 @@ router.post('/testPaperWithName', async (req, res) => {
         let previousAttempt
         for(j=0;j<testPaper['result'].length;j++)
         {
-            console.log("105 "+testPaper['result'][j].userID)
+          //  console.log("105 "+testPaper['result'][j].userID)
            if(req.body.userID==testPaper['result'][j].userID)
            {
-             console.log("106")
-             console.log("this user has alreaddy given the test")
+            // console.log("106")
+             //console.log("this user has alreaddy given the test")
              previousAttempt = testPaper['result'][j].questions
              isGiven = true
             }
@@ -65,13 +65,13 @@ router.patch('/testPaper/:id',async(req,res)=>{
     console.log("101"+updates)
   //  console.log(updates.result[0].userID)
     try{
-        console.log("102")
+       // console.log("102")
         const testPaper = await TestPaper.findOne({_id: req.params.id})
-        console.log("103")
+        //console.log("103")
         if(!testPaper){return res.status(404).send()}
-        console.log("104")
+        //console.log("104")
         
-         console.log("107")
+         //console.log("107")
         testPaper['result'].push(req.body['result'][0])
         
 

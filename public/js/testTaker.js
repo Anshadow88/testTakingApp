@@ -4,19 +4,16 @@ const $testName = document.querySelector('#testName')
 const $messageReview = document.querySelector('#messageReview')
 const $time = document.querySelector('#time')
 
-
 const $OptionAButton = document.querySelector('#OptionAButton')
 const $OptionBButton = document.querySelector('#OptionBButton')
 const $OptionCButton = document.querySelector('#OptionCButton')
 const $OptionDButton = document.querySelector('#OptionDButton')
-
 
 const $lastQuestionStatus = document.querySelector('#lastQuestionStatus')
 const $submitTestButton = document.querySelector('#submitTestButton')
 const $confirmSubmitButton = document.querySelector('#confirmSubmitButton')
 const $cancelSubmitButton = document.querySelector('#cancelSubmitButton')
 const $confirmationMenu = document.querySelector('#confirmationMenu')
-
 
 const $questionNumber = document.querySelector('#questionNumber')
 const $questionText = document.querySelector('#question')
@@ -43,7 +40,6 @@ $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
 $OptionDButton.addEventListener('click',CheckOptionD)
-
 $nextQuestionButton.addEventListener('click',(e)=>{
     DisplayNextQuestion()
 })
@@ -67,17 +63,17 @@ $cancelSubmitButton.addEventListener('click',(e)=>{
 
 function CheckOptionA(){
     //console.log("A")
-    CheckAnswer('A',availableQuestions[questionCount])
+    MarkAnswer('A',availableQuestions[questionCount])
 }
 function CheckOptionB(){
     //console.log("B")
-    CheckAnswer('B',availableQuestions[questionCount])
+    MarkAnswer('B',availableQuestions[questionCount])
 }function CheckOptionC(){
     //console.log("C")
-    CheckAnswer('C',availableQuestions[questionCount])
+    MarkAnswer('C',availableQuestions[questionCount])
 }function CheckOptionD(){
     //console.log("D")
-    CheckAnswer('D',availableQuestions[questionCount])
+    MarkAnswer('D',availableQuestions[questionCount])
 }
 
 
@@ -90,6 +86,7 @@ function GetTest()
 
 async function loadTest(testName){     
         //console.log("Global: "+TOKEN)
+        availableQuestions = []
         const response  = await fetch("/testPaperWithName", {          
         // Adding method type
         method: "POST",
@@ -129,7 +126,7 @@ async function loadTest(testName){
             
         }       
         
-        DisplayCurrentQuestion()
+        DisplayFirstQuestion()
         //startTimer(900,$time)
     }
 
@@ -149,7 +146,8 @@ async function saveTestResult(testName){
         },
         // Adding body or contents to send
         body: JSON.stringify({
-                result:[{userID:USERID,name:USERNAME,
+                result:[{userID:USERID,
+                userName:USERNAME,
                 marksObtained:marksFinal,
                 maxMarks : maxMarks,
                 questions : questionwiseResut}]
@@ -168,18 +166,7 @@ async function saveTestResult(testName){
     }
 
 
-
-
-async function getQuestion(id){  
-        const response = await fetch("/questions/"+id)
-        var data = await response.json();
-        //console.log(data)
-        var modifiedString = data.toString()    
-        modifiedString = inputQuestionText.replace(/(\r\n|\r|\n)/g, '<br>')
-        $questionText.innerHTML = modifiedString
-    }
-
-function DisplayCurrentQuestion()
+function DisplayFirstQuestion()
 {
     $questionText.innerHTML = availableQuestions[questionCount].question
     MathJax.typeset()
@@ -190,12 +177,16 @@ function DisplayCurrentQuestion()
 
 function DisplayNextQuestion()
 {
-    //console.log(availableQuestions.length +">"+questionCount)
     if(questionCount<availableQuestions.length-1)
-    {questionCount++
-    $questionText.innerHTML = availableQuestions[questionCount].question}
+    {  
+         questionCount++
+         $questionText.innerHTML = availableQuestions[questionCount].question
+    }
+    if(!availableQuestions[questionCount].getAttempted())
     $lastQuestionStatus.innerHTML = ""
-    //SWO SUBMIT BUTTON ON LAST
+    else
+    $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
+    
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
     $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
@@ -213,6 +204,11 @@ function DisplayPreviousQuestion()
     if(questionCount>0)
     {questionCount--
     $questionText.innerHTML = availableQuestions[questionCount].question}  
+    
+    if(!availableQuestions[questionCount].getAttempted())
+    $lastQuestionStatus.innerHTML = ""
+    else
+    $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
 
@@ -220,10 +216,11 @@ function DisplayPreviousQuestion()
     
 }
 
-function CheckAnswer(markedAnswer,question)
+function MarkAnswer(markedAnswer,question)
 {
     try{
         question.markAttemped(markedAnswer)
+
         if(isGiven==false){
         if(questionCount < availableQuestions.length-1)
         $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()
@@ -231,7 +228,12 @@ function CheckAnswer(markedAnswer,question)
         $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". :Please Submit Answers before leaving"
         }
         if(isGiven==true){
-            $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". Correct Answer: "+question.getAnswer()+". Originally Answered: "+question.getSavedAnswer()
+            $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". Correct Answer: "+question.getCorrectAnswer()+". Originally Answered: "+question.getSavedAnswer()
+        }
+
+        for(i=0;i<availableQuestions.length;i++)
+        {
+            console.log(i+1+"th is Marked: "+availableQuestions[i].getAttempted())
         }
     }
     catch(err){
@@ -250,7 +252,7 @@ function CalculateFinalScore()
         {
             if(availableQuestions[i].getAttempted())
             {
-             if(availableQuestions[i].getAttempted()==availableQuestions[i].getAnswer())
+             if(availableQuestions[i].getAttempted()==availableQuestions[i].getCorrectAnswer())
              {
                 marks = marks+4
                 correct++
@@ -311,7 +313,7 @@ let Quest = class{
         return this.question
     }
     
-    getAnswer = function()
+    getCorrectAnswer = function()
     {
         return this.answer
     }

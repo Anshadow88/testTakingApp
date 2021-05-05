@@ -13,13 +13,15 @@ const app = express()
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
-app.use('/uploads', express.static('uploads')); 
+
+const uploadsDirectoryPath = path.join(__dirname,'/uploads')
 
 const port = process.env.PORT
 app.use(cors()) // We're telling express to use CORS
 app.use(express.json()) // we need to tell server to use json as well
 
 app.use(express.static(publicDirectoryPath))
+app.use('/uploads',express.static(uploadsDirectoryPath))
 app.use(quesRoutes)
 app.use(userRoutes)
 app.use(testRoutes)
