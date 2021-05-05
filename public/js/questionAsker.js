@@ -67,7 +67,7 @@ async function getQuestionsOfChapter(chapt){
         for(i=0;i<data.length;i++){
             var newQues = new Quest(data[i].question,data[i].answer)
             availableQuestionsArray.push(newQues)
-            console.log(data[i].question)
+            
         }
 
         DisplayCurrentQuestion()
@@ -75,24 +75,29 @@ async function getQuestionsOfChapter(chapt){
 
 function DisplayCurrentQuestion()
 {
-    $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question
+    $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question+'<br/> ANSWER'+availableQuestionsArray[currentQuestionCount].answer
     MathJax.typeset()
 }
 function DisplayNextQuestion()
 {
     console.log(availableQuestionsArray.length +">"+currentQuestionCount)
     if(currentQuestionCount<availableQuestionsArray.length-1)
-    {currentQuestionCount++
-    $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question}
+    {
+        currentQuestionCount++
+        $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question+'<br/> ANSWER'+availableQuestionsArray[currentQuestionCount].answer
+    }
     MathJax.typeset()
 }
 function DisplayPreviousQuestion()
 {
     console.log(0 +"<"+currentQuestionCount)
     if(currentQuestionCount>0)
-    {currentQuestionCount--
-    $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question}
+    {
+        currentQuestionCount--
+        $questionText.innerHTML = availableQuestionsArray[currentQuestionCount].question+'<br/> ANSWER'+availableQuestionsArray[currentQuestionCount].answer
+    }
     MathJax.typeset()
+    
 }
 
 

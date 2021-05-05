@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        
+        <img style="float: left" class="img-responsive" src="img/physicstree.png" alt="Chania" width="100" height="100">         
+        <h1 style="float: left">The Physics Tree @9560883948</h1>
+      </div>
+
+      <div class="container">
+        <div id = "loginForm">
+          <div class="row">
+              <div class="col-sm-6">                
+                <div class="form-group">
+                <h3>Student Login</h3>
+                  <label for="usr">Email:</label>
+                  <input type="text" class="form-control" id="studentEmail">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Password:</label>
+                  <input type="password" class="form-control" id="studentPassword">
+                </div>
+                <button type="button" id="studentLoginButton">StudentLogin</button>
+              </div>
+              <div class="col-sm-6">                
+                <div class="form-group">
+                <h3>Teacher Login</h3>
+                  <label for="usr">Name:</label>
+                  <input type="text" class="form-control" id="usr">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Password:</label>
+                  <input type="password" class="form-control" id="pwd">
+                </div>
+                <button type="button" id="login">LOGIN</button>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class = "container">          
+        <div id = "testApp">
+          <h3>Quiz & Test Section</h3>
+           <select class="form-select" id="chapterSelect">
+            <option selected>Select Chapter</option>
+            <option value="1">Vectors</option>
+            <option value="2">Kinematics</option>
+            <option value="3">NLM</option>
+            <option value="4">WPE</option>
+            <option value="5">COM</option>
+            <option value="6">Rotation</option>
+            <option value="7">Gravitation</option>
+            <option value="8">Fluids</option>
+            <option value="9">Properties of Matter</option>
+            <option value="10">Thermodynamics</option>
+            <option value="11">Oscillation</option>            
+            <option value="12">Waves</option>
+            <option value="13">Electrostatics</option>
+            <option value="14">Current Electricity</option>
+            <option value="15">Magnetism</option>
+            <option value="16">EMI & AC</option>
+            <option value="17">Wave Optics</option>
+            <option value="18">EM Waves</option>
+            <option value="19">Modern Physics</option>
+            <option value="20">Semiconductors</option>
+           </select>
+          
+                
+            
+           <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button>
+           
+          </div>
+          </div>
+
+          <
+            <div class="well">
+            <p id = "question">1. Enter Test Code and click Start. </br/>
+              2. After Solving the Question, click next to solve another question.</br/>
+              3. At the last question a Submit Button will appear the test</p>
+            </div>
+            <!-- <div class="container">
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="selectQuestion">Select This Question</button>
+            </div> -->
+
+            <img id ="image">
+           <div class="container">
+            <div>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionCButton">Option C</button>
+            <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionDButton">Option D</button>
+        
+            </div>
+
+           <div class="container"> 
+           <p id="lastQuestionStatus"></p>
+           <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
+           <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
+           </div>
+          
+           <div class="container">
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
+           <span style = "display:inline-block" id ="confirmationMenu"> 
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>
+           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="confirmSubmitButton">Confirm</button>
+           </span>
+           </div>
+
+          </div>
+        </div>
+          
+      </div>
+
+   
+</div>
+
+
+
+
+
+
+      </div>
+
+</body>
+
+<script src="/js/login.js"></script>
+<!-- <script src="/js/questionAsker.js"></script> -->
+
+<script src="/js/questionAsker.js"></script>
+</html>
