@@ -11,7 +11,7 @@ const TestPaper= new mongoose.Schema({
         
     }],
     result:[{
-        userID:{type :String,required:true},
+        userID:{type :String,required:true,unique:true},
         userName:{type:String, require:true},
         marksObtained:{type:Number},
         maxMarks:{type:Number,default:60},

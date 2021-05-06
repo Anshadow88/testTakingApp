@@ -126,6 +126,8 @@ async function loadTest(testName){
         }       
         
         DisplayFirstQuestion()
+        //giving 3 minutes per question
+        startTimer(availableQuestions.length*3*60,$time)
     }
 
 async function saveTestResult(testName){     
@@ -270,11 +272,13 @@ function CalculateFinalScore()
 
 
         saveTestResult()
+
     }
     catch(err){}
 }
 
 function startTimer(duration, display) {
+    $time.style.display = ''
     var timer = duration, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -288,6 +292,23 @@ function startTimer(duration, display) {
         if (--timer < 0) {
             timer = duration;
         }
+
+        if(minutes==0)
+        {
+            if(seconds%2==0)$time.style.backgroundColor = "#ff0505"
+            else
+            $time.style.backgroundColor = "#ffffff"
+
+
+        }
+
+
+        if(minutes==0&&seconds==0)
+       {
+            CalculateFinalScore()
+             $time.style.display = 'none'
+       }
+
     }, 1000);
 }
 

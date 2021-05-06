@@ -79,7 +79,7 @@
   <div class = "container">
       <div class="row">
           <div class="col-sm-6">
-          <textarea style= "margin: 5%" id="newQuestionTyped" placeholder ="Question" class="form-control" rows="16"></textarea>
+          <textarea style= "margin: 5%" id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
           </div>
           <div class="col-sm-6">
           <p class= "well" style= "margin: 5%"  id="newQuestionWithMaths">Question With Maths</p>
@@ -91,6 +91,7 @@
 </div>
   
 <div class="container">
+  <div class="well">
   <p>Mark The Correct Answer:</p>
   <form>
     <label class="radio-inline">
@@ -107,12 +108,12 @@
     </label>
   </form>
 </div>
+</div>
 
 <div class="container">
         <button type="button" class="btn btn-primary" id="showMathButton">Check MATH</button>
         <button type="button" class="btn btn-primary" onclick="MathJax.typeset()">Convert</button>
         <button type="button" class="btn btn-primary" id="postQuestionButton">Add New Question</button>
-        <p id="successMessage" style="display:inline-block">Waiting........</p>
 </div>
 
 </body>

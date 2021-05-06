@@ -1,5 +1,4 @@
 const $newQuestionText = document.querySelector('#newQuestionTyped')
-const $successMessageText = document.querySelector('#successMessage')
 let inputQuestionText =""
 let modifiedText=""
 
@@ -13,8 +12,8 @@ const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 let $chapterNumberButtons = document.getElementsByName('chapterNumber')
 let $correctAnswerButtons = document.getElementsByName('correctAnswer')
 
-var selectedChapter = ""
-var selectedAnswer = ""
+let selectedChapter = ""
+let selectedAnswer = ""
 
 const inputImage = document.getElementById('image');
 let imageFile
@@ -72,6 +71,8 @@ const uploadFile = (file) => {
 
 async function postQuestion(){
   
+    if(!modifiedText||!selectedAnswer||!selectedChapter)
+    return
     
     const response = await fetch("/questions", {
       
