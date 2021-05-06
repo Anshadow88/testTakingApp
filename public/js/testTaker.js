@@ -129,6 +129,7 @@ async function loadTest(testName){
     }
 
 async function saveTestResult(testName){     
+    console.log('name1: '+USERNAME)
         for(i=0;i<availableQuestions.length;i++)
         {
             questionwiseResut.push({questionID: availableQuestions[i].id,

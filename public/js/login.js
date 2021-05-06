@@ -51,7 +51,9 @@ async function goToQuestionPage(){
             $loginForm.style.display = "none"            
     }
 var data = await response.json()
+console.log(data)
 USERID = data.user._id
 TOKEN = data.token
-USERNAME = data.name
+USERNAME = data.user.name
+console.log('name: '+USERNAME)
 }
