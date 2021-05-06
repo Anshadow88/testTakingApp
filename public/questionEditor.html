@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+      
+    <div class="container">
+      <p>Chapter Number</p>
+      <form>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "1">1
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "2">2
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "3">3
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber"value = "4">4
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber"value = "5">5
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber"value = "6">6
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber"value = "7">7
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "8">8
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "9">9
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "10">10
+        </label><label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "11">11
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "12">12
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "13">13
+        </label><label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "14">14
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "15">15
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "16">16
+        </label><label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "17">17
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "18">18
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "19">19
+        </label><label class="radio-inline">
+          <input type="radio" name="chapterNumber" value = "20">20
+        </label>
+          
+      </form>
+    </div>
+
+
+  <div class = "container">
+      <div class="row">
+          <div class="col-sm-6">
+          <textarea style= "margin: 5%" id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
+          </div>
+          <div class="col-sm-6">
+          <p class= "well" style= "margin: 5%"  id="newQuestionWithMaths">Question With Maths</p>
+          </div>
+          </div>                               
+  </div>
+  <div class="container">
+    <input type="file" id="image">
+</div>
+  
+<div class="container">
+  <div class="well">
+  <p>Mark The Correct Answer:</p>
+  <form>
+    <label class="radio-inline">
+      <input type="radio" name="correctAnswer" value = "A">A
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="correctAnswer" value = "B">B
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="correctAnswer" value = "C">C
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="correctAnswer" value = "D">D
+    </label>
+  </form>
+</div>
+</div>
+
+<div class="container">
+        <button type="button" class="btn btn-primary" id="showMathButton">Check MATH</button>
+        <button type="button" class="btn btn-primary" onclick="MathJax.typeset()">Convert</button>
+        <button type="button" class="btn btn-primary" id="postQuestionButton">Add New Question</button>
+</div>
+
+</body>
+
+
+<script src="/js/typing.js"></script>
+
+</html>
