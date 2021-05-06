@@ -122,12 +122,10 @@ async function loadTest(testName){
             availableQuestions.push(newQues)
             if(isGiven)
             newQues.originalAttempt(data.previousAttempt[i].status)
-            //console.log(newQues)
             
         }       
         
         DisplayFirstQuestion()
-        //startTimer(900,$time)
     }
 
 async function saveTestResult(testName){     

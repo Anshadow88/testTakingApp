@@ -58,6 +58,33 @@ router.post('/testPaperWithName', async (req, res) => {
     }
 })
 
+//RESULT
+router.post('/testPaperNameResult', async (req, res) => {
+    try {
+       // console.log(req.body)
+        const testName = req.body.name 
+        const testPaper = await TestPaper.findOne({name:testName})  
+
+              
+        let allStudentNames=[]
+        let allStudentsMarks=[]
+        for(i=0;i<testPaper.result.length;i++)
+        {
+               allStudentNames.push(testPaper['result'][i].userName)
+               allStudentsMarks.push(testPaper['result'][i].marksObtained)
+        }
+        
+      
+
+        if(!testPaper){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json({allStudentNames,allStudentsMarks})
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
 // delete one Test Paper
 
 router.patch('/testPaper/:id',async(req,res)=>{
