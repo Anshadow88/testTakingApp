@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Type New Questions</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -111,8 +111,7 @@
 </div>
 
 <div class="container">
-        <button type="button" class="btn btn-primary" id="showMathButton">Check MATH</button>
-        <button type="button" class="btn btn-primary" onclick="MathJax.typeset()">Convert</button>
+        <button type="button" class="btn btn-primary" onclick=setTimeout(function(){MathJax.typeset()},500) id="showMathButton">Check MATH</button>
         <button type="button" class="btn btn-primary" id="postQuestionButton">Add New Question</button>
 </div>
 

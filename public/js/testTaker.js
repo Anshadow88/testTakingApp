@@ -127,7 +127,7 @@ async function loadTest(testName){
         
         DisplayFirstQuestion()
         //giving 3 minutes per question
-        startTimer(availableQuestions.length*3*60,$time)
+        startTimer(availableQuestions.length*2*60,$time)
     }
 
 async function saveTestResult(testName){     
@@ -172,7 +172,10 @@ function DisplayFirstQuestion()
     $questionText.innerHTML = availableQuestions[questionCount].question
     MathJax.typeset()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
+    $image.style.display=''
     $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
+    $image.onerror =function(){$image.style.display='none'}
+    
     
 }
 
@@ -190,7 +193,10 @@ function DisplayNextQuestion()
     
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
+    $image.style.display=''
     $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
+    $image.onerror =function(){$image.style.display='none'}
+    
     if(questionCount==availableQuestions.length-1)
     {
         $submitTestButton.style.display =''
@@ -212,8 +218,10 @@ function DisplayPreviousQuestion()
     $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
-
+    $image.style.display=''
     $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
+    $image.onerror =function(){$image.style.display='none'}
+    
     
 }
 
@@ -270,8 +278,10 @@ function CalculateFinalScore()
         marksFinal = marks
         maxMarks = availableQuestions.length*4
 
-
+        if(!isGiven){
         saveTestResult()
+        isGiven=true
+        }
 
     }
     catch(err){}

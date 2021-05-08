@@ -1,55 +1,143 @@
+const $QuestionID = document.getElementById('QuestionID')
+const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
+
+const $FindChapterName = document.getElementById('FindChapterName')
+const $FindChapterButton = document.getElementById('FindChapterButton')
+
+const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
-let inputQuestionText =""
-let modifiedText=""
+const $correctAnswer = document.querySelector('#correctAnswer')
+const $chapterNumber = document.querySelector('#chapterNumber')
+
+
+const $previousButton = document.querySelector('#previousButton')
+const $nextButton = document.querySelector('#nextButton')
+
 
 const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
 const $postQuestionButton = document.querySelector('#postQuestionButton')
 
 let QUESID
+let QuestionsOFChapters
+let QuestionCount=0
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 
-let $chapterNumberButtons = document.getElementsByName('chapterNumber')
-let $correctAnswerButtons = document.getElementsByName('correctAnswer')
 
 let selectedChapter = ""
 let selectedAnswer = ""
 
-const inputImage = document.getElementById('image');
+let $image = document.getElementById('image')
+const inputImage = document.getElementById('imageInput');
 let imageFile
 // add event listener
 inputImage.addEventListener('change', () => {
     imageFile = inputImage.files[0]
 });
 
+
+$FindQuestionByIDButton.addEventListener('click',(e)=>{
+    QUESID = $QuestionID.value
+    getQuestion(QUESID)
+})
+
+$FindChapterButton.addEventListener('click',(e)=>{
+    chapterName = $FindChapterName.value
+    getQuestionOfChapter(chapterName)
+})
+
 $showMathButton.addEventListener('click',(e)=>{
 
-    inputQuestionText = $newQuestionText.value
-   // modifiedText = inputQuestionText.replace("(a)","<br/>(a)")
-   modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
-    
-    $questionTextWithMath.innerHTML = modifiedText
-    
-    for (var rb of $correctAnswerButtons) {
-        if (rb.checked) {
-            selectedAnswer = rb.value;
-            console.log(selectedAnswer)
-            break;
-        }
-    }
-    for (var rc of $chapterNumberButtons) {
-        if (rc.checked) {
-            selectedChapter = rc.value;
-            console.log(selectedChapter)
-            break;
-        }
-    }
+   modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
+   $questionTextWithMath.innerHTML = modifiedText   
+
 
 })
 
+
+$nextButton.addEventListener('click',(e)=>{
+    QuestionCount++
+    showCurrentQuestion()
+    
+})
+
+$previousButton.addEventListener('click',(e)=>{
+    QuestionCount--
+    showCurrentQuestion()
+})
 $postQuestionButton.addEventListener('click',(e)=>{    
-    postQuestion()
+    UpdateAQuestion()
 })
+
+async function getQuestion(quesID){     
+    //console.log("Global: "+TOKEN)
+    const response  = await fetch("/questions/"+quesID, {          
+    // Adding method type
+    method: "GET",
+      
+    header: {
+    },
+
+    
+    // Adding body or contents to send
+        // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    console.log(data)
+    $newQuestionText.append(data.question)
+    $image.src = '/uploads/'+QUESID+'.png'
+    
+}
+
+async function getQuestionOfChapter(chapter){     
+    //console.log("Global: "+TOKEN)
+    const response  = await fetch("/questions/chapter", {          
+    // Adding method type
+    method: "POST",
+      
+    header: {
+    },
+
+    body: JSON.stringify({
+        chapter : chapter
+    }),
+    // Adding body or contents to send
+        // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    QuestionsOFChapters = data
+    console.log(data)
+    QuestionCount = 0
+    showCurrentQuestion()
+    
+}
+
+function showCurrentQuestion(){
+
+    
+    if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
+    if(QuestionCount<0) QuestionCount=0
+    $questionNumber.innerHTML = 'No.&nbsp'+(QuestionCount+1)+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
+    $newQuestionText.value = (QuestionsOFChapters[QuestionCount].question);
+    $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
+    $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
+    
+    $image.style.display=''
+    $image.src = '/uploads/'+QuestionsOFChapters[QuestionCount]._id+'.png'
+    $image.onerror =function(){$image.style.display='none'}
+
+    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
+   $questionTextWithMath.innerHTML = modifiedText   
+
+}
 
 const uploadFile = (file) => {
 
@@ -69,35 +157,57 @@ const uploadFile = (file) => {
 }
 
 
-async function postQuestion(){
+// async function UpdateAQuestion(){
   
-    if(!modifiedText||!selectedAnswer||!selectedChapter)
-    return
+//     if(!$newQuestionText.value||!$correctAnswer.value||!$chapterNumber.value)
+//     return
+//     console.log('51')
+//     const response = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {
+      
+//     // Adding method type
+//         method: "PATCH",
     
-    const response = await fetch("/questions", {
-      
-    // Adding method type
-    method: "POST",
-      
-    // Adding body or contents to send
-    body: JSON.stringify({
-        question: modifiedText,
-        answer: selectedAnswer,
-        chapter: selectedChapter
+//         // Adding body or contents to send
+//         body: JSON.stringify({
+//             question: $newQuestionText.value,
+//             answer: $correctAnswer.value,
+//             chapter: $chapterNumber.value
 
-    }),
-    // Adding headers to the request
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
+//         }),
+//         // Adding headers to the request
+//         headers: {
+//             "Content-type": "application/json; charset=UTF-8"
+//         }
+//     }).then().then()
+
+// var data = await response.json()
+// console.log(data)
+
+
+// }
+
+async function UpdateAQuestion(){     
+    
+        //console.log(questionwiseResut)
+        const response  = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {          
+        // Adding method type
+        method: "PATCH",
+          
+        header: {
+            //"Authorization": "Bearer " + TOKEN
+        },
+        // Adding body or contents to send
+        body: JSON.stringify({
+            question: $newQuestionText.value
+        }),
+        // Adding headers to the request
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+        }).then().then()
+
+        var data = await response.json()   
+        console.log(data)
+
+       
     }
-})
-  
-// Converting to JSON
-.then().then()
-
-var data = await response.json()
-console.log(data)
-QUESID = data._id
-
-uploadFile(imageFile)
-}

@@ -26,7 +26,7 @@ router.post('/questions', async (req, res) => {
     }
 })
 
-// get one quiz question
+// get one quiz question by id
 router.get('/questions/:id', async (req, res) => {
     try {
         console.log(req.params)
@@ -42,7 +42,7 @@ router.get('/questions/:id', async (req, res) => {
     }
 })
 
-
+//post question image by id
 router.post('/questions/:id/image', async (req, res) => {
     try {
         if(!req.files) {
@@ -74,8 +74,7 @@ router.post('/questions/:id/image', async (req, res) => {
 });
 
 
-
-
+//get all questions of a chapter
 router.post('/questions/chapter',async (req, res) => {   
     try {
 
@@ -91,10 +90,35 @@ router.post('/questions/chapter',async (req, res) => {
     }
 })
 
+//update a question 
+router.patch('/questionUpdate/:id',async(req,res)=>{
+    
+    const updates = Object.keys(req.body)
+  //  console.log("101 ="+updates)
+    try{
+       // console.log("102")
+        const question = await Question.findOne({_id: req.params.id})
+       // console.log("103")
+        if(!question){return res.status(404).send()}
+      //  console.log("104")
+        
+        updates.forEach((update)=>{
+       //     console.log(req.body[update])
+            question[update] = req.body[update]
+        })
+        
 
+        await question.save()
+        res.send(question)
 
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
 
-// delete one quiz question
+})
+
 router.delete('/questions/:id', (req, res) => {
 
 })
