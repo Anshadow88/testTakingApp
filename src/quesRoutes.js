@@ -53,10 +53,10 @@ router.post('/questions/:id/image', async (req, res) => {
         } else {
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
             let avatar = req.files.avatar;
-            
+            console.log('Picture Uploading....')
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./uploads/' + req.params.id+'.png');
-
+            avatar.mv('./src/uploads/' + req.params.id+'.png');
+            console.log('Picture Uploaded')
             //send response
             res.send({
                 status: true,

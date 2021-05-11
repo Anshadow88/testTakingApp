@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Create Tests</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class = "container"><h3 class ="well"> Create Tests for Students </h3>
+  </div>
+    <div class="container">
+      <div class="well">
+        Find Questions by Chapter 
+        <input id ="FindChapterName"><button id="FindChapterButton">Find</button>
+        <input id ="SelectedTest"><button>Find </button>
+        <input id ="QuestionID"><button id="FindQuestionByIDButton">Find</button>
+      </div>
+    </div>
+    
+
+
+  <div class = "container">
+     <div class = "well">      
+      <form class = "well">
+        Chapter Number:<input id="chapterNumber">         
+      </form>  
+      <p class = "well" id = "questionNumber">Question No. X</p>
+          
+      <p class = "well" id="newQuestionTyped">Question With Maths</p>
+           
+      <image class = "well"style="orientation: centre"id="image"></image> 
+    </div>                           
+  </div>
+
+  <!-- <div class="container">To change Image: 
+    <input type="file" id="imageInput">
+  </div> -->
+  
+<!-- <div class="container">
+  <div class="well">
+  <p>Mark The Correct Answer:</p>
+  <form>
+    <input id ="correctAnswer">
+  </form>
+</div>
+</div> -->
+
+<div class="container">
+  <div class ="well">
+       <button type="button" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
+       <button type="button" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
+
+        <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
+        <button type="button" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Select Question</button>
+        <button type="button" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>
+      </div>
+</div>
+
+<div class="container">
+  <div class = "well">
+
+  <input id="NewTestName">
+   <button type="button" class="btn btn-danger" id="NewTestButton">New Test with Selected Questions</button>
+</div>
+</div>
+
+<div class="container">
+  <p id="paper"></p>
+</div>
+
+</body>
+
+
+<script src="/js/testcreator.js"></script>
+
+</html>

@@ -115,7 +115,7 @@ async function getQuestionOfChapter(chapter){
     var data = await response.json()   
     QuestionsOFChapters = data
     console.log(data)
-    QuestionCount = QuestionsOFChapters.length-1
+    QuestionCount = 0
     showCurrentQuestion()
     
 }

@@ -11,10 +11,12 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-      
+  <div class = "container">
+    <h3 class ="well"> Typing Section of The Physics Tree</h3>
+  </div>
     <div class="container">
-      <p>Chapter Number</p>
-      <form>
+      
+      <form class ="well">Chapter Number: 
         <label class="radio-inline">
           <input type="radio" name="chapterNumber" value = "1">1
         </label>
@@ -77,23 +79,29 @@
 
 
   <div class = "container">
+    <div class="well">
       <div class="row">
           <div class="col-sm-6">
-          <textarea style= "margin: 5%" id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
+          <textarea id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
           </div>
+
           <div class="col-sm-6">
-          <p class= "well" style= "margin: 5%"  id="newQuestionWithMaths">Question With Maths</p>
+          <p class= "well"  id="newQuestionWithMaths">Question With Maths</p>
           </div>
-          </div>                               
-  </div>
+
+          </div>   
+          <button type="button" class="btn btn-primary" onclick=setTimeout(function(){MathJax.typeset()},500) id="showMathButton">Check MATH</button>
+        
+      </div>                            
+   </div>
   <div class="container">
-    <input type="file" id="image">
+    <input class = "well" type="file" id="image">
 </div>
   
 <div class="container">
   <div class="well">
-  <p>Mark The Correct Answer:</p>
   <form>
+    Mark Correct Answer
     <label class="radio-inline">
       <input type="radio" name="correctAnswer" value = "A">A
     </label>
@@ -111,7 +119,6 @@
 </div>
 
 <div class="container">
-        <button type="button" class="btn btn-primary" onclick=setTimeout(function(){MathJax.typeset()},500) id="showMathButton">Check MATH</button>
         <button type="button" class="btn btn-primary" id="postQuestionButton">Add New Question</button>
 </div>
 

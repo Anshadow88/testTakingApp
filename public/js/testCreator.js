@@ -6,35 +6,45 @@ const $FindChapterButton = document.getElementById('FindChapterButton')
 
 const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
-const $correctAnswer = document.querySelector('#correctAnswer')
+//const $correctAnswer = document.querySelector('#correctAnswer')
 const $chapterNumber = document.querySelector('#chapterNumber')
-
+const $paper = document.getElementById('paper')
 
 const $previousButton = document.querySelector('#previousButton')
 const $nextButton = document.querySelector('#nextButton')
 
 
-const $showMathButton = document.querySelector('#showMathButton')
+// const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
-const $postQuestionButton = document.querySelector('#postQuestionButton')
+const $selectQuestionButton = document.querySelector('#selectQuestionButton')
+const $removeQuestionButton = document.querySelector('#removeQuestionButton')
+const $NewTestButton = document.querySelector('#NewTestButton')
+const $NewTestName = document.querySelector('#NewTestName')
 
 let QUESID
 let QuestionsOFChapters
 let QuestionCount=0
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
-
+let SelectedQuestionIDs = []
+let SelectedQuestionNumber = []
+let SelectedQuestionCount =0
 
 let selectedChapter = ""
 let selectedAnswer = ""
 
 let $image = document.getElementById('image')
-const inputImage = document.getElementById('imageInput');
+//const inputImage = document.getElementById('imageInput');
 let imageFile
 // add event listener
-inputImage.addEventListener('change', () => {
-    imageFile = inputImage.files[0]
-});
+// inputImage.addEventListener('change', () => {
+//     imageFile = inputImage.files[0]
+// });
 
+$NewTestButton.addEventListener('click',(e)=>{
+    console.log('1001')
+    postNewTestPaper($NewTestName.value)
+
+})
 
 $FindQuestionByIDButton.addEventListener('click',(e)=>{
     QUESID = $QuestionID.value
@@ -46,13 +56,13 @@ $FindChapterButton.addEventListener('click',(e)=>{
     getQuestionOfChapter(chapterName)
 })
 
-$showMathButton.addEventListener('click',(e)=>{
+// $showMathButton.addEventListener('click',(e)=>{
 
-   modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-   $questionTextWithMath.innerHTML = modifiedText   
+//    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
+//    $questionTextWithMath.innerHTML = modifiedText   
 
 
-})
+// })
 
 
 $nextButton.addEventListener('click',(e)=>{
@@ -65,8 +75,13 @@ $previousButton.addEventListener('click',(e)=>{
     QuestionCount--
     showCurrentQuestion()
 })
-$postQuestionButton.addEventListener('click',(e)=>{    
-    UpdateAQuestion()
+
+$selectQuestionButton.addEventListener('click',(e)=>{    
+    AddAQuestionToSelection()
+})
+
+$removeQuestionButton.addEventListener('click',(e)=>{    
+    RemoveAQuestionToSelection()
 })
 
 async function getQuestion(quesID){     
@@ -88,7 +103,7 @@ async function getQuestion(quesID){
 
     var data = await response.json()   
     console.log(data)
-    $newQuestionText.append(data.question)
+    $newQuestionText.innerHTML=(data.question)
     $image.src = '/uploads/'+QUESID+'.png'
     
 }
@@ -115,7 +130,7 @@ async function getQuestionOfChapter(chapter){
     var data = await response.json()   
     QuestionsOFChapters = data
     console.log(data)
-    QuestionCount = QuestionsOFChapters.length-1
+    QuestionCount = 0
     showCurrentQuestion()
     
 }
@@ -126,88 +141,77 @@ function showCurrentQuestion(){
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
     $questionNumber.innerHTML = 'No.&nbsp'+(QuestionCount+1)+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
-    $newQuestionText.value = (QuestionsOFChapters[QuestionCount].question);
-    $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
+    $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+'<br/><br/> Answer:'+(QuestionsOFChapters[QuestionCount].answer);
     $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
     
     $image.style.display=''
     $image.src = '/uploads/'+QuestionsOFChapters[QuestionCount]._id+'.png'
     $image.onerror =function(){$image.style.display='none'}
 
-    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-   $questionTextWithMath.innerHTML = modifiedText   
-
+   
 }
 
-const uploadFile = (file) => {
-
-    // add file to FormData object
-    const fd = new FormData();
-    fd.append('avatar', file);
-
-    // send `POST` request
-    fetch('/questions/'+QUESID+'/image', {
-        method: 'POST',
-        body: fd
-    })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error(err));
-    $successMessageText.innerHTML = "SUCCESS Post Next Question"    
-}
-
-
-// async function UpdateAQuestion(){
-  
-//     if(!$newQuestionText.value||!$correctAnswer.value||!$chapterNumber.value)
-//     return
-//     console.log('51')
-//     const response = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {
-      
-//     // Adding method type
-//         method: "PATCH",
-    
-//         // Adding body or contents to send
-//         body: JSON.stringify({
-//             question: $newQuestionText.value,
-//             answer: $correctAnswer.value,
-//             chapter: $chapterNumber.value
-
-//         }),
-//         // Adding headers to the request
-//         headers: {
-//             "Content-type": "application/json; charset=UTF-8"
-//         }
-//     }).then().then()
-
-// var data = await response.json()
-// console.log(data)
-
-
-// }
-
-async function UpdateAQuestion(){     
-    
-        //console.log(questionwiseResut)
-        const response  = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {          
-        // Adding method type
-        method: "PATCH",
-          
-        header: {
-            //"Authorization": "Bearer " + TOKEN
-        },
-        // Adding body or contents to send
-        body: JSON.stringify({
-            question: $newQuestionText.value
-        }),
-        // Adding headers to the request
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-        }).then().then()
-
-        var data = await response.json()   
-        console.log(data)
-
-       
+function AddAQuestionToSelection(){     
+    let alreadySelected = false
+    for(i=0;i<SelectedQuestionIDs.length;i++)
+    {
+        if(SelectedQuestionIDs[i]==QuestionsOFChapters[QuestionCount]._id)
+        alreadySelected = true
     }
+    if(alreadySelected==false&&QuestionsOFChapters[QuestionCount]._id)
+    {
+        SelectedQuestionIDs.push({'questionID': QuestionsOFChapters[QuestionCount]._id})
+        SelectedQuestionNumber.push(QuestionCount)
+        SelectedQuestionCount++
+    }
+    console.log(SelectedQuestionNumber)
+    ShowPaper()
+       
+ }
+
+ function RemoveAQuestionToSelection(){     
+    
+    SelectedQuestionIDs.pop({'questionID': QuestionsOFChapters[QuestionCount]._id})
+    SelectedQuestionNumber.pop(QuestionCount)
+    console.log(SelectedQuestionNumber)
+    ShowPaper()
+       
+ }
+
+ function ShowPaper(){
+    let paperText=''
+    for(i=0;i<SelectedQuestionNumber.length;i++)
+    {
+        paperText+= 'Q.'+ (i+1) +'&nbsp'+
+        QuestionsOFChapters[SelectedQuestionNumber[i]].question+'<br/>'
+    }
+    $paper.innerHTML = paperText
+
+ }
+
+ 
+async function postNewTestPaper(testName){
+    
+    const response = await fetch("/testPaper", {
+      
+    // Adding method type
+    method: "POST",
+      
+    // Adding body or contents to send
+    body: JSON.stringify({
+        name: testName,
+        questions: SelectedQuestionIDs
+
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+  
+// Converting to JSON
+.then().then()
+
+var data = await response.json()
+console.log(data)
+}

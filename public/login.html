@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>The Phhysics Tree Login</title>
+  <title>The Physics Tree Login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -49,8 +49,8 @@
       </div>
 
       <div class = "container">          
-        <div id = "testApp">
-          <h3>Quiz & Test Section</h3>
+        <div class="well" id = "testApp">
+          <h3 class = "well">Quiz & Test Section</h3>
           
            <!-- <select class="form-select" id="classSelect">
             <option selected>Select Exam</option>
@@ -87,29 +87,30 @@
             <option value="NEET">PYQ</option>
             <option value="JEE">New Questions </option>
            </select> -->
-           <div class="container">
-           
-           <div class="well" >
+                  
+            <div class="well" >
             <p>Test Code: <input  type="text" id = "testName"> 
               <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button>
-              <!-- <button type="button" style="margin: 10px" class="btn btn-danger" id="reviewButton">Review Answers</button>  -->
-
-            </p> 
+            
+            <span class="well"> Time Remaining:  <span class ="well" id="time">00:00 minutes </span></span>
+            </div>
             <p id="messageReview"></p>        
             
            <!-- <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button> -->
            
-          </div>
           
-            <div>Time Remaining <h3 id="time">00:00</h3> minutes!</div>
+          
+            
         
+          <div class="well">
           
-           <h4 id = "questionNumber" style="text-align: left;">Tips:</h4>
-            <div class="well">
+           <h4 class="well" id = "questionNumber" style="text-align: left;">Tips:</h4>
+            
             <p  id = "question">1. Enter Test Code and click Start. </br/>
               2. After Solving the Question, click next to solve another question.</br/>
               3. At the last question a Submit Button will appear the test</p>
-            </div>
+           
+          </div>
             <!-- <div class="container">
             <button type="button" style="margin: 10px " class="btn btn-primary" id="selectQuestion">Select This Question</button>
             </div> -->

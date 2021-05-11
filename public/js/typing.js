@@ -65,7 +65,7 @@ const uploadFile = (file) => {
     .then(res => res.json())
     .then(json => console.log(json))
     .catch(err => console.error(err));
-    $successMessageText.innerHTML = "SUCCESS Post Next Question"    
+    
 }
 
 
