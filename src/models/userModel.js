@@ -10,12 +10,10 @@ const userSchema = new mongoose.Schema( {
         trim:true
         
     },
-    age:{
-        type:Number,
-        validate(value){
-            if(value<0)
-            throw new Error('Age must be a positive number')
-        }
+    role:{
+        type: String,
+        default: 'student' // or teachers or edp or admin
+
     },
     email:{
         type: String,

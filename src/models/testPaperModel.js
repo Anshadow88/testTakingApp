@@ -6,6 +6,10 @@ const TestPaper= new mongoose.Schema({
         required: true,
         trim:true        
     },
+    author:{
+        type:String,
+        default:'unknown'
+    },
     questions: [{
         questionID:{type : String, required: true,},
         

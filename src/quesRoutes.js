@@ -59,7 +59,7 @@ router.post('/questions/:id/image', async (req, res) => {
             console.log('Picture Uploaded')
             //send response
             res.send({
-                status: true,
+                status: '200',
                 message: 'File is uploaded',
                 data: {
                     name: avatar.name,
