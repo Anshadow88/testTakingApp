@@ -46,6 +46,7 @@ async function loadTest(testName){
 }
 
 function DisplayResult(){
+    $question.innerHTML=''
     for(i=0;i<AllStudentResults.length;i++)
     {
         $question.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'<br/>')
