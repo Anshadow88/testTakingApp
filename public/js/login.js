@@ -8,6 +8,7 @@ window.USERID= ""
 window.TOKEN=""
 window.USERNAME=""
 
+
 const $teacherEmail = document.querySelector('#teacherName')
 const $teacherPassword = document.querySelector('#teacherPassword')
 
@@ -18,6 +19,12 @@ $studentLoginButton.addEventListener('click',(e)=>{
     //console.log("Clicked Login")    
     goToQuestionPage()   
 })
+
+const $intro = document.querySelector('#intro')
+
+function sayHello(){
+    $intro.innerHTML = 'Name: '+USERNAME
+}
 
 
    
@@ -56,4 +63,5 @@ USERID = data.user._id
 TOKEN = data.token
 USERNAME = data.user.name
 console.log('name: '+USERNAME)
+sayHello()
 }

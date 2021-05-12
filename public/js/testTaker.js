@@ -23,6 +23,8 @@ const $getQuestionButton = document.querySelector('#getQuestionButton')
 const $nextQuestionButton = document.querySelector('#nextQuestionButton')
 const $previousQuestionButton = document.querySelector('#previousQuestionButton')
 
+const $testResultTemplate = document.querySelector('#testResultTemplate')
+
 let questionCount = 0
 let availableQuestions =[]
 let marksFinal =0

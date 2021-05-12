@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema( {
     },
     role:{
         type: String,
-        default: 'student' // or teachers or edp or admin
+        default: 'student' // or teacher or edp or admin
 
     },
     email:{

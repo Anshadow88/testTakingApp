@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
 
 </head>
 <body onselectstart="return false">
@@ -49,44 +50,9 @@
       </div>
 
       <div class = "container">          
-        <div class="well" id = "testApp">
-          <h3 class = "well">Quiz & Test Section</h3>
-          
-           <!-- <select class="form-select" id="classSelect">
-            <option selected>Select Exam</option>
-            <option value="NEET">NEET</option>
-            <option value="JEE">JEE</option>
-           </select> -->
-          
-           <!-- <select class="form-select" id="chapterSelect">
-            <option selected>Select Chapter</option>
-            <option value="1">Vectors</option>
-            <option value="2">Kinematics</option>
-            <option value="3">NLM</option>
-            <option value="4">WPE</option>
-            <option value="5">COM</option>
-            <option value="6">Rotation</option>
-            <option value="7">Gravitation</option>
-            <option value="8">Fluids</option>
-            <option value="9">Properties of Matter</option>
-            <option value="10">Thermodynamics</option>
-            <option value="11">Oscillation</option>            
-            <option value="12">Waves</option>
-            <option value="13">Electrostatics</option>
-            <option value="14">Current Electricity</option>
-            <option value="15">Magnetism</option>
-            <option value="16">EMI & AC</option>
-            <option value="17">Wave Optics</option>
-            <option value="18">EM Waves</option>
-            <option value="19">Modern Physics</option>
-            <option value="20">Semiconductors</option>
-           </select> -->
-
-           <!-- <select class="form-select" id="classSelect">
-            <option selected>Types of Questions</option>
-            <option value="NEET">PYQ</option>
-            <option value="JEE">New Questions </option>
-           </select> -->
+          <div class="well" id = "testApp">
+          <h4 class = "well">Quiz & Test Section</h4>
+          <p class ="well" id="intro"></p>
                   
             <div class="well" >
             <p>Test Code: <input  type="text" id = "testName"> 
@@ -141,19 +107,18 @@
            </div>
 
           </div>
-        </div>
+      </div>
+      
+      
           
-      </div>
-
-   
-</div>
 
 
 
 
 
 
-      </div>
+
+
 
 </body>
 
