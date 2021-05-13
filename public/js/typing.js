@@ -1,3 +1,7 @@
+let $nameOfTypist = document.getElementById('nameOfTypist')
+const $nameOfTypistButton = document.getElementById('nameOfTypistButton')
+let nameOfTypist = sessionStorage.nameOfTypist
+$nameOfTypist.value = nameOfTypist
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 let inputQuestionText =""
 let modifiedText=""
@@ -22,6 +26,11 @@ inputImage.addEventListener('change', () => {
     imageFile = inputImage.files[0]
 });
 
+
+$nameOfTypistButton.addEventListener('click',(e)=>{
+    sessionStorage.setItem("nameOfTypist", $nameOfTypist.value)
+    nameOfTypist = $nameOfTypist.value
+})
 
 
 $showMathButton.addEventListener('click',(e)=>{
@@ -95,8 +104,11 @@ const uploadFile = (file) => {
 
 async function postQuestion(){
   
-    if(!modifiedText||!selectedAnswer||!selectedChapter)
-    return
+    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist)
+    {
+        alert('Please fill all fields')
+        return
+    }
     
     const response = await fetch("/questions", {
       
@@ -107,7 +119,8 @@ async function postQuestion(){
     body: JSON.stringify({
         question: modifiedText,
         answer: selectedAnswer,
-        chapter: selectedChapter
+        chapter: selectedChapter,
+        author: nameOfTypist
 
     }),
     // Adding headers to the request
