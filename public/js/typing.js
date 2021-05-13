@@ -22,6 +22,8 @@ inputImage.addEventListener('change', () => {
     imageFile = inputImage.files[0]
 });
 
+
+
 $showMathButton.addEventListener('click',(e)=>{
 
     inputQuestionText = $newQuestionText.value
@@ -47,7 +49,29 @@ $showMathButton.addEventListener('click',(e)=>{
 
 })
 
-$postQuestionButton.addEventListener('click',(e)=>{    
+
+
+$postQuestionButton.addEventListener('click',(e)=>{   
+    inputQuestionText = $newQuestionText.value
+   // modifiedText = inputQuestionText.replace("(a)","<br/>(a)")
+   modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
+    
+    $questionTextWithMath.innerHTML = modifiedText
+    
+    for (var rb of $correctAnswerButtons) {
+        if (rb.checked) {
+            selectedAnswer = rb.value;
+            console.log(selectedAnswer)
+            break;
+        }
+    }
+    for (var rc of $chapterNumberButtons) {
+        if (rc.checked) {
+            selectedChapter = rc.value;
+            console.log(selectedChapter)
+            break;
+        }
+    } 
     postQuestion()
 })
 
