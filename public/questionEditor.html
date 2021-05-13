@@ -27,7 +27,11 @@
     </div>
     <div class="container">
       <form class="well">
-        Chapter Number:<input id="chapterNumber">(Can be edited)      
+        Chapter Number:<input id="chapterNumber">(Can be edited)   
+        <button type="button" style ="width:100px" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
+        <button type="button" style ="width:100px" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
+        <button type="button" class="btn btn-danger" id="postQuestionButton">Update Question</button>
+
       </form>
     </div>
 
@@ -36,7 +40,8 @@
     <div class = "well">
       <div class="row">          
           <div class="col-sm-6">
-          <p id = "questionNumber">Question No. X</p>
+          <p id = "questionNumber">Question No. X </p>
+
           <textarea id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
           </div>
           <div class="col-sm-6">
@@ -52,26 +57,27 @@
   </div>
 
   <div class="container">
-    <div class="well">To change Image: 
-    <input type="file" id="imageInput">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="well">To change Image: 
+           <input type="file" id="imageInput">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="well">
+          <p>Marked Answer:(Can be edited)</p>
+           <form>
+            <input id ="correctAnswer">
+          </form>
+       </div>
+       </div>
     </div>
+
   </div>
   
 <div class="container">
-  <div class="well">
-  <p>Marked Answer:(Can be edited)</p>
-  <form>
-    <input id ="correctAnswer">
-  </form>
-</div>
-</div>
-
-<div class="container">
-       <button type="button" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
-       <button type="button" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
-
-        <button type="button" class="btn btn-danger" id="postQuestionButton">Update Question</button>
-</div>
+       
+        </div>
 
 </body>
 
