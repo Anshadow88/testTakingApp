@@ -171,7 +171,9 @@ async function UpdateAQuestion(){
         },
         // Adding body or contents to send
         body: JSON.stringify({
-            question: $newQuestionText.value
+            question: $newQuestionText.value,
+            answer: $correctAnswer.value,
+            chapter: $chapterNumber.value
         }),
         // Adding headers to the request
         headers: {
