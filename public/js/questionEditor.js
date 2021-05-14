@@ -121,6 +121,8 @@ async function getQuestionOfChapter(chapter){
 }
 
 function showCurrentQuestion(){
+    //Remove Selected image for last update
+    
 
     
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
@@ -146,45 +148,16 @@ const uploadFile = (file) => {
     fd.append('avatar', file);
 
     // send `POST` request
-    fetch('/questions/'+QUESID+'/image', {
+    fetch('/questions/'+QuestionsOFChapters[QuestionCount]._id+'/image', {
         method: 'POST',
         body: fd
     })
     .then(res => res.json())
     .then(json => console.log(json))
     .catch(err => console.error(err));
-    $successMessageText.innerHTML = "SUCCESS Post Next Question"    
+    alert('Successfully updated the question')
 }
 
-
-// async function UpdateAQuestion(){
-  
-//     if(!$newQuestionText.value||!$correctAnswer.value||!$chapterNumber.value)
-//     return
-//     console.log('51')
-//     const response = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {
-      
-//     // Adding method type
-//         method: "PATCH",
-    
-//         // Adding body or contents to send
-//         body: JSON.stringify({
-//             question: $newQuestionText.value,
-//             answer: $correctAnswer.value,
-//             chapter: $chapterNumber.value
-
-//         }),
-//         // Adding headers to the request
-//         headers: {
-//             "Content-type": "application/json; charset=UTF-8"
-//         }
-//     }).then().then()
-
-// var data = await response.json()
-// console.log(data)
-
-
-// }
 
 async function UpdateAQuestion(){     
     
@@ -208,6 +181,7 @@ async function UpdateAQuestion(){
 
         var data = await response.json()   
         console.log(data)
-
-       
-    }
+        if(data._id)
+          uploadFile(imageFile)//609a7c41f7ac6623f09ec8ea
+        }   
+    
