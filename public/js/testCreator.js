@@ -144,10 +144,15 @@ function showCurrentQuestion(){
     $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+'<br/><br/> Answer:'+(QuestionsOFChapters[QuestionCount].answer);
     $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
     
-    $image.style.display=''
-    $image.src = '/uploads/'+QuestionsOFChapters[QuestionCount]._id+'.png'
-    $image.onerror =function(){$image.style.display='none'}
-
+    $image.style.display='none'
+    console.log(QuestionsOFChapters[QuestionCount].image)
+    if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS')
+     $image.style.display=''
+     image.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].image)  
+     
+    }
    
 }
 

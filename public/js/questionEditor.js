@@ -21,6 +21,7 @@ const $postQuestionButton = document.querySelector('#postQuestionButton')
 let QUESID
 let QuestionsOFChapters
 let QuestionCount=0
+let imageKeyAWS
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 
 
@@ -120,7 +121,7 @@ async function getQuestionOfChapter(chapter){
     
 }
 
-function showCurrentQuestion(){
+async function showCurrentQuestion(){
     //Remove Selected image for last update
     
 
@@ -132,30 +133,62 @@ function showCurrentQuestion(){
     $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
     $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
     
-    $image.style.display=''
-    $image.src = '/uploads/'+QuestionsOFChapters[QuestionCount]._id+'.png'
-    $image.onerror =function(){$image.style.display='none'}
+    $image.style.display='none'
+    console.log(QuestionsOFChapters[QuestionCount].image)
+    if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS')
+     $image.style.display=''
+     image.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].image)  
+     
+    }
 
     modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-   $questionTextWithMath.innerHTML = modifiedText   
+    $questionTextWithMath.innerHTML = modifiedText   
 
 }
 
-const uploadFile = (file) => {
 
+
+// const uploadFile = (file) => {
+
+//     // add file to FormData object
+//     const fd = new FormData();
+//     fd.append('avatar', file);
+
+//     // send `POST` request
+//     fetch('/questions/'+QuestionsOFChapters[QuestionCount]._id+'/image', {
+//         method: 'POST',
+//         body: fd
+//     })
+//     .then(res => res.json())
+//     .then(json => console.log(json))
+//     .catch(err => console.error(err));
+//     alert('Successfully updated the question')
+// }
+
+
+async function uploadFile(file) {
+    imageKeyAWS=''
     // add file to FormData object
     const fd = new FormData();
     fd.append('avatar', file);
 
     // send `POST` request
-    fetch('/questions/'+QuestionsOFChapters[QuestionCount]._id+'/image', {
+    const response = await fetch('/questions/'+QUESID+'/image', {
         method: 'POST',
         body: fd
     })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error(err));
-    alert('Successfully updated the question')
+    .then()
+    .then()
+    .catch()
+    
+    
+    var data = await response.json()
+    console.log(data.filename)
+    imageKeyAWS = data.filename
+    UpdateAQuestion()
+
 }
 
 
@@ -173,7 +206,8 @@ async function UpdateAQuestion(){
         body: JSON.stringify({
             question: $newQuestionText.value,
             answer: $correctAnswer.value,
-            chapter: $chapterNumber.value
+            chapter: $chapterNumber.value,
+            image : imageKeyAWS
         }),
         // Adding headers to the request
         headers: {

@@ -174,10 +174,16 @@ function DisplayFirstQuestion()
     $questionText.innerHTML = availableQuestions[questionCount].question
     MathJax.typeset()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
-    $image.style.display=''
-    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
-    $image.onerror =function(){$image.style.display='none'}
-    
+    $image.style.display='none'
+    console.log(availableQuestions[questionCount].image)
+    if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS')
+     $image.style.display=''
+     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
+     
+    }
+
     
 }
 
@@ -195,10 +201,15 @@ function DisplayNextQuestion()
     
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
-    $image.style.display=''
-    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
-    $image.onerror =function(){$image.style.display='none'}
-    
+    $image.style.display='none'
+    console.log(availableQuestions[questionCount].image)
+    if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS')
+     $image.style.display=''
+     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
+     
+    }
     if(questionCount==availableQuestions.length-1)
     {
         $submitTestButton.style.display =''
@@ -220,10 +231,15 @@ function DisplayPreviousQuestion()
     $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     MathJax.typeset()
-    $image.style.display=''
-    $image.src = '/uploads/'+availableQuestions[questionCount].getID().toString()+'.png'
-    $image.onerror =function(){$image.style.display='none'}
-    
+    $image.style.display='none'
+    console.log(availableQuestions[questionCount].image)
+    if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS')
+     $image.style.display=''
+     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
+     
+    }
     
 }
 

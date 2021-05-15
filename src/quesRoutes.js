@@ -3,15 +3,12 @@ const router = express.Router()
 const Question = require('./models/QuestionModel')
 const auth = require('./middleware/auth')
 const multer = require('multer')
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
-const fileUpload = require('express-fileupload')
+const upload = multer({dest:'./src/uploads/'})
+const {uploadFile,getFileStream} = require('./imageRoute')
  
 var fs = require('fs');
 
-router.use(fileUpload({
-    createParentPath: true
-}))
+
 
 // create one quiz question
 router.post('/questions', async (req, res) => {
@@ -43,36 +40,50 @@ router.get('/questions/:id', async (req, res) => {
 })
 
 //post question image by id
-router.post('/questions/:id/image', async (req, res) => {
-    try {
-        if(!req.files) {
-            res.send({
-                status: false,
-                message: 'No file uploaded'
-            });
-        } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            let avatar = req.files.avatar;
-            console.log('Picture Uploading....')
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./src/uploads/' + req.params.id+'.png');
-            console.log('Picture Uploaded')
-            //send response
-            res.send({
-                status: '200',
-                message: 'File is uploaded',
-                data: {
-                    name: avatar.name,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size
-                }
-            });
-        }
-    } catch (err) {
-        res.status(500).send(err);
-    }
-});
+// router.post('/questions/:id/image', async (req, res) => {
+//     try {
+//         if(!req.files) {
+//             res.send({
+//                 status: false,
+//                 message: 'No file uploaded'
+//             });
+//         } else {
+//             let avatar = req.files.avatar;
+//             avatar.mv('./src/uploads/' + req.params.id+'.png');
+//             console.log(avatar)
+//             const result = await uploadFile(avatar)
+//             console.log(result)
+//             //send response
+//             res.send({
+//                 status: '200',
+//                 message: 'File is uploaded',
+//                 data: {
+//                     name: avatar.name,
+//                     mimetype: avatar.mimetype,
+//                     size: avatar.size
+//                 }
 
+//             });
+//         }
+//     } catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
+
+router.post('/questions/:id/image',upload.single('avatar'),async (req,res)=>{
+        const file = req.file
+        console.log(file)
+        const result = await uploadFile(file)//to AWS
+        
+        console.log('103'+file)
+        res.send(file)
+})
+
+router.get('/uploads/:id',upload.single('avatar'),async (req,res)=>{
+    const file = await getFileStream(req.params.id)//to AWS
+    console.log(file)
+    file.pipe(res)
+})
 
 //get all questions of a chapter
 router.post('/questions/chapter',async (req, res) => {   
@@ -103,10 +114,8 @@ router.patch('/questionUpdate/:id',async(req,res)=>{
       //  console.log("104")
         
         updates.forEach((update)=>{
-       //     console.log(req.body[update])
-            question[update] = req.body[update]
-        })
-        
+             question[update] = req.body[update]
+        })      
 
         await question.save()
         res.send(question)
@@ -127,6 +136,8 @@ router.delete('/questions/:id', (req, res) => {
 router.get('/', (req, res) => {
     res.send('H3ll0 W0RlD')
 })
+
+
 
 
 module.exports = router

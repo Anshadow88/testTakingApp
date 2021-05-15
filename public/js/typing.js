@@ -5,6 +5,7 @@ $nameOfTypist.value = nameOfTypist
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 let inputQuestionText =""
 let modifiedText=""
+let imageKeyAWS
 
 const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
@@ -81,24 +82,33 @@ $postQuestionButton.addEventListener('click',(e)=>{
             break;
         }
     } 
+    if(imageFile)
+    uploadFile(imageFile)
+    else
     postQuestion()
 })
 
-const uploadFile = (file) => {
-
+async function uploadFile(file) {
+    imageKeyAWS=''
     // add file to FormData object
     const fd = new FormData();
     fd.append('avatar', file);
 
     // send `POST` request
-    fetch('/questions/'+QUESID+'/image', {
+    const response = await fetch('/questions/'+QUESID+'/image', {
         method: 'POST',
         body: fd
     })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error(err));
-    location.reload()
+    .then()
+    .then()
+    .catch()
+    
+    
+    var data = await response.json()
+    console.log(data.filename)
+    imageKeyAWS = data.filename
+    postQuestion()
+
 }
 
 
@@ -120,7 +130,8 @@ async function postQuestion(){
         question: modifiedText,
         answer: selectedAnswer,
         chapter: selectedChapter,
-        author: nameOfTypist
+        author: nameOfTypist,
+        image: imageKeyAWS
 
     }),
     // Adding headers to the request
@@ -135,6 +146,5 @@ async function postQuestion(){
 var data = await response.json()
 console.log(data)
 QUESID = data._id
-if(data._id)
-   uploadFile(imageFile)//609a7c41f7ac6623f09ec8ea
+
 }
