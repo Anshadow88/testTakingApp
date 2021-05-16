@@ -145,6 +145,8 @@ async function postQuestion(){
 
 var data = await response.json()
 console.log(data)
+
 QUESID = data._id
+location.reload()
 
 }
