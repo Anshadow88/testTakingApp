@@ -4,14 +4,14 @@ $question = document.querySelector('#question')
 
 
 $getResultButton.addEventListener('click',(e)=>{
-    loadTest($testName.value)
+    loadTestResult($testName.value)
 })
 
 let AllStudentResults = []
 
-async function loadTest(testName){     
+async function loadTestResult(testName){     
     //console.log("Global: "+TOKEN)
-    availableQuestions = []
+    AllStudentResults = []
     const response  = await fetch("/testPaperNameResult", {          
     // Adding method type
     method: "POST",

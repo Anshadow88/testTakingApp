@@ -120,7 +120,8 @@ async function loadTest(testName){
         for(i=0;i<data.questionsOfChapter.length;i++){
             var newQues = new Quest(data.questionsOfChapter[i]._id,
                                     data.questionsOfChapter[i].question,
-                                    data.questionsOfChapter[i].answer)
+                                    data.questionsOfChapter[i].answer,
+                                    data.questionsOfChapter[i].image)
             availableQuestions.push(newQues)
             if(isGiven)
             newQues.originalAttempt(data.previousAttempt[i].status)
@@ -342,11 +343,12 @@ function startTimer(duration, display) {
 
 let Quest = class{
 
-    constructor(id,question,answer)
+    constructor(id,question,answer,image)
     {
        this.id = id
        this.question = question
        this.answer = answer
+       this.image = image
     }
     markAttemped(status){
         //status=true for correct,false for incorrect,undefined = unattempted
@@ -379,5 +381,9 @@ let Quest = class{
     getSavedAnswer = function()
     {
         return this.savedAnswer
+    }
+    getImage = function()
+    {
+        return this.image
     }
 }
