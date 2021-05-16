@@ -67,6 +67,9 @@ $previousButton.addEventListener('click',(e)=>{
     showCurrentQuestion()
 })
 $postQuestionButton.addEventListener('click',(e)=>{    
+    if(imageFile)
+    uploadFile(imageFile)
+    else
     UpdateAQuestion()
 })
 
@@ -122,10 +125,8 @@ async function getQuestionOfChapter(chapter){
 }
 
 async function showCurrentQuestion(){
-    //Remove Selected image for last update
-    
-
-    
+    //Remove Selected image for last update  
+    inputImage.value=''    
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
     $questionNumber.innerHTML = 'No.&nbsp'+(QuestionCount+1)+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
