@@ -217,7 +217,5 @@ async function UpdateAQuestion(){
 
         var data = await response.json()   
         console.log(data)
-        if(data._id)
-          uploadFile(imageFile)//609a7c41f7ac6623f09ec8ea
-        }   
+    }
     
