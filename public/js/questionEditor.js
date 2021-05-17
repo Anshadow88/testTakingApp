@@ -10,6 +10,7 @@ const $correctAnswer = document.querySelector('#correctAnswer')
 const $chapterNumber = document.querySelector('#chapterNumber')
 
 
+
 const $previousButton = document.querySelector('#previousButton')
 const $nextButton = document.querySelector('#nextButton')
 

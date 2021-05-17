@@ -12,70 +12,47 @@
 </head>
 <body>
   <div class = "container">
-    <h3 class ="well"> Typing Section (For New Questions)</h3><br/>
-    <p class ="well">Name of Typist: &nbsp<input id = "nameOfTypist"><button class="btn btn-primary"id = "nameOfTypistButton">Enter</button></p>
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class ="well"> Typing Section (For New Questions)</h5>
+      </div>
+      <div class="col-sm-6">
+        <p class ="well">Name of Typist: &nbsp<input id = "nameOfTypist"><button class="btn btn-primary" id = "nameOfTypistButton">Set</button></p>
+      </div>
     </div>
-    <div class="container">
-      
-      <form class ="well">Chapter Number: 
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "1">1
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "2">2
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "3">3
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber"value = "4">4
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber"value = "5">5
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber"value = "6">6
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber"value = "7">7
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "8">8
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "9">9
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "10">10
-        </label><label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "11">11
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "12">12
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "13">13
-        </label><label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "14">14
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "15">15
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "16">16
-        </label><label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "17">17
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "18">18
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "19">19
-        </label><label class="radio-inline">
-          <input type="radio" name="chapterNumber" value = "20">20
-        </label>
+
+    <div class="row">    
+      <div class="col-sm-6">       
+        <form class="well">
+          <p>Chapter<input id="chapterNumberInput"><button id="fixChapterNameButton">Set</button></p>
           
-      </form>
+        </form>
+      </div>
+      <div class="col-sm-6">          
+            <form class ="well">Exam:  
+              <label class="radio-inline">
+                <input type="radio" name="examNameButtons" value = "0">none
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="examNameButtons" value = "1">NEET
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="examNameButtons" value = "2">Mains
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="examNameButtons" value = "3">Advanced
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="examNameButtons" value = "4">others
+              </label>
+              <button id="fixExamNameButton">Set</button>
+              <br/>Year:<input id="yearOFExamInput"><button id="setYearOfExamButton">Set</button>
+              
+            </form>
+            
+          </div>
+            
+       </div>
     </div>
 
 
@@ -87,7 +64,7 @@
           </div>
 
           <div class="col-sm-6">
-          <p class= "well"  id="newQuestionWithMaths">Question With Maths</p>
+          <p class= "well"  id="newQuestionWithMaths">Question With correct Maths will Appear here when CHECK MATHS is clicked</p>
           </div>
 
           </div>   

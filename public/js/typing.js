@@ -14,19 +14,57 @@ const $postQuestionButton = document.querySelector('#postQuestionButton')
 let QUESID
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 
-let $chapterNumberButtons = document.getElementsByName('chapterNumber')
+let $fixExamNameButton = document.getElementById('fixExamNameButton')
+var $examNameButtons = document.getElementsByName('examNameButtons')
 let $correctAnswerButtons = document.getElementsByName('correctAnswer')
+let $chapterNumberInput = document.getElementById('chapterNumberInput')
+let $fixChapterNameButton = document.getElementById('fixChapterNameButton')
+let $yearOfExamInput = document.getElementById('yearOFExamInput')
+let $setYearOfExamButton = document.getElementById('setYearOfExamButton')
 
-let selectedChapter = ""
+let selectedChapter = 0
+if(sessionStorage.selectedChapter) selectedChapter = sessionStorage.selectedChapter
+$chapterNumberInput.value = selectedChapter
 let selectedAnswer = ""
+let examName=0
+if(sessionStorage.examName)examName = sessionStorage.examName 
+console.log($examNameButtons[examName])
+$examNameButtons[examName].checked = true
+let yearOfExam = 0
+if(sessionStorage.yearOfExam) yearOfExam = sessionStorage.yearOfExam
+$yearOfExamInput.value = yearOfExam
 
-const inputImage = document.getElementById('image');
+
+
+const $inputImage = document.getElementById('image');
 let imageFile
 // add event listener
-inputImage.addEventListener('change', () => {
-    imageFile = inputImage.files[0]
+$inputImage.addEventListener('change', () => {
+    imageFile = $inputImage.files[0]
 });
 
+$fixChapterNameButton.addEventListener('click',(e)=>{
+    selectedChapter=$chapterNumberInput.value
+    sessionStorage.setItem("selectedChapter",$chapterNumberInput.value)
+ 
+})
+
+$setYearOfExamButton.addEventListener('click',(e)=>{
+    yearOfExam=$yearOfExamInput.value
+    sessionStorage.setItem("yearOfExam",$yearOfExamInput.value)
+ 
+})
+
+$fixExamNameButton.addEventListener('click',(e)=>{
+    for (var rc of $examNameButtons) {
+        if (rc.checked) {
+            examName = rc.value;
+            console.log(examName)
+            break;
+        }
+    }
+    sessionStorage.setItem("examName",examName)
+})
 
 $nameOfTypistButton.addEventListener('click',(e)=>{
     sessionStorage.setItem("nameOfTypist", $nameOfTypist.value)
@@ -37,11 +75,9 @@ $nameOfTypistButton.addEventListener('click',(e)=>{
 $showMathButton.addEventListener('click',(e)=>{
 
     inputQuestionText = $newQuestionText.value
-   // modifiedText = inputQuestionText.replace("(a)","<br/>(a)")
-   modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
-    
+    modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")    
     $questionTextWithMath.innerHTML = modifiedText
-    
+    selectedChapter = $chapterNumberInput.value
     for (var rb of $correctAnswerButtons) {
         if (rb.checked) {
             selectedAnswer = rb.value;
@@ -49,10 +85,10 @@ $showMathButton.addEventListener('click',(e)=>{
             break;
         }
     }
-    for (var rc of $chapterNumberButtons) {
+    for (var rc of $examNameButtons) {
         if (rc.checked) {
-            selectedChapter = rc.value;
-            console.log(selectedChapter)
+            examName = rc.value;
+            console.log(examName)
             break;
         }
     }
@@ -63,11 +99,10 @@ $showMathButton.addEventListener('click',(e)=>{
 
 $postQuestionButton.addEventListener('click',(e)=>{   
     inputQuestionText = $newQuestionText.value
-   // modifiedText = inputQuestionText.replace("(a)","<br/>(a)")
-   modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
-    
+    modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
     $questionTextWithMath.innerHTML = modifiedText
-    
+    yearOfExam = $yearOfExamInput.value
+    selectedChapter = $chapterNumberInput.value
     for (var rb of $correctAnswerButtons) {
         if (rb.checked) {
             selectedAnswer = rb.value;
@@ -75,13 +110,19 @@ $postQuestionButton.addEventListener('click',(e)=>{
             break;
         }
     }
-    for (var rc of $chapterNumberButtons) {
+    for (var rc of $examNameButtons) {
         if (rc.checked) {
-            selectedChapter = rc.value;
-            console.log(selectedChapter)
+            examName = rc.value;
+            console.log(examName)
             break;
         }
-    } 
+    }
+    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist||!examName)
+    {
+        alert('Please fill all fields')
+        return
+    }
+    
     if(imageFile)
     uploadFile(imageFile)
     else
@@ -114,11 +155,6 @@ async function uploadFile(file) {
 
 async function postQuestion(){
   
-    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist)
-    {
-        alert('Please fill all fields')
-        return
-    }
     
     const response = await fetch("/questions", {
       
@@ -131,7 +167,9 @@ async function postQuestion(){
         answer: selectedAnswer,
         chapter: selectedChapter,
         author: nameOfTypist,
-        image: imageKeyAWS
+        image: imageKeyAWS,
+        exam: examName,
+        year: yearOfExam
 
     }),
     // Adding headers to the request
