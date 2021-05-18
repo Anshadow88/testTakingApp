@@ -8,7 +8,8 @@ const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 const $correctAnswer = document.querySelector('#correctAnswer')
 const $chapterNumber = document.querySelector('#chapterNumber')
-
+const $questionType = document.getElementById('questionType') 
+    
 
 
 const $previousButton = document.querySelector('#previousButton')
@@ -134,7 +135,8 @@ async function showCurrentQuestion(){
     $newQuestionText.value = (QuestionsOFChapters[QuestionCount].question);
     $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
     $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
-    
+    $questionType.value = QuestionsOFChapters[QuestionCount].type;
+
     $image.style.display='none'
     console.log(QuestionsOFChapters[QuestionCount].image)
     if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
@@ -151,23 +153,6 @@ async function showCurrentQuestion(){
 }
 
 
-
-// const uploadFile = (file) => {
-
-//     // add file to FormData object
-//     const fd = new FormData();
-//     fd.append('avatar', file);
-
-//     // send `POST` request
-//     fetch('/questions/'+QuestionsOFChapters[QuestionCount]._id+'/image', {
-//         method: 'POST',
-//         body: fd
-//     })
-//     .then(res => res.json())
-//     .then(json => console.log(json))
-//     .catch(err => console.error(err));
-//     alert('Successfully updated the question')
-// }
 
 
 async function uploadFile(file) {
@@ -194,8 +179,9 @@ async function uploadFile(file) {
 }
 
 
-async function UpdateAQuestion(){     
-    
+async function UpdateAQuestion(){    
+        
+        
         //console.log(questionwiseResut)
         const response  = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {          
         // Adding method type
@@ -209,7 +195,8 @@ async function UpdateAQuestion(){
             question: $newQuestionText.value,
             answer: $correctAnswer.value,
             chapter: $chapterNumber.value,
-            image : imageKeyAWS
+            image : imageKeyAWS,
+            type: $questionType.value
         }),
         // Adding headers to the request
         headers: {

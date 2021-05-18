@@ -17,7 +17,10 @@
         <h5 class ="well"> Typing Section (For New Questions)</h5>
       </div>
       <div class="col-sm-6">
-        <p class ="well">Name of Typist: &nbsp<input id = "nameOfTypist"><button class="btn btn-primary" id = "nameOfTypistButton">Set</button></p>
+        <div class="well">
+        <p>Typist Name: <input id = "nameOfTypist"><button class="btn btn-primary" id = "nameOfTypistButton">Set</button></p>
+        <p>Question Type: <input id="questionType"><button class="btn btn-primary" id = "setQuestionTypeButton">Set</button></p>
+
       </div>
     </div>
 
@@ -76,10 +79,11 @@
     <input class = "well" type="file" name="avatar" id="image">
 </div>
   
+  
 <div class="container">
-  <div class="well">
+  <div class="well" id="SingleOptions">
   <form>
-    Mark Correct Answer
+    Single  Option Correct
     <label class="radio-inline">
       <input type="radio" name="correctAnswer" value = "A">A
     </label>
@@ -93,7 +97,43 @@
       <input type="radio" name="correctAnswer" value = "D">D
     </label>
   </form>
+  </div>
+
+
+<div class="well" id="MoreThanOneOptions">
+  <form>
+    More Than One Can be Correct
+      <label class="checkbox-inline">
+        <input type="checkbox" name="multipleCorrectAnswer" value="A">A
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="multipleCorrectAnswer" value="B">B
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="multipleCorrectAnswer" value="C">C
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" name="multipleCorrectAnswer" value="D">D
+      </label>
+    </form>
+  </div>
+
+  <div class="well" id="IntegerType">
+    <form>
+      Integer Type Answer
+        <input id="answerInteger">
+      </form>
+    </div>
+
+    <div class="well" id="DecimalType">
+      <form>
+        Decimal Type Answer
+          <input id="answerDecimal">
+        </form>
+      </div>
 </div>
+
+
 </div>
 
 <div class="container">

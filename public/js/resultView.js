@@ -35,7 +35,7 @@ async function loadTestResult(testName){
     
 
     for(i=0;i<data.allStudentsMarks.length;i++){
-        var newStudent = new Student(data.allStudentNames[i],data.allStudentsMarks[i] )
+        var newStudent = new Student(data.allStudentNames[i],data.allStudentsMarks[i],data.maxMarks )
         AllStudentResults.push(newStudent)
     }
       
@@ -49,16 +49,17 @@ function DisplayResult(){
     $question.innerHTML=''
     for(i=0;i<AllStudentResults.length;i++)
     {
-        $question.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'<br/>')
+        $question.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'&nbsp out of '+AllStudentResults[i].getMaxMarks()+'<br/>')
     }
 
 }
 
 const Student = class{
-    constructor(name,marks){
+    constructor(name,marks,maxMarks){
         
         this.name = name
         this.marks = marks
+        this.maxMarks = maxMarks
     }
     getName = function(){
         return this.name
@@ -67,6 +68,9 @@ const Student = class{
     getMarks = function(){
         return this.marks
         
+    }
+    getMaxMarks = function(){
+        return this.maxMarks
     }
 
 }

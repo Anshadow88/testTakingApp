@@ -14,6 +14,10 @@ const TestPaper= new mongoose.Schema({
         questionID:{type : String, required: true,},
         
     }],
+    time: {
+        type:Number,
+        default:60
+    },
     result:[{
         userID:{type :String,required:true,unique:true},
         userName:{type:String, require:true},

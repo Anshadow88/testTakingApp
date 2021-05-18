@@ -1,3 +1,5 @@
+let questionType= 1
+if(sessionStorage.questionType) questionType = sessionStorage.questionType
 let $nameOfTypist = document.getElementById('nameOfTypist')
 const $nameOfTypistButton = document.getElementById('nameOfTypistButton')
 let nameOfTypist = sessionStorage.nameOfTypist
@@ -16,11 +18,13 @@ const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 
 let $fixExamNameButton = document.getElementById('fixExamNameButton')
 var $examNameButtons = document.getElementsByName('examNameButtons')
-let $correctAnswerButtons = document.getElementsByName('correctAnswer')
+
 let $chapterNumberInput = document.getElementById('chapterNumberInput')
 let $fixChapterNameButton = document.getElementById('fixChapterNameButton')
 let $yearOfExamInput = document.getElementById('yearOFExamInput')
 let $setYearOfExamButton = document.getElementById('setYearOfExamButton')
+let $setQuestionTypeButton = document.getElementById('setQuestionTypeButton')
+let $questionType = document.getElementById('questionType')
 
 let selectedChapter = 0
 if(sessionStorage.selectedChapter) selectedChapter = sessionStorage.selectedChapter
@@ -42,6 +46,12 @@ let imageFile
 $inputImage.addEventListener('change', () => {
     imageFile = $inputImage.files[0]
 });
+
+$setQuestionTypeButton.addEventListener('click',(e)=>{
+    questionType = $questionType.value
+    sessionStorage.questionType = questionType
+    setQuestionTypeEverywhere()
+})
 
 $fixChapterNameButton.addEventListener('click',(e)=>{
     selectedChapter=$chapterNumberInput.value
@@ -76,22 +86,7 @@ $showMathButton.addEventListener('click',(e)=>{
 
     inputQuestionText = $newQuestionText.value
     modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-    $questionTextWithMath.innerHTML = modifiedText
-    selectedChapter = $chapterNumberInput.value
-    for (var rb of $correctAnswerButtons) {
-        if (rb.checked) {
-            selectedAnswer = rb.value;
-            console.log(selectedAnswer)
-            break;
-        }
-    }
-    for (var rc of $examNameButtons) {
-        if (rc.checked) {
-            examName = rc.value;
-            console.log(examName)
-            break;
-        }
-    }
+    $questionTextWithMath.innerHTML = modifiedText    
 
 })
 
@@ -100,16 +95,11 @@ $showMathButton.addEventListener('click',(e)=>{
 $postQuestionButton.addEventListener('click',(e)=>{   
     inputQuestionText = $newQuestionText.value
     modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
-    $questionTextWithMath.innerHTML = modifiedText
+
     yearOfExam = $yearOfExamInput.value
     selectedChapter = $chapterNumberInput.value
-    for (var rb of $correctAnswerButtons) {
-        if (rb.checked) {
-            selectedAnswer = rb.value;
-            console.log(selectedAnswer)
-            break;
-        }
-    }
+    takeInputFromCorrectTypeAnswer()
+    
     for (var rc of $examNameButtons) {
         if (rc.checked) {
             examName = rc.value;
@@ -128,6 +118,61 @@ $postQuestionButton.addEventListener('click',(e)=>{
     else
     postQuestion()
 })
+
+function takeInputFromCorrectTypeAnswer(){
+    if(questionType==1)
+    {        
+        let $correctAnswerButtons = document.getElementsByName('correctAnswer')
+        for (var rb of $correctAnswerButtons) {
+            if (rb.checked) {
+                selectedAnswer = rb.value;
+                console.log(selectedAnswer)
+                break;
+            }
+        }
+    }
+    
+    else if(questionType==2)//morethanOne
+    {        
+        let $multipleCorrectAnswerButtons = document.getElementsByName('multipleCorrectAnswer')
+        selectedAnswerString=''
+        for (var rb of $multipleCorrectAnswerButtons) {
+            if (rb.checked) {
+                selectedAnswerString += rb.value;                              
+            }
+        }
+        selectedAnswer = selectedAnswerString
+        console.log(selectedAnswerString)
+    }
+    else if(questionType==3)//integerType
+    {
+        selectedAnswer = document.getElementById('answerInteger').value
+    }
+    else if(questionType==4)//decimaltype
+    {
+        selectedAnswer = document.getElementById('answerDecimal').value
+    }
+
+
+}
+
+
+function setQuestionTypeEverywhere(){    
+    document.getElementById('SingleOptions').style.display='none'
+    document.getElementById('MoreThanOneOptions').style.display='none'
+    document.getElementById('IntegerType').style.display='none'
+    document.getElementById('DecimalType').style.display='none'
+    if(questionType==1){
+        document.getElementById('SingleOptions').style.display=''
+    }else if(questionType == 2){
+        document.getElementById('MoreThanOneOptions').style.display=''
+    }else if(questionType == 3){
+        document.getElementById('IntegerType').style.display=''
+    }else if(questionType == 4){
+        document.getElementById('DecimalType').style.display=''
+    }
+ }
+
 
 async function uploadFile(file) {
     imageKeyAWS=''

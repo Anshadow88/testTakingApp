@@ -79,6 +79,7 @@ router.post('/testPaperNameResult', async (req, res) => {
               
         let allStudentNames=[]
         let allStudentsMarks=[]
+        let maxMarks = testPaper['result'][0].maxMarks
         for(i=0;i<testPaper.result.length;i++)
         {
                allStudentNames.push(testPaper['result'][i].userName)
@@ -90,7 +91,7 @@ router.post('/testPaperNameResult', async (req, res) => {
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json({allStudentNames,allStudentsMarks})
+            return res.status(200).json({allStudentNames,allStudentsMarks,maxMarks})
         }
     } catch (error) {
         return res.status(500).json({"error":error})
