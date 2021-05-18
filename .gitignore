@@ -1,6 +1,7 @@
 node_modules
 config
 .env
+.bash_profile
 # uploads
 # uploads\
 # src/uploads/

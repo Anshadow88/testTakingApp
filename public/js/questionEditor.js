@@ -4,6 +4,11 @@ const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton'
 const $FindChapterName = document.getElementById('FindChapterName')
 const $FindChapterButton = document.getElementById('FindChapterButton')
 
+const $FindTestName = document.getElementById('FindTestName')
+const $FindTestButton = document.getElementById('FindTestButton')
+
+
+
 const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 const $correctAnswer = document.querySelector('#correctAnswer')
@@ -47,6 +52,11 @@ $FindQuestionByIDButton.addEventListener('click',(e)=>{
 $FindChapterButton.addEventListener('click',(e)=>{
     chapterName = $FindChapterName.value
     getQuestionOfChapter(chapterName)
+})
+
+$FindTestButton.addEventListener('click',(e)=>{
+    testName = $FindTestName.value
+    getQuestionOfTests(testName)
 })
 
 $showMathButton.addEventListener('click',(e)=>{
@@ -122,6 +132,33 @@ async function getQuestionOfChapter(chapter){
     QuestionsOFChapters = data
     console.log(data)
     QuestionCount = QuestionsOFChapters.length-1
+    showCurrentQuestion()
+    
+}
+
+async function getQuestionOfTests(testName){     
+    //console.log("Global: "+TOKEN)
+    const response  = await fetch("/testPaperWithNameForEditing", {          
+    // Adding method type
+    method: "POST",
+      
+    header: {
+    },
+
+    body: JSON.stringify({
+        name : testName
+    }),
+    // Adding body or contents to send
+        // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    QuestionsOFChapters = data.questionsOfChapter
+    console.log(data)
+    QuestionCount = 0
     showCurrentQuestion()
     
 }

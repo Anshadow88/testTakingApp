@@ -29,6 +29,33 @@ router.post('/testPaper', async (req, res) => {
 })
 
 // get one quiz 
+
+router.post('/testPaperWithNameForEditing', async (req, res) => {
+    try {
+       console.log(req.body)
+        const testName = req.body.name 
+        const testPaper = await TestPaper.findOne({name:testName})  
+
+        
+        let allQuestionsIDs=[]
+        for(i=0;i<testPaper.questions.length;i++)
+        {
+               allQuestionsIDs.push(testPaper.questions[i].questionID)
+        }
+        let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
+       
+        
+       // console.log(questionsOfChapter)
+
+        if(!testPaper){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json({questionsOfChapter})
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
 router.post('/testPaperWithName', async (req, res) => {
     try {
        // console.log(req.body)

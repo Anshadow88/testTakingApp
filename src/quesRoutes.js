@@ -79,8 +79,8 @@ router.post('/questions/:id/image',upload.single('avatar'),async (req,res)=>{
         res.send(file)
 })
 
-router.get('/uploads/:id',upload.single('avatar'),async (req,res)=>{
-    const file = await getFileStream(req.params.id)//to AWS
+router.get('/uploads/:id',async (req,res)=>{
+    const file = await getFileStream(req.params.id)//from AWS
     console.log(file)
     file.pipe(res)
 })
