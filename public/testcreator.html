@@ -16,9 +16,12 @@
     <div class="container">
       <div class="well">
         Find Questions by Chapter 
+
         <input id ="FindChapterName"><button id="FindChapterButton">Find</button>
-        <input id ="SelectedTest"><button>Find </button>
-        <input id ="QuestionID"><button id="FindQuestionByIDButton">Find</button>
+        ExamYear
+        <input id ="examName"><input id ="examYear"><button id="FindByExamYearButton">Find </button>
+        
+        ID<input id ="QuestionID"><button id="FindQuestionByIDButton">Find</button>
       </div>
     </div>
     
@@ -52,6 +55,7 @@
 
 <div class="container">
   <div class ="well">
+
        <button type="button" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
        <button type="button" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
 
@@ -60,6 +64,7 @@
         <button type="button" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>
       </div>
 </div>
+
 
 <div class="container">
   <div class = "well">

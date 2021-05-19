@@ -4,6 +4,8 @@ const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton'
 const $FindChapterName = document.getElementById('FindChapterName')
 const $FindChapterButton = document.getElementById('FindChapterButton')
 
+const $FindByExamYearButton = document.getElementById('FindByExamYearButton')
+
 const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 //const $correctAnswer = document.querySelector('#correctAnswer')
@@ -43,6 +45,13 @@ let imageFile
 $NewTestButton.addEventListener('click',(e)=>{
     console.log('1001')
     postNewTestPaper($NewTestName.value)
+
+})
+
+$FindByExamYearButton.addEventListener('click',(e)=>{
+    exam = document.getElementById('examName').value    
+    year = document.getElementById('examYear').value
+    getQuestionOfExamYear(exam,year)
 
 })
 
@@ -119,6 +128,34 @@ async function getQuestionOfChapter(chapter){
 
     body: JSON.stringify({
         chapter : chapter
+    }),
+    // Adding body or contents to send
+        // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    QuestionsOFChapters = data
+    console.log(data)
+    QuestionCount = (QuestionsOFChapters.length-1)
+    showCurrentQuestion()
+    
+}
+
+async function getQuestionOfExamYear(exam,year){     
+    //console.log("Global: "+TOKEN)
+    const response  = await fetch("/questions/examYear", {          
+    // Adding method type
+    method: "POST",
+      
+    header: {
+    },
+
+    body: JSON.stringify({
+        exam : exam,
+        year: year
     }),
     // Adding body or contents to send
         // Adding headers to the request

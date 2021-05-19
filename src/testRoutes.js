@@ -41,9 +41,13 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
         for(i=0;i<testPaper.questions.length;i++)
         {
                allQuestionsIDs.push(testPaper.questions[i].questionID)
+               
         }
+       // console.log(allQuestionsIDs)
+        
         let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
        
+       // console.log(questionsOfChapter)
         
        // console.log(questionsOfChapter)
 

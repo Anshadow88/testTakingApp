@@ -101,6 +101,24 @@ router.post('/questions/chapter',async (req, res) => {
     }
 })
 
+router.post('/questions/examYear',async (req, res) => {   
+    try {
+       // console.log(req.body)
+        const exam = req.body.exam  
+        const year = req.body.year     
+        var questionsOfExamYear = await Question.find({ exam: exam,year: year }).exec()   
+       // console.log(questionsOfExamYear)
+        if(!questionsOfExamYear){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json(questionsOfExamYear)
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+
 //update a question 
 router.patch('/questionUpdate/:id',async(req,res)=>{
     
