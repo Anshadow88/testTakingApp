@@ -1,6 +1,7 @@
 let $questionType = document.getElementById('questionType')
 let questionType= 1
 if(sessionStorage.questionType) questionType = sessionStorage.questionType
+$questionType.value = questionType
 setQuestionTypeEverywhere()
 
 let $nameOfTypist = document.getElementById('nameOfTypist')
@@ -217,7 +218,8 @@ async function postQuestion(){
         author: nameOfTypist,
         image: imageKeyAWS,
         exam: examName,
-        year: yearOfExam
+        year: yearOfExam,
+        type: questionType
 
     }),
     // Adding headers to the request
