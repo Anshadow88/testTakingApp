@@ -2,6 +2,7 @@ let $questionType = document.getElementById('questionType')
 let questionType= 1
 if(sessionStorage.questionType) questionType = sessionStorage.questionType
 setQuestionTypeEverywhere()
+
 let $nameOfTypist = document.getElementById('nameOfTypist')
 const $nameOfTypistButton = document.getElementById('nameOfTypistButton')
 let nameOfTypist = sessionStorage.nameOfTypist
