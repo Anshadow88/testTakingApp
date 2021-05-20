@@ -6,6 +6,15 @@ const TestPaper= new mongoose.Schema({
         required: true,
         trim:true        
     },
+    time:{
+        type:Number
+    },
+    description:{
+        type:String,
+        required: true,
+        default:''     
+
+    },
     author:{
         type:String,
         default:'unknown'

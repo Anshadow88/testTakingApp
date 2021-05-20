@@ -1,10 +1,7 @@
-const $QuestionID = document.getElementById('QuestionID')
+
 const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
-
-const $FindChapterName = document.getElementById('FindChapterName')
-const $FindChapterButton = document.getElementById('FindChapterButton')
-
-const $FindByExamYearButton = document.getElementById('FindByExamYearButton')
+const $findQuestions = document.getElementById('findQuestions')
+// const $FindByExamYearButton = document.getElementById('FindByExamYearButton')
 
 const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
@@ -29,18 +26,13 @@ let QuestionCount=0
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
 let SelectedQuestionIDs = []
 let SelectedQuestionNumber = []
+let SelectedQuestions = []
 let SelectedQuestionCount =0
 
 let selectedChapter = ""
 let selectedAnswer = ""
 
 let $image = document.getElementById('image')
-//const inputImage = document.getElementById('imageInput');
-let imageFile
-// add event listener
-// inputImage.addEventListener('change', () => {
-//     imageFile = inputImage.files[0]
-// });
 
 $NewTestButton.addEventListener('click',(e)=>{
     console.log('1001')
@@ -48,21 +40,20 @@ $NewTestButton.addEventListener('click',(e)=>{
 
 })
 
-$FindByExamYearButton.addEventListener('click',(e)=>{
-    exam = document.getElementById('examName').value    
-    year = document.getElementById('examYear').value
-    getQuestionOfExamYear(exam,year)
-
-})
-
 $FindQuestionByIDButton.addEventListener('click',(e)=>{
+    const $QuestionID = document.getElementById('QuestionID')
     QUESID = $QuestionID.value
     getQuestion(QUESID)
 })
 
-$FindChapterButton.addEventListener('click',(e)=>{
-    chapterName = $FindChapterName.value
-    getQuestionOfChapter(chapterName)
+
+
+$findQuestions.addEventListener('click',(e)=>{
+    exam = document.getElementById('examName').value    
+    year = document.getElementById('examYear').value
+    chapterName = document.getElementById('chapterNameInput').value
+    getQuestions(exam,year,chapterName)
+
 })
 
 // $showMathButton.addEventListener('click',(e)=>{
@@ -144,9 +135,9 @@ async function getQuestionOfChapter(chapter){
     
 }
 
-async function getQuestionOfExamYear(exam,year){     
+async function getQuestions(exam,year,chapter){     
     //console.log("Global: "+TOKEN)
-    const response  = await fetch("/questions/examYear", {          
+    const response  = await fetch("/findQuestions", {          
     // Adding method type
     method: "POST",
       
@@ -155,7 +146,8 @@ async function getQuestionOfExamYear(exam,year){
 
     body: JSON.stringify({
         exam : exam,
-        year: year
+        year: year,
+        chapter: chapter
     }),
     // Adding body or contents to send
         // Adding headers to the request
@@ -167,7 +159,7 @@ async function getQuestionOfExamYear(exam,year){
     var data = await response.json()   
     QuestionsOFChapters = data
     console.log(data)
-    QuestionCount = (QuestionsOFChapters.length-1)
+    QuestionCount = (0)
     showCurrentQuestion()
     
 }
@@ -177,9 +169,13 @@ function showCurrentQuestion(){
     
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
-    $questionNumber.innerHTML = 'No.&nbsp'+(QuestionCount+1)+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
-    $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+'<br/><br/> Answer:'+(QuestionsOFChapters[QuestionCount].answer);
-    $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
+    $questionNumber.innerHTML = 'Ques. <b>'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length+'</b>'//+'        Question ID:'+QuestionsOFChapters[QuestionCount]._id
+    $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+
+                                '<br/><br/> Answer: <b>'+(QuestionsOFChapters[QuestionCount].answer)+'</b>'
+    $chapterNumber.innerHTML = 'Chapter Name: <b>'+getChapterName((QuestionsOFChapters[QuestionCount].chapter))+'</b>&nbsp'+
+                                'Exam: <b>'+ getExamName(QuestionsOFChapters[QuestionCount].exam)+'</b>&nbsp'+
+                                'Year: <b>'+ QuestionsOFChapters[QuestionCount].year+'</b>'
+
     
     $image.style.display='none'
     console.log(QuestionsOFChapters[QuestionCount].image)
@@ -195,37 +191,31 @@ function showCurrentQuestion(){
 
 function AddAQuestionToSelection(){     
     let alreadySelected = false
-    for(i=0;i<SelectedQuestionIDs.length;i++)
-    {
-        if(SelectedQuestionIDs[i]==QuestionsOFChapters[QuestionCount]._id)
-        alreadySelected = true
+    SelectedQuestionIDs.forEach(e => {
+            if(e == QuestionsOFChapters[QuestionCount]._id )   
+            alreadySelected = true;            
+    })
+    if(!alreadySelected){
+         SelectedQuestions.push(QuestionsOFChapters[QuestionCount])
+         SelectedQuestionIDs.push(QuestionsOFChapters[QuestionCount]._id)
     }
-    if(alreadySelected==false&&QuestionsOFChapters[QuestionCount]._id)
-    {
-        SelectedQuestionIDs.push({'questionID': QuestionsOFChapters[QuestionCount]._id})
-        SelectedQuestionNumber.push(QuestionCount)
-        SelectedQuestionCount++
-    }
-    console.log(SelectedQuestionNumber)
-    ShowPaper()
-       
+    ShowPaper()       
  }
 
  function RemoveAQuestionToSelection(){     
     
     SelectedQuestionIDs.pop({'questionID': QuestionsOFChapters[QuestionCount]._id})
-    SelectedQuestionNumber.pop(QuestionCount)
-    console.log(SelectedQuestionNumber)
+    SelectedQuestions.pop(QuestionsOFChapters[QuestionCount])
     ShowPaper()
        
  }
 
  function ShowPaper(){
     let paperText=''
-    for(i=0;i<SelectedQuestionNumber.length;i++)
+    for(i=0;i<SelectedQuestions.length;i++)
     {
         paperText+= 'Q.'+ (i+1) +'&nbsp'+
-        QuestionsOFChapters[SelectedQuestionNumber[i]].question+'<br/>'
+        SelectedQuestions[i].question+'<br/><br/>'
     }
     $paper.innerHTML = paperText
 
@@ -250,10 +240,42 @@ async function postNewTestPaper(testName){
         "Content-type": "application/json; charset=UTF-8"
     }
 })
-  
-// Converting to JSON
 .then().then()
 
 var data = await response.json()
 console.log(data)
+}
+
+function getChapterName(number){
+    if(number==0)return ''    
+    if(number==1)return 'Vectors, Maths & Errors'
+    else if(number==2)return 'Kinematics'
+    else if(number==3)return 'Newtons Laws'
+    else if(number==4)return 'Work, Power & Energy'
+    else if(number==5)return 'Conservation of Momentum'
+    else if(number==6)return 'Rotational Motion'
+    else if(number==7)return 'Properties of Matter'
+    else if(number==8)return 'Gravitation '
+    else if(number==9)return 'Fluid Mechanics'
+    else if(number==10)return 'Thermodynamics'
+    else if(number==11)return 'Oscillation (SHM)'
+    else if(number==12)return 'Waves'
+    else if(number==13)return 'Electrostatics'
+    else if(number==14)return 'Current Electricity'
+    else if(number==15)return 'Magnetism'
+    else if(number==16)return 'EMI & AC'   
+    else if(number==17)return 'Ray Optics'
+    else if(number==18)return 'Wave Optics'
+    else if(number==19)return 'Modern Physics'  
+    else if(number==20)return 'Semiconductors'
+}
+
+function getExamName(number){
+    if(number == 0)return ''
+    else if(number==1) return 'NEET'
+    else if(number==2) return 'JEE Mains'
+    else if(number==3) return 'Advanced'
+    else if(number==4) return 'State Exams'
+
+
 }

@@ -39,36 +39,6 @@ router.get('/questions/:id', async (req, res) => {
     }
 })
 
-//post question image by id
-// router.post('/questions/:id/image', async (req, res) => {
-//     try {
-//         if(!req.files) {
-//             res.send({
-//                 status: false,
-//                 message: 'No file uploaded'
-//             });
-//         } else {
-//             let avatar = req.files.avatar;
-//             avatar.mv('./src/uploads/' + req.params.id+'.png');
-//             console.log(avatar)
-//             const result = await uploadFile(avatar)
-//             console.log(result)
-//             //send response
-//             res.send({
-//                 status: '200',
-//                 message: 'File is uploaded',
-//                 data: {
-//                     name: avatar.name,
-//                     mimetype: avatar.mimetype,
-//                     size: avatar.size
-//                 }
-
-//             });
-//         }
-//     } catch (err) {
-//         res.status(500).send(err);
-//     }
-// });
 
 router.post('/questions/:id/image',upload.single('avatar'),async (req,res)=>{
         const file = req.file
@@ -105,13 +75,45 @@ router.post('/questions/examYear',async (req, res) => {
     try {
        // console.log(req.body)
         const exam = req.body.exam  
-        const year = req.body.year     
-        var questionsOfExamYear = await Question.find({ exam: exam,year: year }).exec()   
+        const year = req.body.year  
+        const chapter = req.body.chapter
+        var questionsOfExamYear = await Question.find({ exam: exam,year: year,chapter:chapter }).exec()   
        // console.log(questionsOfExamYear)
         if(!questionsOfExamYear){
             return res.status(404).json({})
         }else{
             return res.status(200).json(questionsOfExamYear)
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+router.post('/findQuestions',async (req, res) => {   
+    try {
+        //console.log(req.body)
+        const exam = req.body.exam  
+        const year = req.body.year     
+        const chapter = req.body.chapter
+        var questionsFound        
+        if(chapter=='undefined'&&year=='undefined')
+        questionsFound = await Question.find({exam: exam }).exec()   
+        else if(exam=='undefined')
+        questionsFound = await Question.find({chapter: chapter }).exec()   
+        else if(year=='undefined')
+        questionsFound = await Question.find({chapter: chapter,exam: exam }).exec() 
+        else if(chapter=='undefined')
+        questionsFound = await Question.find({exam: exam, year:year }).exec()           
+        else
+        questionsFound = await Question.find({chapter: chapter,exam: exam,year:year }).exec()     
+        
+        //console.log(questionsFound)
+        
+       // console.log(questionsOfExamYear)
+        if(!questionsFound){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json(questionsFound)
         }
     } catch (error) {
         return res.status(500).json({"error":error})

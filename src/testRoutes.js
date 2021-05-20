@@ -5,12 +5,12 @@ const TestPaper = require('./models/testPaperModel')
 const Question = require('./models/QuestionModel')
 
 //GET ALL TESTS
-router.get('/alltestPaper', async (req, res) => {
+router.get('/allTests', async (req, res) => {
     console.log('Hello')
     try {
         
-        const alltests = await TestPaper.find()  
-        return res.status(201).json(alltests)
+        const allTests = await TestPaper.find()  
+        return res.status(201).json(allTests)
     } catch (error) {
         return res.status(500).json({"error":error})
     }

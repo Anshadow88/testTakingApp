@@ -1,5 +1,7 @@
+let $questionType = document.getElementById('questionType')
 let questionType= 1
 if(sessionStorage.questionType) questionType = sessionStorage.questionType
+setQuestionTypeEverywhere()
 let $nameOfTypist = document.getElementById('nameOfTypist')
 const $nameOfTypistButton = document.getElementById('nameOfTypistButton')
 let nameOfTypist = sessionStorage.nameOfTypist
@@ -24,7 +26,7 @@ let $fixChapterNameButton = document.getElementById('fixChapterNameButton')
 let $yearOfExamInput = document.getElementById('yearOFExamInput')
 let $setYearOfExamButton = document.getElementById('setYearOfExamButton')
 let $setQuestionTypeButton = document.getElementById('setQuestionTypeButton')
-let $questionType = document.getElementById('questionType')
+
 
 let selectedChapter = 0
 if(sessionStorage.selectedChapter) selectedChapter = sessionStorage.selectedChapter
