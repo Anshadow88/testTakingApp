@@ -16,8 +16,9 @@
     <div class="container">
       <div class="well">
         <div class="form-group">
-          Chapter:
+          
           <select id="chapterNameInput" style="width: fit-content;display: inline;"class="form-control">
+            Chapter:
             <option value="undefined">All Chapters</option>
             <option value="1">1. Vectors, Maths &  Errors</option>
             <option value="2">2. Kinematics</option>
@@ -41,8 +42,9 @@
             <option value="20">20. Semiconductors</option>
           </select>          
       
-          &nbsp Exam: 
+          
           <select id="examName" style="width: fit-content;display: inline;"class="form-control">
+            &nbsp Exam: 
             <option value="undefined">None</option>
             <option value="1">NEET</option>
             <option value="2">Jee Mains</option>
@@ -51,8 +53,9 @@
             <option value="5">State Engineering</option>
           </select>          
         
-          &nbsp Year: 
+           
           <select id="examYear" style="width: fit-content;display: inline;"class="form-control">
+            &nbsp Year:
             <option value="undefined">All</option>
             <option>2001</option>
             <option>2002</option>
@@ -84,10 +87,11 @@
     </div>
     <div class="container">
       <div class ="well">
-    
+           <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
            <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
            <button type="button" style="width: 80px;" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
-    
+           <button type="button" style="width: 30px;" class="btn btn-success" id="nextBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8680;</button>
+           
             <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
             <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Select Question</button>
             <button type="button" style="width: 130px;" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>

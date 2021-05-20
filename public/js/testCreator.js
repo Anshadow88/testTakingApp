@@ -11,6 +11,8 @@ const $paper = document.getElementById('paper')
 
 const $previousButton = document.querySelector('#previousButton')
 const $nextButton = document.querySelector('#nextButton')
+const $previousBigButton = document.querySelector('#previousBigButton')
+const $nextBigButton = document.querySelector('#nextBigButton')
 
 
 // const $showMathButton = document.querySelector('#showMathButton')
@@ -64,6 +66,16 @@ $findQuestions.addEventListener('click',(e)=>{
 
 // })
 
+$nextBigButton.addEventListener('click',(e)=>{
+    QuestionCount+=25
+    showCurrentQuestion()
+    
+})
+
+$previousBigButton.addEventListener('click',(e)=>{
+    QuestionCount-=25
+    showCurrentQuestion()
+})
 
 $nextButton.addEventListener('click',(e)=>{
     QuestionCount++
