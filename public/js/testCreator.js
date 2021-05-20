@@ -197,7 +197,7 @@ function AddAQuestionToSelection(){
     })
     if(!alreadySelected){
          SelectedQuestions.push(QuestionsOFChapters[QuestionCount])
-         SelectedQuestionIDs.push(QuestionsOFChapters[QuestionCount]._id)
+         SelectedQuestionIDs.push({'questionID':QuestionsOFChapters[QuestionCount]._id})
     }
     ShowPaper()       
  }
