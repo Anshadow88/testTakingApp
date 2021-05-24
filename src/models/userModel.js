@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema( {
             type: String,
             required: true
         },
+        testName:{
+            type: String
+
+        },
         marks:{
             type: Number
 
@@ -85,10 +89,10 @@ userSchema.virtual('tasks',{
 userSchema.methods.generateAuthToken = async function(){
     const user = this      
     const token = jwt.sign({_id: user._id.toString()},process.env.JWT_KEY)
-   console.log(token)
+  // console.log(token)
    user.tokens = user.tokens.concat({token})
    await user.save()
-   console.log('chk 32')   
+  // console.log('chk 32')   
    return token
 
 }

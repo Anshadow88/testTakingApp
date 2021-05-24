@@ -49,33 +49,72 @@
         </div>
       </div>
 
-      <div class="container" id = "studentMenu">
+      <div class="container" id = "studentMenu" style="display: none;">
         <div class = "well" style="background-color:rgb(255, 251, 194)">
-          <button class = "btn btn-success" id="testAppButton">Profile</button>
-          <button class = "btn btn-success" id="testAppButton">Get Test</button>
-          <button class = "btn btn-success" id="testAppButton">My Results</button>
+          <h4 class ="well" id="intro"></h4>
+          <button class = "btn btn-success" id="openProfieButton">Profile</button>
+          <button class = "btn btn-success" id="openTestAppButton">Get Test</button>
+          <button class = "btn btn-success" id="openResultButton">My Results</button>
           
 
         </div>
       </div>
 
 
-      <div class="container" id = "profile">
-        <div class = "well">
-          PROFILE
+      <div class="container" id = "profileSection" style="display: none;" >
+        <div class = "well">    
+          <div id="profile">   
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">1.</th>
+                  <th scope="col">Name</th>
+                  <th scope="col" id="studenName">XYZ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">2.</th>
+                  <td>Class</td>
+                  <td id="classStudying">12</td>
+                </tr>
+                <tr>
+                  <th scope="row">3.</th>
+                  <td>Target</td>
+                  <td id="exam">JEE Advanced</td>                  
+                </tr>
+                <tr>
+                  <th scope="row">4.</th>
+                  <td >Location</td>
+                  <td>Delhi</td>
+                </tr>
+                <tr>
+                  <th scope="row">5.</th>
+                  <td >Teacher</td>
+                  <td>Anshul Gupta Sir</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
 
-      <div class="container" id = "results">
-        <div class = "well">
-          RESULT SECTION
+      <div class="container" id = "resultSection" style="display: none;">
+        <div class = "well">                    
+          <div id="myDynamicTable">
+
+
+
+          </div>  
+          
+          
         </div>
       </div>
 
-      <div class = "container" id = "testApp">          
+      <div class = "container" id = "testApp" style="display: none;">          
           <div class="well" >
-          <h4 class = "well">Quiz & Test Section</h4>
-          <p class ="well" id="intro"></p>
+          <h4 class = "well">DPPs & Tests Section</h4>         
                   
             <div class="well" >
             <p>Test Code: <input  type="text" id = "testName"> 
@@ -83,14 +122,9 @@
             
             <span class="well"> Time Remaining:  <span class ="well" id="time">00:00 minutes </span></span>
             </div>
-            <p id="messageReview"></p>        
+            <p id="messageReview"></p>    
             
-           <!-- <button type="button" style="margin: 10px" class="btn btn-danger" id="getQuestionButton">Get Next Question</button> -->
            
-          
-          
-            
-        
           <div class="well">
           
            <h4 class="well" id = "questionNumber" style="text-align: left;">Tips:</h4>
@@ -100,11 +134,8 @@
               3. At the last question a Submit Button will appear the test</p>
            
           </div>
-            <!-- <div class="container">
-            <button type="button" style="margin: 10px " class="btn btn-primary" id="selectQuestion">Select This Question</button>
-            </div> -->
 
-            <img id ="image">
+           <img id ="image">
           
            <div class="container">
             
@@ -146,7 +177,7 @@
 </body>
 
 <script src="/js/login.js"></script>
-<!-- <script src="/js/questionAsker.js"></script> -->
-
+<script src="/js/studentPage.js"></script>
 <script src="/js/testTaker.js"></script>
+<script src="/js/studentResult.js"></script>
 </html>

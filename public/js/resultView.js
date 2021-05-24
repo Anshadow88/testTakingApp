@@ -25,7 +25,7 @@ async function loadAllTestResult(){
     method: "GET",
       
     header: {
-        "Authorization": "Bearer " + TOKEN
+        // "Authorization": "Bearer " + TOKEN
     },
     // Adding body or contents to send
     
@@ -41,14 +41,18 @@ async function loadAllTestResult(){
 }
 
 function DisplayAllResult(allTests){
+    $question = document.querySelector('#question')
+
+    $question.innerHTML=''
+    
     for(i=0;i<allTests.length;i++)    
     {
-        console.log((i+1)+ ' TestCode '+allTests[i].name)
+        $question.innerHTML+=((i+1)+ ' TestCode '+allTests[i].name+'<br/>')
         for(j=0;j<allTests[i].result.length;j++)
         {
-            console.log('    '+(j+1)+' '+allTests[i].result[j].userName+' got '+
+            $question.innerHTML+=('......'+(j+1)+' '+allTests[i].result[j].userName+' got '+
             allTests[i].result[j].marksObtained+' out of '+
-            allTests[i].result[j].maxMarks )
+            allTests[i].result[j].maxMarks )+'<br/>'
         }
     }
 }

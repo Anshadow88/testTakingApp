@@ -1,3 +1,4 @@
+
 const $testStartbutton = document.querySelector('#getTestButton')
 const $testName = document.querySelector('#testName')
 //const $reviewButton = document.querySelector('#reviewButton')
@@ -36,14 +37,22 @@ window.TESTID =""
 confirmationMenu.style.display ='none'
 submitTestButton.style.display = 'none'
 
+
+
 $testStartbutton.addEventListener('click',GetTest)
 //$reviewButton.addEventListener('click',GetTest)
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
 $OptionDButton.addEventListener('click',CheckOptionD)
+
 $nextQuestionButton.addEventListener('click',(e)=>{
     DisplayNextQuestion()
+})
+
+$openTestAppButton.addEventListener('click',()=>{
+    console.log('TestApp')
+    loadAllTestsData()
 })
 
 $previousQuestionButton.addEventListener('click',(e)=>{
@@ -78,6 +87,8 @@ function CheckOptionB(){
     MarkAnswer('D',availableQuestions[questionCount])
 }
 
+///VERY IMPORTANT
+
 
 function GetTest()
 {
@@ -85,6 +96,76 @@ function GetTest()
     testName = $testName.value
     loadTest(testName)
 }
+
+async function loadAllTestsData(){     
+    //console.log("Global: "+TOKEN)
+    const response  = await fetch("/allTests", {          
+    // Adding method type
+    method: "GET",
+      
+    header: {
+    },
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    console.log(data)
+    DisplayAllTestCodes(data)
+}
+
+
+function DisplayAllTestCodes(allTests){
+    $question = document.querySelector('#question')
+
+    $question.innerHTML=''
+    $question.innerHTML = 'Tests Given By '+USERNAME
+    for(i=0;i<allTests.length;i++)    
+    {
+        count =1
+        for(j=0;j<allTests[i].result.length;j++)
+        {
+            //console.log('user id in Global : .....'+USERID+' should match '+allTests[i].result[j].userID)
+            
+            if(USERID==allTests[i].result[j].userID)
+            {
+                $question.innerHTML+=('<br/>'+(count)+ ' TestCode '+allTests[i].name)
+                $question.innerHTML+=('..........'+'You scored '+
+                allTests[i].result[j].marksObtained+' out of '+
+                allTests[i].result[j].maxMarks )
+            }
+            
+        }    
+        count++
+
+    }
+    
+    $question.innerHTML += '<br/><br/><br/>Other Available Tests '+USERNAME
+
+    for(i=0;i<allTests.length;i++)    
+    {
+        count =1
+        attempt = false
+        for(j=0;j<allTests[i].result.length;j++)
+        {
+            //console.log('user id in Global : .....'+USERID+' should match '+allTests[i].result[j].userID)
+            
+            if(USERID==allTests[i].result[j].userID)
+            {
+                attempt = true
+                
+            }              
+            
+        }   
+        if(attempt==false)$question.innerHTML+=('<br/>'+(count)+ ' TestCode '+allTests[i].name)
+             
+        count++
+
+    }
+}
+
+
 
 async function loadTest(testName){     
         //console.log("Global: "+TOKEN)

@@ -1,5 +1,5 @@
 let $questionType = document.getElementById('questionType')
-let questionType= 1
+let questionType
 if(sessionStorage.questionType) questionType = sessionStorage.questionType
 $questionType.value = questionType
 setQuestionTypeEverywhere()
@@ -99,7 +99,7 @@ $showMathButton.addEventListener('click',(e)=>{
 $postQuestionButton.addEventListener('click',(e)=>{   
     inputQuestionText = $newQuestionText.value
     modifiedText = inputQuestionText.replace(/(?:\r\n|\r|\n)/g, "<br>")
-
+    questionType = $questionType.value
     yearOfExam = $yearOfExamInput.value
     selectedChapter = $chapterNumberInput.value
     takeInputFromCorrectTypeAnswer()
@@ -111,7 +111,7 @@ $postQuestionButton.addEventListener('click',(e)=>{
             break;
         }
     }
-    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist||!examName)
+    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist||!examName||!questionType)
     {
         alert('Please fill all fields')
         return

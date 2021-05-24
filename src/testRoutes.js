@@ -3,6 +3,7 @@ const router = express.Router()
 
 const TestPaper = require('./models/testPaperModel')
 const Question = require('./models/QuestionModel')
+const User = require('./models/userModel')
 
 //GET ALL TESTS
 router.get('/allTests', async (req, res) => {
@@ -132,21 +133,18 @@ router.post('/testPaperNameResult', async (req, res) => {
 
 router.patch('/testPaper/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
-    console.log("101"+updates)
-  //  console.log(updates.result[0].userID)
+   // console.log("101"+updates)
     try{
-       // console.log("102")
         const testPaper = await TestPaper.findOne({_id: req.params.id})
-        //console.log("103")
         if(!testPaper){return res.status(404).send()}
-        //console.log("104")
-        
-         //console.log("107")
-        testPaper['result'].push(req.body['result'][0])
-        
+        testPaper['result'].push(req.body['result'][0])        
 
         await testPaper.save()
-        //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        
+        const user = await User.findOne({_id: req.body['result'][0].userID})
+        user.testsTaken.push({testID: testPaper.id,marks:req.body['result'][0].marksObtained, maxMarks:req.body['result'][0].maxMarks})
+        await user.save()
+
         res.send(testPaper)
 
     }

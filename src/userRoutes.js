@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const User = require('./models/userModel')
+const TestPaper = require('./models/testPaperModel')
 const jwt = require('jsonwebtoken')
 const auth = require('./middleware/auth.js')
 const multer = require('multer')
@@ -10,7 +11,6 @@ const sharp = require('sharp')
 router.get('/test',(req,res)=>{
     res.send('This is a new router')
 })
-
 
 router.get('/users',auth,async (req,res)=>{
     try{
@@ -171,11 +171,6 @@ router.patch('/users/me',auth, async(req,res)=>{
         })
         
         await req.user.save()
-                
-        
-        
-        //const user = await User.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
-        //if(!req.user){return res.status(404).send()}
         res.send(req.user)
         
 
@@ -186,7 +181,8 @@ router.patch('/users/me',auth, async(req,res)=>{
     }
 
 })
-//update TestResult
+
+//update TestResult of any new test given
 router.patch('/userTestUpdate/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
     console.log(updates)
@@ -210,6 +206,7 @@ router.patch('/userTestUpdate/:id',async(req,res)=>{
     }
 })
 
+//add new question & result to user data
 router.patch('/userQuestionUpdate/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
     console.log(updates)
@@ -232,5 +229,120 @@ router.patch('/userQuestionUpdate/:id',async(req,res)=>{
         res.status(400).send(e)
     }
 })
+
+router.patch('/logout/:id',async(req,res)=>{
+    console.log('Logging out everyone by deleting all tokens')
+    try{
+        const user = await User.find({_id:req.params.id})
+        
+        user['tokens'] = []
+
+        
+        //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        res.send('Logged Out')
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+router.patch('/masterLogout',async(req,res)=>{
+    console.log('Logging out everyone by deleting all tokens')
+    try{
+        const allUsers = await User.find()
+        
+        allUsers.forEach((user)=>{
+            console.log(user.name)
+            user['tokens'] = []
+            user.save()
+        })
+
+        
+        //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        res.send('Everyone Logged Out')
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+})
+
+
+
+// async function AllUsersUpdateTheirResults()
+// {
+//     const allUsers = await User.find()
+//     allUsers.forEach(user=>{
+//         //console.log(user.id)
+//         OneUserUpdateTheirResults(user.id)
+//     })
+// }
+
+// async function OneUserUpdateTheirResults(id)
+// {
+//     const user = await User.findOne({_id:id})
+//     if(!user) return('Cant find this user')
+
+//     const allTests = await TestPaper.find()
+//     console.log(allTests.length)
+//     allTests.forEach((test)=>{
+//       //  console.log(test.name+' has '+test.result.length+' Results stored')
+//         test.result.forEach((re) => {
+//            // console.log(re.userID)
+//             if(re.userID==id)
+//             {
+//                 console.log(user.name)
+//                 console.log(user.testsTaken)
+//                 user.testsTaken.push({testID: test.id,marks:re.marksObtained, maxMarks:re.maxMarks})
+//             }
+//         });
+
+
+//     })
+//     await user.save()
+// }
+
+// AllUsersUpdateTheirTestName()
+
+// async function AllUsersUpdateTheirTestName()
+// {
+//     const allUsers = await User.find()
+//     allUsers.forEach(user=>{
+//         //console.log(user.id)
+//         OneUserUpdateAllTestsName(user.id)
+//     })
+// }
+
+// async function OneUserUpdateAllTestsName(id)
+// {
+//     const user = await User.findOne({_id:id})
+//     for(i=0;i<user.testsTaken.length;i++)
+//     {
+//         OneUserUpdateTheirSingleTestName(id,i)
+//     }
+
+// }
+
+// async function OneUserUpdateTheirSingleTestName(id,testNo)
+// {
+//     console.log('HERE')
+//     const user = await User.findOne({_id:id})
+//     if(!user) return('Cant find this user')
+//     console.log(user.name)
+//     const foundtest = await TestPaper.findOne({_id:user.testsTaken[testNo].testID})
+//     if(!foundtest) 
+//     return('Not Goven This Test')
+//     console.log(user.testsTaken[testNo].id)
+//     console.log(foundtest.name)
+        
+//     user.testsTaken[testNo].testName= foundtest.name;
+      
+//     await user.save()
+// }
+
+
 
 module.exports = router

@@ -7,34 +7,26 @@ $testApp.style.display = "none"
 window.USERID= ""
 window.TOKEN=""
 window.USERNAME=""
+window.TESTSTAKEN=[]
 
 
 const $teacherEmail = document.querySelector('#teacherName')
 const $teacherPassword = document.querySelector('#teacherPassword')
-
 const $studentLoginButton = document.querySelector('#studentLoginButton')
 
 
 $studentLoginButton.addEventListener('click',(e)=>{
     //console.log("Clicked Login")    
-    goToQuestionPage()   
+    goToSudentSection()   
 })
 
 const $intro = document.querySelector('#intro')
 
-function sayHello(){
-    $intro.innerHTML = 'Name: '+USERNAME
-}
-
-
    
-async function goToQuestionPage(){
-  
-    
+async function goToSudentSection(){   
    // var response = await fetch("https://physicstree.herokuapp.com/users/login", {
    //THIS WORKS
-   var response = await fetch("/users/login", {
-      
+   var response = await fetch("/users/login", {      
     // Adding method type
     method: "POST",
       
@@ -54,14 +46,28 @@ async function goToQuestionPage(){
     ).then()
     if(response.status==200)
     {
-            $testApp.style.display = "block"
-            $loginForm.style.display = "none"            
+        var data = await response.json()
+        console.log(data.user.testsTaken[0].testID+' marks '+data.user.testsTaken[0].marks + ' out of '+data.user.testsTaken[0].maxMarks)
+        USERID = data.user._id
+        TOKEN = data.token
+        USERNAME = data.user.name
+        console.log('User :'+USERID)
+
+        data.user.testsTaken.forEach(testdata => {
+            TESTSTAKEN.push(testdata)
+
+        });
+        
+        
+        sayHello()          
     }
-var data = await response.json()
-console.log(data)
-USERID = data.user._id
-TOKEN = data.token
-USERNAME = data.user.name
-console.log('name: '+USERNAME)
-sayHello()
 }
+
+function sayHello(){
+    $loginForm.style.display = "none"  
+    document.getElementById('studentMenu').style.display = 'block'       
+    $intro.innerHTML = 'Hello! <b>'+USERNAME+'</b> Welcome Back!'
+
+}
+
+
