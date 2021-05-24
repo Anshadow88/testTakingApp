@@ -9,6 +9,7 @@ const $OptionAButton = document.querySelector('#OptionAButton')
 const $OptionBButton = document.querySelector('#OptionBButton')
 const $OptionCButton = document.querySelector('#OptionCButton')
 const $OptionDButton = document.querySelector('#OptionDButton')
+const $integerButton = document.querySelector('#integerButton')
 
 const $lastQuestionStatus = document.querySelector('#lastQuestionStatus')
 const $submitTestButton = document.querySelector('#submitTestButton')
@@ -45,6 +46,7 @@ $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
 $OptionDButton.addEventListener('click',CheckOptionD)
+$integerButton.addEventListener('click',CheckIntegerType)
 
 $nextQuestionButton.addEventListener('click',(e)=>{
     DisplayNextQuestion()
@@ -86,10 +88,11 @@ function CheckOptionB(){
     //console.log("D")
     MarkAnswer('D',availableQuestions[questionCount])
 }
-
+function CheckIntegerType(){
+    integerAnswer = document.getElementById('integerAnswer')
+    MarkAnswer(integerAnswer.value,availableQuestions[questionCount])
+}
 ///VERY IMPORTANT
-
-
 function GetTest()
 {
     $testStartbutton.style.display='none'
@@ -165,8 +168,6 @@ function DisplayAllTestCodes(allTests){
     }
 }
 
-
-
 async function loadTest(testName){     
         //console.log("Global: "+TOKEN)
         availableQuestions = []
@@ -197,12 +198,14 @@ async function loadTest(testName){
         if(isGiven==true)
         $messageReview.innerHTML = 'This is your Re-Attempt. You can attempt the questions again and get new score but the score in report card will remain unchanged.'
         
-
+        console.log(data)
         for(i=0;i<data.questionsOfChapter.length;i++){
             var newQues = new Quest(data.questionsOfChapter[i]._id,
                                     data.questionsOfChapter[i].question,
                                     data.questionsOfChapter[i].answer,
-                                    data.questionsOfChapter[i].image)
+                                    data.questionsOfChapter[i].image,
+                                    data.questionsOfChapter[i].type
+                                    )
             availableQuestions.push(newQues)
             if(isGiven)
             newQues.originalAttempt(data.previousAttempt[i].status)
@@ -264,10 +267,11 @@ function DisplayFirstQuestion()
      $image.style.display=''
      image.src = ('/uploads/'+availableQuestions[questionCount].image)  
      
-    }
-
-    
+    }    
+    ManageAnswerOptions(availableQuestions[questionCount].getType())
 }
+
+
 
 function DisplayNextQuestion()
 {
@@ -296,6 +300,8 @@ function DisplayNextQuestion()
     {
         $submitTestButton.style.display =''
     }
+
+    ManageAnswerOptions(availableQuestions[questionCount].getType())
     
    
 }
@@ -322,7 +328,7 @@ function DisplayPreviousQuestion()
      image.src = ('/uploads/'+availableQuestions[questionCount].image)  
      
     }
-    
+    ManageAnswerOptions(availableQuestions[questionCount].getType())
 }
 
 function MarkAnswer(markedAnswer,question)
@@ -422,14 +428,26 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
+function ManageAnswerOptions(type){
+    document.getElementById('singleOptionTypeAnswer').style.display='none'
+    document.getElementById('integerTypeAnswer').style.display='none'
+    if(type==1)
+         document.getElementById('singleOptionTypeAnswer').style.display='block'
+    else if(type==3)
+        document.getElementById('integerTypeAnswer').style.display='block'
+}
+
+
+
 let Quest = class{
 
-    constructor(id,question,answer,image)
+    constructor(id,question,answer,image,type)
     {
        this.id = id
        this.question = question
        this.answer = answer
        this.image = image
+       this.type = type
     }
     markAttemped(status){
         //status=true for correct,false for incorrect,undefined = unattempted
@@ -466,5 +484,9 @@ let Quest = class{
     getImage = function()
     {
         return this.image
+    }
+    getType = function()
+    {
+        return this.type
     }
 }
