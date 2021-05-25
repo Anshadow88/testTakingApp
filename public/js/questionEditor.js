@@ -7,6 +7,8 @@ const $FindChapterButton = document.getElementById('FindChapterButton')
 const $FindTestName = document.getElementById('FindTestName')
 const $FindTestButton = document.getElementById('FindTestButton')
 
+const $FindByAuthorNameButton = document.getElementById('FindByAuthorNameButton')
+
 
 
 const $questionNumber = document.getElementById('questionNumber')
@@ -59,6 +61,12 @@ $FindTestButton.addEventListener('click',(e)=>{
     getQuestionOfTests(testName)
 })
 
+$FindByAuthorNameButton.addEventListener('click', (e)=>{  
+    AuthorName = document.getElementById('FindByAuthorName')
+    console.log(AuthorName.value)
+    getQuestionByAuthor(AuthorName.value)
+})
+
 $showMathButton.addEventListener('click',(e)=>{
 
    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
@@ -66,7 +74,6 @@ $showMathButton.addEventListener('click',(e)=>{
 
 
 })
-
 
 $nextButton.addEventListener('click',(e)=>{
     QuestionCount++
@@ -78,6 +85,7 @@ $previousButton.addEventListener('click',(e)=>{
     QuestionCount--
     showCurrentQuestion()
 })
+
 $postQuestionButton.addEventListener('click',(e)=>{    
     if(imageFile)
     uploadFile(imageFile)
@@ -136,9 +144,10 @@ async function getQuestionOfChapter(chapter){
     
 }
 
-async function getQuestionOfTests(testName){     
-    //console.log("Global: "+TOKEN)
-    const response  = await fetch("/testPaperWithNameForEditing", {          
+
+async function getQuestionByAuthor(AuthorName){     
+    console.log("Author: "+AuthorName)
+    const response  = await fetch("/questions/author", {          
     // Adding method type
     method: "POST",
       
@@ -146,7 +155,7 @@ async function getQuestionOfTests(testName){
     },
 
     body: JSON.stringify({
-        name : testName
+        author : AuthorName
     }),
     // Adding body or contents to send
         // Adding headers to the request
@@ -156,12 +165,13 @@ async function getQuestionOfTests(testName){
     }).then().then()
 
     var data = await response.json()   
-    QuestionsOFChapters = data.questionsOfChapter
+    QuestionsOFChapters = data
     console.log(data)
-    QuestionCount = 0
+    QuestionCount = QuestionsOFChapters.length-1
     showCurrentQuestion()
     
 }
+
 
 async function showCurrentQuestion(){
     //Remove Selected image for last update  
@@ -189,9 +199,6 @@ async function showCurrentQuestion(){
 
 }
 
-
-
-
 async function uploadFile(file) {
     imageKeyAWS=''
     // add file to FormData object
@@ -214,7 +221,6 @@ async function uploadFile(file) {
     UpdateAQuestion()
 
 }
-
 
 async function UpdateAQuestion(){    
         

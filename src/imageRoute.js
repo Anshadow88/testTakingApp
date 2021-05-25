@@ -35,7 +35,7 @@ function getFileStream(fileKey) {
     Key: fileKey,
     Bucket: bucketName
   }
-
+  console.log('HEre we were going to aws')
   return s3.getObject(downloadParams).createReadStream()
 }
 

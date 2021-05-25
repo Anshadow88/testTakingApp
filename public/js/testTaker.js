@@ -1,7 +1,6 @@
 
 const $testStartbutton = document.querySelector('#getTestButton')
 const $testName = document.querySelector('#testName')
-//const $reviewButton = document.querySelector('#reviewButton')
 const $messageReview = document.querySelector('#messageReview')
 const $time = document.querySelector('#time')
 
@@ -41,7 +40,6 @@ submitTestButton.style.display = 'none'
 
 
 $testStartbutton.addEventListener('click',GetTest)
-//$reviewButton.addEventListener('click',GetTest)
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
@@ -117,7 +115,6 @@ async function loadAllTestsData(){
     console.log(data)
     DisplayAllTestCodes(data)
 }
-
 
 function DisplayAllTestCodes(allTests){
     $question = document.querySelector('#question')
@@ -252,7 +249,6 @@ async function saveTestResult(testName){
 
        
     }
-
 
 function DisplayFirstQuestion()
 {

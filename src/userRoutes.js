@@ -194,7 +194,6 @@ router.patch('/userTestUpdate/:id',async(req,res)=>{
             console.log(update)
             user[update] = req.body[update]
         })
-
         await user.save()
         //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
         res.send(user)

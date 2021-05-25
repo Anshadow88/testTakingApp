@@ -23,7 +23,7 @@ router.post('/questions', async (req, res) => {
     }
 })
 
-// get one quiz question by id
+// get one question by id
 router.get('/questions/:id', async (req, res) => {
     try {
         console.log(req.params)
@@ -51,6 +51,7 @@ router.post('/questions/:id/image',upload.single('avatar'),async (req,res)=>{
 
 router.get('/uploads/:id',async (req,res)=>{
     const file = await getFileStream(req.params.id)//from AWS
+    console.log('Failing Here')
     console.log(file)
     file.pipe(res)
 })
@@ -61,6 +62,21 @@ router.post('/questions/chapter',async (req, res) => {
 
         const chapter = req.body.chapter       
         var questionsOfChapter = await Question.find({ chapter: chapter }).exec()           
+        if(!questionsOfChapter){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json(questionsOfChapter)
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+router.post('/questions/author',async (req, res) => {   
+    try {
+        console.log(req.body)
+        const author = req.body.author       
+        var questionsOfChapter = await Question.find({ author: author }).exec()           
         if(!questionsOfChapter){
             return res.status(404).json({})
         }else{

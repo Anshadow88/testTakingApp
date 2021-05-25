@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 </head>
 <body>
   <div class= "container">
@@ -17,17 +17,20 @@
     
     <div class="container">
       <div class="well">
+        <div style = "display: none">
         Find questions by Chapter
         <input id ="FindChapterName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindChapterButton">Find</button>
         by TestName
         <input id ="FindTestName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindTestButton" >Find </button>
         or By ID
         <input id ="QuestionID"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindQuestionByIDButton">Find</button>
-        or Get Last 10 questions
-        <buttone> id="FindQuestionByIDButton">Find</button>
+      </div>
+        Get Last 50 Questions by Name
+        <input id ="FindByAuthorName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindByAuthorNameButton">Find</button>        
         
       </div>
     </div>
+
     <div class="container">
       <form class="well">
         Chapter Number:<input id="chapterNumber">(Can be edited)   

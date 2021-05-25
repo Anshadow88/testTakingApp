@@ -17,6 +17,7 @@ router.get('/allTests', async (req, res) => {
     }
 })
 
+//Add New Test
 router.post('/testPaper', async (req, res) => {
     console.log('Hello')
     try {
@@ -29,8 +30,7 @@ router.post('/testPaper', async (req, res) => {
     }
 })
 
-// get one quiz 
-
+// get One Test For Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {
        console.log(req.body)
@@ -61,6 +61,8 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
+
+//Get One Test For Taking
 router.post('/testPaperWithName', async (req, res) => {
     try {
        // console.log(req.body)
@@ -101,7 +103,7 @@ router.post('/testPaperWithName', async (req, res) => {
     }
 })
 
-//RESULT
+//Get RESULT Of All Students
 router.post('/testPaperNameResult', async (req, res) => {
     try {
        // console.log(req.body)
@@ -129,8 +131,36 @@ router.post('/testPaperNameResult', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
-// delete one Test Paper
 
+//Get Result Of One Student :ID of User
+
+router.post('/testPaperName/:id', async (req, res) => {
+    try {
+       // console.log(req.body)
+        const testName = req.body.name 
+        const testPaper = await TestPaper.findOne({name:testName})  
+
+        if(!testPaper){
+            return res.status(404).json('Test Not Found')
+        }
+
+        let userResult = []
+        testPaper.results.forEach(result=>{
+            if(result.userID==req.params.id)
+            userResult=result
+            return res.status(200).json(userResult)
+        })
+
+        return res.status(404).json('User havent taken this test')
+        
+        
+        
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+//Updating Result Of One Student
 router.patch('/testPaper/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
    // console.log("101"+updates)
@@ -142,7 +172,7 @@ router.patch('/testPaper/:id',async(req,res)=>{
         await testPaper.save()
         
         const user = await User.findOne({_id: req.body['result'][0].userID})
-        user.testsTaken.push({testID: testPaper.id,marks:req.body['result'][0].marksObtained, maxMarks:req.body['result'][0].maxMarks})
+        user.testsTaken.push({testID: testPaper.id,testName: testPaper.name,marks:req.body['result'][0].marksObtained, maxMarks:req.body['result'][0].maxMarks})
         await user.save()
 
         res.send(testPaper)
