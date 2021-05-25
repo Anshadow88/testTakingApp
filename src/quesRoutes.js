@@ -168,12 +168,26 @@ router.delete('/questions/:id', (req, res) => {
 
 })
 
-// this one is just a test
-router.get('/', (req, res) => {
-    res.send('H3ll0 W0RlD')
-})
+// ALLAuthorNamesChange('unknown','anshul4275')
 
+// async function ALLAuthorNamesChange(originalName,newName)
+// {
+//     const allQuestion = await Question.find({author:originalName})
 
+//     allQuestion.forEach(ques=>{
+//         OneAuthorNamesChange(ques.id,newName)
+
+//     })
+
+// }
+// async function OneAuthorNamesChange(id,newName)
+// {
+//     let question = await Question.findOne({_id:id})   
+//     question.author = newName
+
+//     await question.save()   
+
+// }
 
 
 module.exports = router
