@@ -55,16 +55,20 @@ function addTable() {
   table.appendChild(tableHead)
   var headRow = document.createElement('tr')
   tableHead.appendChild(headRow)
+  while(tableHead.hasChildNodes())
+  {
+    tableHead.removeChild(tableHead.firstChild);
+  }
 
 
     for (var j = 0; j < 3; j++) {
       var td = document.createElement('TD');
       if(j==0)
-      td.appendChild(document.createTextNode('<b>Test Code</b>'))
+      td.appendChild(document.createTextNode('Test Code'))
       else if(j==1)
-      td.appendChild(document.createTextNode('<b>Marks</b>'))
+      td.appendChild(document.createTextNode('Marks'))
       else if(j==2)
-      td.appendChild(document.createTextNode('<b>Max Marks</b>'))
+      td.appendChild(document.createTextNode('Max Marks'))
 
       headRow.appendChild(td)
     }
@@ -93,7 +97,7 @@ function addTable() {
       tr.appendChild(td);
     }
   }
-  myTableDiv.appendChild(table);
+  $myTableDiv.appendChild(table);
 }
 
 addTable();

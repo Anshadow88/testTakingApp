@@ -1,9 +1,4 @@
 
-
-
-
-
-
 // const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
 const $selectQuestionButton = document.querySelector('#selectQuestionButton')
@@ -210,6 +205,15 @@ function AddAQuestionToSelection(){
        
  }
 
+ function RemoveThisQuestionToSelection(id){     
+    
+    SelectedQuestionIDs.pop({'questionID': SelectedQuestionIDs[id]})
+    SelectedQuestions.pop(QuestionsOFChapters[id])
+    
+    ShowPaper()
+       
+ }
+
  function ShowPaper(){
     const $paper = document.getElementById('paper')
     
@@ -224,7 +228,10 @@ function AddAQuestionToSelection(){
         $paper.appendChild(newDiv)
         console.log('22')
         let cancelBtn = document.createElement('button')
-       // cancelBtn.id = 'RemoveQ'+i
+        cancelBtn.innerHTML='&#10060'
+        cancelBtn.addEventListener('click', e=>{
+            RemoveThisQuestionToSelection(i)
+        })
         newDiv.appendChild(cancelBtn)
         console.log('23')
         let newP = document.createElement('p')
