@@ -94,10 +94,10 @@ $showMathButton.addEventListener('click',(e)=>{
 
 })
 
-$BonusQuestionButton.addEventListener('click',(e)=>{
-    selectedAnswer = 'BONUS'
+// $BonusQuestionButton.addEventListener('click',(e)=>{
+//     selectedAnswer = 'BONUS'
     
-})
+// })
 
 $postQuestionButton.addEventListener('click',(e)=>{   
     inputQuestionText = $newQuestionText.value
