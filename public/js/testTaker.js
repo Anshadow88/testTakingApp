@@ -37,8 +37,6 @@ window.TESTID =""
 confirmationMenu.style.display ='none'
 submitTestButton.style.display = 'none'
 
-
-
 $testStartbutton.addEventListener('click',GetTest)
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
@@ -121,9 +119,10 @@ function DisplayAllTestCodes(allTests){
 
     $question.innerHTML=''
     $question.innerHTML = 'Tests Given By '+USERNAME
+    count =1
     for(i=0;i<allTests.length;i++)    
     {
-        count =1
+        
         for(j=0;j<allTests[i].result.length;j++)
         {
             //console.log('user id in Global : .....'+USERID+' should match '+allTests[i].result[j].userID)
@@ -142,10 +141,10 @@ function DisplayAllTestCodes(allTests){
     }
     
     $question.innerHTML += '<br/><br/><br/>Other Available Tests '+USERNAME
-
+    count =1
     for(i=0;i<allTests.length;i++)    
     {
-        count =1
+        
         attempt = false
         for(j=0;j<allTests[i].result.length;j++)
         {

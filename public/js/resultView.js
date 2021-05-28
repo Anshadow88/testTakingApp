@@ -1,16 +1,19 @@
 //Buttons
-const $getResultButton = document.querySelector('#getResultButton')
-const $getAllResultButton = document.querySelector('#getAllResultButton')
 
-const $testName = document.querySelector('#testName')
+
+
+
     
 let AllTestResults
 let AllStudentResults = []
 
+const $getResultButton = document.querySelector('#getResultButton')
 $getResultButton.addEventListener('click',(e)=>{
+    const $testName = document.querySelector('#testName')
     loadTestResult($testName.value)
 })
 
+const $getAllResultButton = document.querySelector('#getAllResultButton')
 $getAllResultButton.addEventListener('click',(e)=>{
     loadAllTestResult()
 })
@@ -56,9 +59,6 @@ function DisplayAllResult(allTests){
         }
     }
 }
-
-
-
 
 async function loadTestResult(testName){     
     //console.log("Global: "+TOKEN)

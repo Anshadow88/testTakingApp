@@ -1,18 +1,7 @@
 
-const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
-const $findQuestions = document.getElementById('findQuestions')
-// const $FindByExamYearButton = document.getElementById('FindByExamYearButton')
 
-const $questionNumber = document.getElementById('questionNumber')
-const $newQuestionText = document.querySelector('#newQuestionTyped')
-//const $correctAnswer = document.querySelector('#correctAnswer')
-const $chapterNumber = document.querySelector('#chapterNumber')
-const $paper = document.getElementById('paper')
 
-const $previousButton = document.querySelector('#previousButton')
-const $nextButton = document.querySelector('#nextButton')
-const $previousBigButton = document.querySelector('#previousBigButton')
-const $nextBigButton = document.querySelector('#nextBigButton')
+
 
 
 // const $showMathButton = document.querySelector('#showMathButton')
@@ -42,6 +31,7 @@ $NewTestButton.addEventListener('click',(e)=>{
 
 })
 
+const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
 $FindQuestionByIDButton.addEventListener('click',(e)=>{
     const $QuestionID = document.getElementById('QuestionID')
     QUESID = $QuestionID.value
@@ -49,7 +39,7 @@ $FindQuestionByIDButton.addEventListener('click',(e)=>{
 })
 
 
-
+const $findQuestions = document.getElementById('findQuestions')
 $findQuestions.addEventListener('click',(e)=>{
     exam = document.getElementById('examName').value    
     year = document.getElementById('examYear').value
@@ -58,31 +48,25 @@ $findQuestions.addEventListener('click',(e)=>{
 
 })
 
-// $showMathButton.addEventListener('click',(e)=>{
-
-//    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-//    $questionTextWithMath.innerHTML = modifiedText   
-
-
-// })
-
+const $nextBigButton = document.querySelector('#nextBigButton')
 $nextBigButton.addEventListener('click',(e)=>{
     QuestionCount+=25
     showCurrentQuestion()
     
 })
 
+const $previousBigButton = document.querySelector('#previousBigButton')
 $previousBigButton.addEventListener('click',(e)=>{
     QuestionCount-=25
     showCurrentQuestion()
 })
-
+const $nextButton = document.querySelector('#nextButton')
 $nextButton.addEventListener('click',(e)=>{
     QuestionCount++
     showCurrentQuestion()
     
 })
-
+const $previousButton = document.querySelector('#previousButton')
 $previousButton.addEventListener('click',(e)=>{
     QuestionCount--
     showCurrentQuestion()
@@ -114,7 +98,8 @@ async function getQuestion(quesID){
     }).then().then()
 
     var data = await response.json()   
-    console.log(data)
+    //console.log(data)
+    const $newQuestionText = document.querySelector('#newQuestionTyped')
     $newQuestionText.innerHTML=(data.question)
     $image.src = '/uploads/'+QUESID+'.png'
     
@@ -177,6 +162,9 @@ async function getQuestions(exam,year,chapter){
 }
 
 function showCurrentQuestion(){
+    const $questionNumber = document.getElementById('questionNumber')
+    const $newQuestionText = document.querySelector('#newQuestionTyped')
+    const $chapterNumber = document.querySelector('#chapterNumber')
 
     
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
@@ -223,16 +211,28 @@ function AddAQuestionToSelection(){
  }
 
  function ShowPaper(){
-    let paperText=''
+    const $paper = document.getElementById('paper')
+    
+    console.log('21')
     for(i=0;i<SelectedQuestions.length;i++)
     {
-        paperText+= 'Q.'+ (i+1) +'&nbsp'+
-        SelectedQuestions[i].question+'<br/><br/>'
+
+        // paperText+= 'Q.'+ (i+1) +'&nbsp'+
+        // SelectedQuestions[i].question+'<br/><br/>'
+        let newDiv = document.createElement('div')        
+        newDiv.className = "well well-sm"
+        $paper.appendChild(newDiv)
+        console.log('22')
+        let cancelBtn = document.createElement('button')
+       // cancelBtn.id = 'RemoveQ'+i
+        newDiv.appendChild(cancelBtn)
+        console.log('23')
+        let newP = document.createElement('p')
+        newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question+'<br/><br/>'
+        newDiv.appendChild(newP)
+        console.log('24')
     }
-    $paper.innerHTML = paperText
-
  }
-
  
 async function postNewTestPaper(testName){
     

@@ -8,9 +8,6 @@ const multer = require('multer')
 const sharp = require('sharp')
 //const {sendWelcomeEmail,sendCancellationEmail} = require('../email/account')
 
-router.get('/test',(req,res)=>{
-    res.send('This is a new router')
-})
 
 router.get('/users',auth,async (req,res)=>{
     try{
@@ -21,7 +18,8 @@ router.get('/users',auth,async (req,res)=>{
     }
 })
 
-router.get('/users/:id',(req,res)=>{
+//Get a User
+router.get('/users/:id',async (req,res)=>{
     const _id = req.params.id
     User.findById(_id).then((user)=>{
         if(!user){
@@ -33,6 +31,26 @@ router.get('/users/:id',(req,res)=>{
     })
 })
 
+router.get('/getStudentsOfTeacher/:id',async (req,res)=>{
+    try{
+    
+    const teacherID = req.params.id
+   // console.log('Finding Students of '+teacherID)
+    const myStudents = await User.find({teachers: {$elemMatch: {teacherID:teacherID}}})
+    //console.log(myStudents)
+    
+    if(!myStudents) res.status(404).send()
+    else
+    res.status(200).send(myStudents)   
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+
+})
+
+//Create a User
 router.post('/users',async (req,res)=>{   
     const user = new User(req.body)
     try{ 
@@ -47,6 +65,42 @@ router.post('/users',async (req,res)=>{
     }
 })
 
+router.post('/addMyStudent/:id',async (req,res)=>{   
+    const user = new User(req.body)
+    const teacherID = req.params.id
+    console.log(user)
+    //user.teachers.push({'teacherID':teacherID})
+    //console.log(user)
+    try{ 
+        await user.save()
+        //sendWelcomeEmail(user.email,user.name)
+        user.teachers.push({'teacherID':teacherID})
+        console.log('29')
+        const token = await user.generateAuthToken()
+         //console.log(token)
+        console.log('chk40')     
+       res.status(201).send({user,token})
+    } catch(err){
+    res.status(400).send(err)
+    }
+})
+
+router.post('/removeMyStudent/:id',async (req,res)=>{   
+    console.log(req.body)
+    try{ 
+        const user = await User.findOne({name:req.body.name,email:req.body.email})
+        const teacherID = req.params.id
+        console.log(user)        
+        user.teachers.pop({'teacherID':teacherID})
+        console.log(user)
+        await user.save()
+        console.log('chk40')     
+       res.status(201).send(user)
+    } catch(err){
+    res.status(400).send(err)
+    }
+})
+//User Login
 router.post('/users/login', async(req,res)=>{
     try{
         //console.log("0")
@@ -60,7 +114,6 @@ router.post('/users/login', async(req,res)=>{
         res.status(400).send()
     }
 })
-
 
 const upload = multer({
     //dest: 'avatars',
@@ -78,7 +131,7 @@ const upload = multer({
         cb(undefined,true)
     }
 })
-
+//Upload Photo
 router.post('/users/avatar',auth,upload.single('avatar'), async(req,res)=>{
     const buffer = await sharp(req.file.buffer).resize({width:250,height:250}).png().toBuffer()
     
@@ -88,14 +141,14 @@ router.post('/users/avatar',auth,upload.single('avatar'), async(req,res)=>{
 },(error,req,res,next)=>{
     res.status(400).send({error:error.message})
 })
-
+//DeletePhoto
 router.delete('/users/me/avatar/delete',auth,upload.single('avatar'), async(req,res)=>{
     req.user.avatar = undefined
     
     await req.user.save()
     res.send()
 })
-
+//Get Photo
 router.get('/users/:id/avatar', async(req,res)=>{
 try{
     const user = await User.findById(req.params.id)
@@ -112,7 +165,7 @@ catch(e){
 }
 
 })
-
+//LOGOUT
 router.post('/users/logout',auth,async(req,res)=>{
     try{
             req.user.tokens = req.user.tokens.filter((token)=>{
@@ -126,7 +179,7 @@ router.post('/users/logout',auth,async(req,res)=>{
 
     }
 })
-
+//LOGOUT ALL
 router.post('/users/logoutAll',auth,async(req,res)=>{
     try{
             req.user.tokens = []
@@ -138,13 +191,13 @@ router.post('/users/logoutAll',auth,async(req,res)=>{
 
     }
 })
-
+//DELETE USER SELF
 router.delete('/users/me',auth ,async(req,res)=>{
     try{
             // const user = await User.findByIdAndDelete(req.params.id)
             // if(!user){res.status(404).send()}
             //console.log('Delete Use 1')
-            sendCancellationEmail(req.user.email,req.user.name)
+            //sendCancellationEmail(req.user.email,req.user.name)
             await req.user.remove()
             res.send(req.user)
     }
@@ -153,7 +206,7 @@ router.delete('/users/me',auth ,async(req,res)=>{
     }
 })
 
-
+//UPDATE USER
 router.patch('/users/me',auth, async(req,res)=>{
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name','email','password','age']
@@ -229,6 +282,7 @@ router.patch('/userQuestionUpdate/:id',async(req,res)=>{
     }
 })
 
+//LogOut ME
 router.patch('/logout/:id',async(req,res)=>{
     console.log('Logging out everyone by deleting all tokens')
     try{
@@ -247,6 +301,7 @@ router.patch('/logout/:id',async(req,res)=>{
     }
 })
 
+//Logout EveryOne
 router.patch('/masterLogout',async(req,res)=>{
     console.log('Logging out everyone by deleting all tokens')
     try{
@@ -268,6 +323,31 @@ router.patch('/masterLogout',async(req,res)=>{
         res.status(400).send(e)
     }
 })
+
+// AllUsersUpdateTheirTeacherID('60ad429f93141d0015f8f4e5')
+
+// async function AllUsersUpdateTheirTeacherID(teacherID)
+// {
+//     const allUsers = await User.find()
+//    allUsers.forEach(user=>{
+//        console.log(user.id)
+//        OneUserUpdateTheirTeacherID(user.id,teacherID)
+
+//     })
+// }
+// async function OneUserUpdateTheirTeacherID(id,teacherID)
+// {
+//     const user = await User.findOne({_id:id})
+//     if(!user) return('Cant find this user')
+//     else
+//     {
+//         user.teachers=[]
+//         user.teachers.push({'teacherID':teacherID})
+//     }
+
+//     await user.save()
+// }
+
 
 
 

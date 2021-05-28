@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Teacher Login Best NEET IIT Testing Platform Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+
+</head>
+<body onselectstart="return false">
+    
+      <div class="container" id = "loginForm">
+        <div class="well">                         
+                <div class="form-group">
+                <h3>Login For Teachers</h3>
+                  <label for="usr">Email:</label>
+                  <input type="text" class="form-control" id="studentEmail">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Password:</label>
+                  <input type="password" class="form-control" id="studentPassword">
+                </div>
+
+                <button class="well" type="button" id="teacherLoginButton">TeacherLogin</button>
+              </div>
+      </div>
+           
+
+      
+      <div class="container" id ="teacherMenu" style="display: none;">
+          <div class = "well">
+            <h4 class ="well" id="intro"></h4>
+            <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
+            <button class = "btn btn-primary" id="StudyMaterialSectionButton">Dpps & Tests</button>
+            <button class = "btn btn-primary" id="myStudentSectionButton">My Students</button>
+          </div>
+
+          <div class="well" id= "myStudentSection" style="display: none;"> 
+            
+            <div class = "well">
+            <button id="getAllResultButton">Show  Results</button>
+            <button id="hideResultButton">Hide Result</button>
+            
+            <p id="resultText">Cleck to see all Result </p>
+            </div>
+
+            <div class="well">
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>
+                    #
+                  </td>
+                  <td>
+                    Name
+                  </td>
+                  <td>
+                    Email
+                  </td>
+                  <td>
+                    Password
+                  </td>
+                  <td>
+                    
+                  </td>
+                </tr>
+                <tbody id = "myStudentTable">
+                  
+
+                </tbody>
+              </thead>
+              
+
+
+            </table>
+            </div>
+            
+            <div class ="well">
+              <input placeholder= "Name" id="newStudentName" type="text">              
+              <input placeholder= "Email" id="newStudentEmail" type="text">              
+              <input placeholder= "Password" id="newStudentPassword" type="text">
+              <button id= "addNewStudentFormButton">Add New Student</button>
+              <button id= "deleteOldStudentButton">Delete Student</button>
+              <button id= "changeStudentDataButton">Edit Details</button>
+            </div>            
+          </div>
+          
+          <div class="well" id= "teacherProfileSection" style="display: none;"> 
+            <div class="well">
+              Profile
+            <table class="table">
+              
+
+                </tbody>
+              </thead>
+              
+
+
+            </table>
+            </div>
+            
+          </div>
+
+          <div class="well" id= "StudyMaterialSection" style="display: none;"> 
+            <div class="well">
+              
+            <table class="table">
+              
+
+                </tbody>
+              </thead>
+              
+
+
+            </table>
+            </div>
+            
+          
+          </div>
+          <div class = "container" id="testCreatorApp"><h3 class ="well"> Create Tests for Students </h3>
+          </div>
+            <div class="container">
+              <div class="well">
+                <div class="form-group">
+                  
+                  <select id="chapterNameInput" style="width: fit-content;display: inline;"class="form-control">
+                    Chapter:
+                    <option value="undefined">All Chapters</option>
+                    <option value="1">1. Vectors, Maths &  Errors</option>
+                    <option value="2">2. Kinematics</option>
+                    <option value="3">3. Newtons's Laws</option>
+                    <option value="4">4. Work, Power & Energy</option>
+                    <option value="5">5. Conservation of Momentum</option>
+                    <option value="6">6. Rotational Motion</option>
+                    <option value="7">7. Properties of Solids</option>
+                    <option value="8">8. Gravitation</option>
+                    <option value="9">9. Fluids</option>
+                    <option value="10">10. Thermodynamics</option>
+                    <option value="11">11. Oscillation (SHM)</option>
+                    <option value="12">12. Waves</option>
+                    <option value="13">13. Electrostatics</option>
+                    <option value="14">14. Current Electricity</option>
+                    <option value="15">15. Magnetism</option>
+                    <option value="16">16. EMI & Alternate Current</option>          
+                    <option value="17">17. Ray Optics</option>
+                    <option value="18">18. Wave Optics</option>          
+                    <option value="19">19. Modern Physics</option>
+                    <option value="20">20. Semiconductors</option>
+                  </select>          
+              
+                  
+                  <select id="examName" style="width: fit-content;display: inline;"class="form-control">
+                    &nbsp Exam: 
+                    <option value="undefined">None</option>
+                    <option value="1">NEET</option>
+                    <option value="2">Jee Mains</option>
+                    <option value="3">Advanced</option>
+                    <option value="4">State medical</option>
+                    <option value="5">State Engineering</option>
+                  </select>          
+                
+                   
+                  <select id="examYear" style="width: fit-content;display: inline;"class="form-control">
+                    &nbsp Year:
+                    <option value="undefined">All</option>
+                    <option>2001</option>
+                    <option>2002</option>
+                    <option>2003</option>
+                    <option>2004</option>
+                    <option>2005</option>
+                    <option>2006</option>
+                    <option>2007</option>
+                    <option>2008</option>
+                    <option>2009</option>
+                    <option>2010</option>
+                    <option>2011</option>
+                    <option>2012</option>
+                    <option>2013</option>
+                    <option>2014</option>
+                    <option>2015</option>
+                    <option>2016</option>          
+                    <option>2017</option>
+                    <option>2018</option>          
+                    <option>2019</option>
+                    <option>2020</option>
+                  </select>  
+                  <button style="display: inline;"class="btn-success" id="findQuestions">Search</button>        
+                </div> 
+                
+                
+                <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton">Find</button></div>
+              </div>
+            </div>
+            <div class="container">
+              <div class ="well">
+                   <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
+                   <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
+                   <button type="button" style="width: 80px;" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
+                   <button type="button" style="width: 30px;" class="btn btn-success" id="nextBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8680;</button>
+                   
+                    <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
+                    <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Select Question</button>
+                    <button type="button" style="width: 130px;" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>
+                  </div>
+            </div>
+        
+        
+          <div class = "container">
+             <div class = "well">      
+             
+              <p class = "well" id = "chapterNumber">Chapter No. X</p>
+                
+              <p class = "well" id = "questionNumber">Question No. X</p>
+                  
+              <p class = "well" id="newQuestionTyped">text</p>
+                   
+              <image class = "well"style="orientation: centre"id="image"></image> 
+            </div>                           
+          </div>
+        
+        
+        
+        
+        <div class="container">
+          <div class = "well">
+        
+          <input id="NewTestName">
+           <button type="button" class="btn btn-danger" id="NewTestButton">New Test with Selected Questions</button>
+        </div>
+        </div>
+        
+        <div class="container">
+          <div class="well" id="paper"></div>
+        </div>
+
+          
+
+      </div>
+      
+      
+      
+          
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+<script src="/js/TeacherLogin.js"></script>
+
+<script src="/js/testCreator.js"></script>
+
+<script src="/js/TeacherManager.js"></script>
+</html>

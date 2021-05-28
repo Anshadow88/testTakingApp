@@ -1,7 +1,14 @@
 
 const PostSchema = new mongoose.Schema({
-    type:{type:String,default:'1'},// 1:text, 2:text+Image, 3: text+YoutubeLink ,4: Decimal Type, 5: Match the following, 5: paragraph
-    heading:{type:String, required:true},
+    type:{type:String,default:'1'},// 1:text, 2:text+Image, 3: text+YoutubeLink ,4: ,
+    contentType:{type:String,required:true}, //1. Theory, 2. Example Question, 3. Quiz
+    data:{
+        subject: {type: String,required: true},
+        chapter: {type:String,required: true},
+        topic:{type:String,required:true},
+        subtopic:{type: String,require:true}
+    },
+    title:{type:String, required:true},
     subtitle:{type:String,required:true},    
     text:{type:String,required:true},
     image:{type:String,required:true,default:"NA"},
@@ -14,4 +21,4 @@ const PostSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Question', QuestionSchema)
+module.exports = mongoose.model('Post', PostSchema)

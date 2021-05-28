@@ -7,14 +7,25 @@ const userSchema = new mongoose.Schema( {
     name:{
         type:String,
         required: true,
-        trim:true
-        
+        trim:true        
     },
     role:{
         type: String,
         default: 'student' // or teacher or edp or admin
-
     },
+    teachers:[{
+        teacherID:{
+            type:String
+        }
+    }],
+    students:[{
+        studentID:{
+            type:String
+        },
+        batch:{
+            type:String
+        }
+    }],
     email:{
         type: String,
         unique: true,
@@ -26,7 +37,6 @@ const userSchema = new mongoose.Schema( {
                 throw new Error('Email is not Correct')
             }
         }
-
     },
     password:{
         type:String,
@@ -38,7 +48,6 @@ const userSchema = new mongoose.Schema( {
                 throw new Error('Password cannot contain password')
             }
         }
-
     },
     questions: [{
         questionID:{
@@ -47,7 +56,6 @@ const userSchema = new mongoose.Schema( {
         },
         correct:{
             type: Boolean
-
         }     
 
     }],
