@@ -10,7 +10,6 @@ const $FindTestButton = document.getElementById('FindTestButton')
 const $FindByAuthorNameButton = document.getElementById('FindByAuthorNameButton')
 
 
-
 const $questionNumber = document.getElementById('questionNumber')
 const $newQuestionText = document.querySelector('#newQuestionTyped')
 const $correctAnswer = document.querySelector('#correctAnswer')
@@ -44,7 +43,6 @@ let imageFile
 inputImage.addEventListener('change', () => {
     imageFile = inputImage.files[0]
 });
-
 
 $FindQuestionByIDButton.addEventListener('click',(e)=>{
     QUESID = $QuestionID.value
@@ -144,7 +142,6 @@ async function getQuestionOfChapter(chapter){
     
 }
 
-
 async function getQuestionByAuthor(AuthorName){     
     console.log("Author: "+AuthorName)
     const response  = await fetch("/questions/author", {          
@@ -171,7 +168,6 @@ async function getQuestionByAuthor(AuthorName){
     showCurrentQuestion()
     
 }
-
 
 async function showCurrentQuestion(){
     //Remove Selected image for last update  

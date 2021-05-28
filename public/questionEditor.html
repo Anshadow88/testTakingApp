@@ -12,19 +12,21 @@
 </head>
 <body>
   <div class= "container">
-    <h3 class="well" >Editing Section (for Old Questions)</h3>
+    <h3 class="well" >Editing Section </h3>
   </div>
     
     <div class="container">
       <div class="well">
         <div style = "display: none">
-        Find questions by Chapter
+        Chapter
         <input id ="FindChapterName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindChapterButton">Find</button>
+        Ques ID
+        <input id ="QuestionID"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindQuestionByIDButton">Find</button>
+        </div>
+
         by TestName
         <input id ="FindTestName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindTestButton" >Find </button>
-        or By ID
-        <input id ="QuestionID"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindQuestionByIDButton">Find</button>
-      </div>
+       
         Get Last 50 Questions by Name
         <input id ="FindByAuthorName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindByAuthorNameButton">Find</button>        
         
