@@ -48,7 +48,9 @@ $nextQuestionButton.addEventListener('click',(e)=>{
     DisplayNextQuestion()
 })
 
-$openTestAppButton.addEventListener('click',()=>{
+
+const $openTestAppButton2 = document.getElementById('openTestAppButton')
+$openTestAppButton2.addEventListener('click',()=>{
     console.log('TestApp')
     loadAllTestsData()
 })
