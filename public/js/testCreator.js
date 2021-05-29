@@ -71,9 +71,7 @@ $selectQuestionButton.addEventListener('click',(e)=>{
     AddAQuestionToSelection()
 })
 
-$removeQuestionButton.addEventListener('click',(e)=>{    
-    RemoveAQuestionToSelection()
-})
+
 
 async function getQuestion(quesID){     
     //console.log("Global: "+TOKEN)
@@ -197,16 +195,11 @@ function AddAQuestionToSelection(){
     ShowPaper()       
  }
 
- function RemoveAQuestionToSelection(){     
-    
-    SelectedQuestionIDs.pop({'questionID': QuestionsOFChapters[QuestionCount]._id})
-    SelectedQuestions.pop(QuestionsOFChapters[QuestionCount])
-    ShowPaper()
-       
- }
+ 
 
  function RemoveThisQuestionToSelection(id){     
-    
+    console.log(SelectedQuestionIDs)
+    console.log('Remove '+SelectedQuestionIDs[id].questionID)
     SelectedQuestionIDs.pop({'questionID': SelectedQuestionIDs[id]})
     SelectedQuestions.pop(QuestionsOFChapters[id])
     
@@ -216,28 +209,23 @@ function AddAQuestionToSelection(){
 
  function ShowPaper(){
     const $paper = document.getElementById('paper')
+    while($paper.hasChildNodes())
+        {
+            $paper.removeChild($paper.firstChild);
+        }
     
-    console.log('21')
     for(i=0;i<SelectedQuestions.length;i++)
     {
-
-        // paperText+= 'Q.'+ (i+1) +'&nbsp'+
-        // SelectedQuestions[i].question+'<br/><br/>'
         let newDiv = document.createElement('div')        
-        newDiv.className = "well well-sm"
+             newDiv.className = "well well-sm"
         $paper.appendChild(newDiv)
-        console.log('22')
         let cancelBtn = document.createElement('button')
-        cancelBtn.innerHTML='&#10060'
-        cancelBtn.addEventListener('click', e=>{
-            RemoveThisQuestionToSelection(i)
-        })
+            cancelBtn.innerHTML='&#10060'
+            cancelBtn.addEventListener('click', e=>{RemoveThisQuestionToSelection(i)})
         newDiv.appendChild(cancelBtn)
-        console.log('23')
         let newP = document.createElement('p')
-        newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question+'<br/><br/>'
-        newDiv.appendChild(newP)
-        console.log('24')
+          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question+'<br/><br/>'
+          newDiv.appendChild(newP)
     }
  }
  

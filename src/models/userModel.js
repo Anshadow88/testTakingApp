@@ -26,6 +26,14 @@ const userSchema = new mongoose.Schema( {
             type:String
         }
     }],
+    testPaper:[{
+        testID:{
+            type:String
+        },
+        visibility:{
+            type:String //0 = No & 1 = No
+        }
+    }],
     email:{
         type: String,
         unique: true,
