@@ -114,8 +114,13 @@ router.post('/findQuestions',async (req, res) => {
         const author = req.body.author
         var questionsFound        
         
-        if(exam!='undefined'&&year!='undefined'&&author!='undefined')
+        if(exam!='undefined'&&year!='undefined'&&author!='')
         { questionsFound = await Question.find({author: author,exam: exam,year:year }).exec()   }
+        
+        else if(year!='undefined'&&author!='')
+        { questionsFound = await Question.find({author: author,year:year }).exec()   }
+        else  if(exam!='undefined'&&author!='')
+        { questionsFound = await Question.find({author: author,exam: exam }).exec()   }
         
         else if(exam!='undefined'&&year!='undefined'&&chapter!='undefined')
         { questionsFound = await Question.find({chapter: chapter,exam: exam,year:year }).exec()   

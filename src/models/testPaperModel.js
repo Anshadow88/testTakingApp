@@ -7,7 +7,7 @@ const TestPaper= new mongoose.Schema({
         trim:true        
     },
     subject:{
-        type:String//PCMB
+        type:String//Physics,Chemisty,Maths,PCM,PCB
 
     },
     time:{

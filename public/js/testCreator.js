@@ -22,7 +22,11 @@ let $image = document.getElementById('image')
 
 $NewTestButton.addEventListener('click',(e)=>{
     console.log('1001')
-    postNewTestPaper($NewTestName.value)
+    TestSubject = document.querySelector('#TestSubject')
+    if(!$NewTestName.value||!TestSubject.value)
+    alert('Fill All Fields about New Test')    
+    else
+    postNewTestPaper(TestSubject.value,$NewTestName.value,'0')
 
 })
 
@@ -230,7 +234,7 @@ function AddAQuestionToSelection(){
     }
  }
  
-async function postNewTestPaper(testName,visibility){
+async function postNewTestPaper(subject,testName,visibility){
     const response = await fetch("/testPaper", {      
     // Adding method type
     method: "POST",      
@@ -239,7 +243,8 @@ async function postNewTestPaper(testName,visibility){
         name: testName,
         author: USERID,
         questions: SelectedQuestionIDs,
-        visibility: visibility
+        visibility: visibility,
+        subject: subject
     }),
     // Adding headers to the request
     headers: {
