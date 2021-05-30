@@ -231,7 +231,7 @@ function AddAQuestionToSelection(){
  }
  
 async function postNewTestPaper(testName,visibility){
-    if(!USERID)USERID = '60b3cba514a1d30015a8d0de'
+    if(!USERID)const USERID = '60b3cba514a1d30015a8d0de'
     const response = await fetch("/testPaper", {      
     // Adding method type
     method: "POST",      
