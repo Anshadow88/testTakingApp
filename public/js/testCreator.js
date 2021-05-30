@@ -137,7 +137,8 @@ async function getQuestions(exam,year,chapter){
     body: JSON.stringify({
         exam : exam,
         year: year,
-        chapter: chapter
+        chapter: chapter,
+        author: document.getElementById('typistName').value
     }),
     // Adding body or contents to send
         // Adding headers to the request
