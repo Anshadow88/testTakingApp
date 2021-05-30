@@ -231,7 +231,6 @@ function AddAQuestionToSelection(){
  }
  
 async function postNewTestPaper(testName,visibility){
-    if(USERID){
     const response = await fetch("/testPaper", {      
     // Adding method type
     method: "POST",      
@@ -247,25 +246,7 @@ async function postNewTestPaper(testName,visibility){
         "Content-type": "application/json; charset=UTF-8"
     }
 })
-.then().then()}
-else{
-    const response = await fetch("/testPaper", {      
-        // Adding method type
-        method: "POST",      
-        // Adding body or contents to send
-        body: JSON.stringify({
-            name: testName,
-            author: '60b3cba514a1d30015a8d0de',
-            questions: SelectedQuestionIDs,
-            visibility: visibility
-        }),
-        // Adding headers to the request
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
-    .then().then()}
-}
+.then().then()
 
 var data = await response.json()
 console.log(data)
