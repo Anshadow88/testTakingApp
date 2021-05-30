@@ -4,6 +4,17 @@ if(sessionStorage.questionType) questionType = sessionStorage.questionType
 $questionType.value = questionType
 setQuestionTypeEverywhere()
 
+let $fileName = document.getElementById('fileName')
+let fileName
+if(sessionStorage.fileName) {fileName = sessionStorage.fileName 
+    console.log('found filename:')}
+$fileName.value = fileName
+
+let $subjectName = document.getElementById('subjectName')
+let subjectName
+if(sessionStorage.subjectName) subjectName = sessionStorage.subjectName
+$subjectName.value = subjectName
+
 let $nameOfTypist = document.getElementById('nameOfTypist')
 const $nameOfTypistButton = document.getElementById('nameOfTypistButton')
 let nameOfTypist = sessionStorage.nameOfTypist
@@ -29,6 +40,9 @@ let $yearOfExamInput = document.getElementById('yearOFExamInput')
 let $setYearOfExamButton = document.getElementById('setYearOfExamButton')
 let $setQuestionTypeButton = document.getElementById('setQuestionTypeButton')
 
+let $setFileNameButton = document.getElementById('setFileNameButton')
+let $setSubjectNameButton = document.getElementById('setSubjectNameButton')
+
 
 let selectedChapter = 0
 if(sessionStorage.selectedChapter) selectedChapter = sessionStorage.selectedChapter
@@ -36,13 +50,12 @@ $chapterNumberInput.value = selectedChapter
 let selectedAnswer = ""
 let examName=0
 if(sessionStorage.examName)examName = sessionStorage.examName 
-console.log($examNameButtons[examName])
 $examNameButtons[examName].checked = true
 let yearOfExam = 0
 if(sessionStorage.yearOfExam) yearOfExam = sessionStorage.yearOfExam
 $yearOfExamInput.value = yearOfExam
 
-
+console.log('Question: '+modifiedText+'\n'+'Answer: '+selectedAnswer+'\n'+'Chapter : '+selectedChapter+'\n'+'Typist: '+nameOfTypist+'\n'+'Exam: '+examName+'\n'+'Question Type: '+questionType+'\n'+'Subject: '+subjectName+'\n'+'FileName: '+fileName)
 
 const $inputImage = document.getElementById('image');
 let imageFile
@@ -51,9 +64,24 @@ $inputImage.addEventListener('change', () => {
     imageFile = $inputImage.files[0]
 });
 
+
+$setSubjectNameButton.addEventListener('click',(e)=>{
+    subjectName = $subjectName.value
+    sessionStorage.subjectName = subjectName
+})
+
+$setFileNameButton.addEventListener('click',(e)=>{
+    fileName = $fileName.value
+    //sessionStorage.fileName = fileName
+    sessionStorage.setItem("fileName",$fileName.value)
+        console.log('Set filename:')
+    
+})
+
 $setQuestionTypeButton.addEventListener('click',(e)=>{
     questionType = $questionType.value
-    sessionStorage.questionType = questionType
+   // sessionStorage.questionType = questionType
+    sessionStorage.setItem("questionType",$questionType.value)
     setQuestionTypeEverywhere()
 })
 
@@ -106,6 +134,8 @@ $postQuestionButton.addEventListener('click',(e)=>{
     yearOfExam = $yearOfExamInput.value
     selectedChapter = $chapterNumberInput.value
     takeInputFromCorrectTypeAnswer()
+    fileName = $fileName.value
+
     
     for (var rc of $examNameButtons) {
         if (rc.checked) {
@@ -114,7 +144,7 @@ $postQuestionButton.addEventListener('click',(e)=>{
             break;
         }
     }
-    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist||!examName||!questionType)
+    if(!modifiedText||!selectedAnswer||!selectedChapter||!nameOfTypist||!examName||!questionType||!subjectName||!fileName)
     {
         alert('Please fill all fields')
         return

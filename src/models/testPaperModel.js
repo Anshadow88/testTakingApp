@@ -6,13 +6,15 @@ const TestPaper= new mongoose.Schema({
         required: true,
         trim:true        
     },
+    subject:{
+        type:String//PCMB
+
+    },
     time:{
-        type:Number
+        type:Number 
     },
     description:{
-        type:String,
-        default:''     
-
+        type:String, //0. TeacherMade //1. Pastyearpaper 2.chapterwiseJEE 3. chapterwiseNEET 4.
     },
     author:{
         type:String,

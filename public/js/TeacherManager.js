@@ -3,7 +3,7 @@ let studentData = []
 
 const $addNewStudentFormButton = document.getElementById('addNewStudentFormButton')
 $addNewStudentFormButton.addEventListener('click',(e)=>{
-    console.log('Here')
+    //console.log('Here')
     let name = document.getElementById('newStudentName') 
     let email = document.getElementById('newStudentEmail')
     let password = document.getElementById('newStudentPassword')
@@ -61,7 +61,7 @@ async function addNewStudentToDatabase(name, email, password){
     ).then()
     
     const data = await response.json()
-    console.log('Here '+data)
+    ////console.log('Here '+data)
 
     getAllMyStudents(USERID)
 
@@ -83,7 +83,7 @@ async function deleteOldStudentFromDatabase(name, email){
     ).then()
     
     const data = await response.json()
-    console.log('Here '+data)
+   // //console.log('Here '+data)
 
     getAllMyStudents(USERID)
 
@@ -101,7 +101,7 @@ async function getAllMyStudents(teacherID)
     .then(
     ).then()    
     const data = await response.json()
-    console.log(data)
+  //  //console.log(data)
     studentData = data
     addOldStudentsToList(studentData)
 
@@ -159,7 +159,7 @@ $hideResultButton.addEventListener('click',(e)=>{
     hideAllTestResult()
 })
 async function loadAllTestResult(){     
-    //console.log("Global: "+TOKEN)
+    ////console.log("Global: "+TOKEN)
     AllStudentResults = []
     const response  = await fetch("/allTests", {          
     // Adding method type
@@ -168,9 +168,7 @@ async function loadAllTestResult(){
     header: {
         // "Authorization": "Bearer " + TOKEN
     },
-    // Adding body or contents to send
-    
-    // Adding headers to the request
+
     headers: {
         "Content-type": "application/json; charset=UTF-8"
     }
@@ -178,7 +176,9 @@ async function loadAllTestResult(){
 
     var data = await response.json()   
     console.log(data)
+    
     DisplayAllResult(data)
+
 }
 function DisplayAllResult(allTests){
     $resultText = document.querySelector('#resultText')
@@ -201,7 +201,7 @@ function hideAllTestResult(){
     $resultText.innerHTML=''
 }
 async function loadTestResult(testName){     
-    //console.log("Global: "+TOKEN)
+    ////console.log("Global: "+TOKEN)
     AllStudentResults = []
     const response  = await fetch("/testPaperNameResult", {          
     // Adding method type
@@ -266,4 +266,277 @@ const Student = class{
     }
 
 }
+
+//TEST MAKER SECTION
+
+const ShowMyTestButton = document.getElementById('ShowMyTestButton')
+ShowMyTestButton.addEventListener('click',e=>{
+    getAllMyTests()
+    document.getElementById('MyTests').style.display='block'
+    document.getElementById('PreviousYearExams').style.display='none'    
+    document.getElementById('testCreatorApp').style.display='none'
+
+   
+
+})
+
+const ShowreviousYearButton = document.getElementById('ShowreviousYearButton')
+ShowreviousYearButton.addEventListener('click',e=>{
+    document.getElementById('MyTests').style.display='none'
+    document.getElementById('PreviousYearExams').style.display='block'    
+    document.getElementById('testCreatorApp').style.display='none'
+    getAllAdminTests()
+    
+})
+
+const CreateNewButton = document.getElementById('CreateNewButton')
+CreateNewButton.addEventListener('click',e=>{
+    document.getElementById('MyTests').style.display='none'
+    document.getElementById('PreviousYearExams').style.display='none'    
+    document.getElementById('testCreatorApp').style.display='block'
+
+})
+
+
+async function getAllMyTests()
+{
+    const response  = await fetch("/testTestsOfTeacher/"+USERID, {          
+    // Adding method type
+    method: "GET",
+      
+    header: {
+        // "Authorization": "Bearer " + TOKEN
+    },
+
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()
+    console.log(data)
+    makeMyExamTable(data)
+}
+
+function makeMyExamTable(myExams)
+{
+    //console.log(myExams.length) 
+    if(myExams.length==0)return
+    //console.log('211')
+    const myTestTableDiv  = document.getElementById('myTestTableDiv')
+    //console.log('212')
+    //while(myTestTableDiv.hasChildNodes)myTestTableDiv.remove(myTestTableDiv.firstChild)
+    //console.log('213')
+    const newTable = document.createElement('table')
+    //console.log('214')
+    newTable.className='table'
+    //console.log('215')
+    myTestTableDiv.appendChild(newTable)
+    //console.log('216')
+    const thead = document.createElement('thead')
+    //console.log('217')
+    newTable.appendChild(thead)
+    //console.log('218')
+    for(i=0;i<3;i++)
+    {
+        const td = document.createElement('td')
+        thead.appendChild(td)
+        if(i==0)td.appendChild(document.createTextNode('#'))
+        if(i==1)td.appendChild(document.createTextNode('Exam Code'))
+        if(i==2)td.appendChild(document.createTextNode('Description'))
+    }
+    //console.log('219')
+    const tbody = document.createElement('tbody')
+    //console.log('220')
+    newTable.appendChild(tbody)
+    for(j=0;j<myExams.length;j++)
+    {
+        console.log('Here'+myExams[j])
+            
+        const tr = document.createElement('tr')
+        tbody.appendChild(tr)
+        for(i=0;i<4;i++)
+        {
+            
+            const td = document.createElement('td')
+            tr.appendChild(td)
+            if(i==0)td.appendChild(document.createTextNode(j+1))
+            if(i==1)td.appendChild(document.createTextNode(myExams[j].examName))
+            if(i==2)td.appendChild(document.createTextNode(myExams[j].visibility))            
+            if(i==3){
+                let newButton = document.createElement('button')
+                newButton.innerHTML = 'Send'
+                console.log(newButton+'  '+myExams[j]._id)     
+                let id =  myExams[j]._id  
+                newButton.addEventListener('click',e=>{SendThisTestToStudents(id)})
+                td.appendChild(newButton)
+            }
+           // console.log('Heretoo'+myExams[j])
+        
+        }
+    }
+}
+
+
+async function getAllAdminTests()
+{
+    const response  = await fetch("/testTestsOfAdmin", {          
+    // Adding method type
+    method: "GET",
+      
+    header: {
+        // "Authorization": "Bearer " + TOKEN
+    },
+
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()
+    console.log(data)
+    makeAdminExamTable(data)
+}
+
+function makeAdminExamTable(myExams)
+{
+    //console.log(myExams.length) 
+    if(myExams.length==0)return
+    //console.log('211')
+    const myTestTableDiv  = document.getElementById('AdminTableDiv')
+    //console.log('212')
+    //while(myTestTableDiv.hasChildNodes)myTestTableDiv.remove(myTestTableDiv.firstChild)
+    //console.log('213')
+    const newTable = document.createElement('table')
+    //console.log('214')
+    newTable.className='table'
+    //console.log('215')
+    myTestTableDiv.appendChild(newTable)
+    //console.log('216')
+    const thead = document.createElement('thead')
+    //console.log('217')
+    newTable.appendChild(thead)
+    //console.log('218')
+    for(i=0;i<3;i++)
+    {
+        const td = document.createElement('td')
+        thead.appendChild(td)
+        if(i==0)td.appendChild(document.createTextNode('#'))
+        if(i==1)td.appendChild(document.createTextNode('Exam Code'))
+        if(i==2)td.appendChild(document.createTextNode('Description'))
+    }
+    //console.log('219')
+    const tbody = document.createElement('tbody')
+    //console.log('220')
+    newTable.appendChild(tbody)
+    for(j=0;j<myExams.length;j++)
+    {
+        console.log('Here'+myExams[j])
+            
+        const tr = document.createElement('tr')
+        tbody.appendChild(tr)
+        for(i=0;i<4;i++)
+        {
+            
+            const td = document.createElement('td')
+            tr.appendChild(td)
+            if(i==0)td.appendChild(document.createTextNode(j+1))
+            if(i==1)td.appendChild(document.createTextNode(myExams[j].name))
+            if(i==2)td.appendChild(document.createTextNode(myExams[j].author))            
+            if(i==3){
+                let newButton = document.createElement('button')
+                newButton.innerHTML = 'Send'
+                console.log(newButton+'  '+myExams[j]._id)     
+                let id =  myExams[j]._id  
+                let name = myExams[j].name
+                newButton.addEventListener('click',e=>{AddThisAdminTestToTeachersTests(id,name)})
+                td.appendChild(newButton)
+            }
+           // console.log('Heretoo'+myExams[j])
+        
+        }
+    }
+}
+
+async function AddThisAdminTestToTeachersTests(testID,testName){
+    console.log(testID+'  '+testName)
+    const response  = await fetch("/AddThisAdminTestToTeachersTests/"+USERID, {          
+    // Adding method type
+    method: "PATCH",
+      
+    // header: {
+    //     "Authorization": "Bearer " + TOKEN
+    // },
+    // Adding body or contents to send
+    body: JSON.stringify({
+        testName: testName,
+        testID: testID ,
+        visibility: '1'
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    console.log(data)
+
+}
+
+async function SendThisTestToStudents(testID){
+
+    const response  = await fetch("/changeTestVisibility/"+USERID, {          
+    // Adding method type
+    method: "PATCH",
+      
+    // header: {
+    //     "Authorization": "Bearer " + TOKEN
+    // },
+    // Adding body or contents to send
+    body: JSON.stringify({
+        testID: testID ,
+        visibility: '1'
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    console.log(data)
+
+}
+
+async function HideThisTestToStudents(testID){
+
+    const response  = await fetch("/changeTestVisibility/"+USERID, {          
+    // Adding method type
+    method: "PATCH",
+      
+    // header: {
+    //     "Authorization": "Bearer " + TOKEN
+    // },
+    // Adding body or contents to send
+    body: JSON.stringify({
+        testID: testID ,
+        visibility: '0'
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    console.log(data)
+
+}
+
+
+
+
+
+
 

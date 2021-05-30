@@ -229,18 +229,16 @@ function AddAQuestionToSelection(){
     }
  }
  
-async function postNewTestPaper(testName){
-    
-    const response = await fetch("/testPaper", {
-      
+async function postNewTestPaper(testName,visibility){
+    const response = await fetch("/testPaper", {      
     // Adding method type
-    method: "POST",
-      
+    method: "POST",      
     // Adding body or contents to send
     body: JSON.stringify({
         name: testName,
-        questions: SelectedQuestionIDs
-
+        author: USERID,
+        questions: SelectedQuestionIDs,
+        visibility: visibility
     }),
     // Adding headers to the request
     headers: {

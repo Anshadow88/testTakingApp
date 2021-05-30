@@ -107,23 +107,30 @@ router.post('/questions/examYear',async (req, res) => {
 
 router.post('/findQuestions',async (req, res) => {   
     try {
-        //console.log(req.body)
+        console.log(req.body)
         const exam = req.body.exam  
         const year = req.body.year     
         const chapter = req.body.chapter
         var questionsFound        
-        if(chapter=='undefined'&&year=='undefined')
-        questionsFound = await Question.find({exam: exam }).exec()   
-        else if(exam=='undefined')
-        questionsFound = await Question.find({chapter: chapter }).exec()   
-        else if(year=='undefined')
-        questionsFound = await Question.find({chapter: chapter,exam: exam }).exec() 
-        else if(chapter=='undefined')
-        questionsFound = await Question.find({exam: exam, year:year }).exec()           
-        else
-        questionsFound = await Question.find({chapter: chapter,exam: exam,year:year }).exec()     
+ 
+        if(exam!='undefined'&&year!='undefined'&&chapter!='undefined')
+        { questionsFound = await Question.find({chapter: chapter,exam: exam,year:year }).exec()   
+         console.log('111')}           
+        else if(exam!='undefined'&&year!='undefined')
+        {questionsFound = await Question.find({exam: exam,year:year }).exec()     
+        console.log('112')}
+        else if(exam!='undefined'&&chapter!='undefined')
+        {questionsFound = await Question.find({exam: exam,chapter:chapter }).exec()
+        console.log('113')}
+        else if(chapter!='undefined')
+        {questionsFound = await Question.find({chapter:chapter }).exec()    
+        console.log('114')}
+        else 
+        {questionsFound = await Question.find({exam:exam }).exec()      
+        console.log('115')}
         
-        //console.log(questionsFound)
+        
+       // console.log(questionsFound[0])
         
        // console.log(questionsOfExamYear)
         if(!questionsFound){

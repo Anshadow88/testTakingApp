@@ -13,21 +13,65 @@
 <body>
   <div class = "container">
     <div class="row">
+      <div class="well">
       <div class="col-sm-6">
-        <h3 class ="well"> Typing Section (For New Questions)</h3>
+       <div class="well">
+        <h3 > Typing Section (For New Questions)</h3>
+        <p>Typist Name : <input id = "nameOfTypist"><button class="btn btn-primary" id = "nameOfTypistButton">Set</button></p>
+        <p>File Name : &nbsp;&nbsp;&nbsp;<input id = "fileName"><button class="btn btn-primary" id = "setFileNameButton">Set</button> (filename without spaces)</p>
+       </div>
       </div>
       <div class="col-sm-6">
         <div class="well">
-        <p>Typist Name: <input id = "nameOfTypist"><button class="btn btn-primary" id = "nameOfTypistButton">Set</button></p>
-        <p>Question Type: <input id="questionType"><button class="btn btn-primary" id = "setQuestionTypeButton">Set</button></p>
-
+        
+        <!-- <p>Question Type: <input id="questionType"><button class="btn btn-primary" id = "setQuestionTypeButton">Set</button></p> -->
+        <p>Question Type &nbsp;<select id="questionType" style="width: fit-content;display: inline;"class="form-control">
+          <option value="undefined">0. No Type</option>
+          <option value="1">1. Single Option Correct</option>
+          <option value="2">2. Multiple Option Correct</option>
+          <option value="3">3. Integer Types</option>
+          <option value="4">4. Decimal Point</option>         
+        </select>
+        <button class="btn btn-primary" id = "setQuestionTypeButton">Set</button>
+        </p>
+        <p>Subject Name: <select id="subjectName" style="width: fit-content;display: inline;"class="form-control">
+          <option value="undefined">0. No Subject</option>
+          <option value="1">1. Physics</option>
+          <option value="2">2. Chemistry</option>
+          <option value="3">3. Maths</option>
+          <option value="4">4. Biology</option>         
+        </select>
+        <button class="btn btn-primary" id = "setSubjectNameButton">Set</button>
+        </p>
+        <form>Exam:  
+          <label class="radio-inline">
+            <input type="radio" name="examNameButtons" value = "0">none
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="examNameButtons" value = "1">NEET
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="examNameButtons" value = "2">Mains
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="examNameButtons" value = "3">Advanced
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="examNameButtons" value = "4">others
+          </label>
+          <button class="btn btn-primary" id="fixExamNameButton"> Set </button>
+          <br/>Year:&nbsp;&nbsp;<input id="yearOFExamInput"><button class="btn btn-primary" id="setYearOfExamButton"> Set </button>
+          
+        </form>
       </div>
     </div>
+    
 
     <div class="row">    
       <div class="col-sm-6">       
         <form class="well">
           <!-- <p>Chapter<input id="chapterNumberInput"><button id="fixChapterNameButton">Set</button></p> -->
+          
           Chapter:
           <select id="chapterNumberInput" style="width: fit-content;display: inline;"class="form-control">
             <option value="undefined">All Chapters</option>            
@@ -53,30 +97,11 @@
             <option value="19">19. Modern Physics</option>
             <option value="20">20. Semiconductors</option>
           </select>
-          <button id="fixChapterNameButton" style="display: inline;">Set</button>
+          <button id="fixChapterNameButton" class="btn btn-primary" style="display: inline;">Set</button>
         </form>
       </div>
       <div class="col-sm-6">          
-            <form class ="well">Exam:  
-              <label class="radio-inline">
-                <input type="radio" name="examNameButtons" value = "0">none
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="examNameButtons" value = "1">NEET
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="examNameButtons" value = "2">Mains
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="examNameButtons" value = "3">Advanced
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="examNameButtons" value = "4">others
-              </label>
-              <button id="fixExamNameButton">Set</button>
-              <br/>Year:<input id="yearOFExamInput"><button id="setYearOfExamButton">Set</button>
-              
-            </form>
+           
             
           </div>
             
@@ -162,9 +187,12 @@
 </div>
 
 <div class="container">
+  <div class="well">
         <button type="button" class="btn btn-primary" id="postQuestionButton">Add New Question</button>
+  </div>
 </div>
 
+</div>
 </body>
 
 

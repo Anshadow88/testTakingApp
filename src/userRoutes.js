@@ -324,6 +324,42 @@ router.patch('/masterLogout',async(req,res)=>{
     }
 })
 
+//seend this test to all my students
+router.patch('/changeTestVisibility/:id',async(req,res)=>{
+    console.log(req.body)
+    const user = await User.findOne({_id:req.params.id})
+    if(!user)return res.status(404).send('No User found')
+    
+       // console.log(user)
+        user.testPaper.forEach(test=>{
+            console.log(test.testID+' == '+req.body.testID)            
+            console.log(test.visibility+' == '+req.body.visibility)
+            if(test.testID==req.body.testID)
+            {
+                test.visibility = req.body.visibility
+                console.log('Changinf visibility')
+            }
+            
+            console.log(test.visibility+' == '+req.body.visibility)
+        })
+    
+    await user.save()
+    res.status(200).send(user)
+
+})
+
+//Add This Admin Test To Teachers Tests
+router.patch('/AddThisAdminTestToTeachersTests/:id',async(req,res)=>{
+   // console.log('Here'+req.body.testName)
+    const user = await User.findOne({_id:req.params.id})
+    if(!user)return res.status(404).send('No User found')
+    
+    user.testPaper.push({'testName':req.body.testName,'testID':req.body.testID,'visibility':'1'})
+    
+    await user.save()
+    res.status(200).send(user)
+
+})
 // AllUsersUpdateTheirTeacherID('60ad429f93141d0015f8f4e5')
 
 // async function AllUsersUpdateTheirTeacherID(teacherID)

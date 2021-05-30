@@ -106,7 +106,21 @@
           </div>
 
           <div class="well" id= "StudyMaterialSection" style="display: none;"> 
-              <div class = "container" id="testCreatorApp"><h3 class ="well"> Create Tests for Students </h3>
+            <div class="well">
+              <button id= "ShowMyTestButton">My Own Tests</button>
+              <button id= "ShowreviousYearButton">Previous Year Exams</button> 
+              <button id= "CreateNewButton">Create New Test</button>
+            </div>
+              <div class="well" id="MyTests"style="display: none;">
+                My Tests
+                <div id="myTestTableDiv"></div>
+              </div>
+              <div class="well" id="PreviousYearExams"style="display: none;">   
+                Previous Year Exams       
+                <div id="AdminTableDiv"></div>
+              </div>      
+              </div>
+              <div class = "container" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
                  <div class="container">
                    <div class="well">
                     <div class="form-group">
@@ -134,7 +148,7 @@
                         <option value="18">18. Wave Optics</option>          
                         <option value="19">19. Modern Physics</option>
                         <option value="20">20. Semiconductors</option>
-                      </select>          
+                      </select>        
                   
                       
                       <select id="examName" style="width: fit-content;display: inline;"class="form-control">
@@ -172,6 +186,7 @@
                         <option>2019</option>
                         <option>2020</option>
                       </select>  
+                    
                       <button style="display: inline;"class="btn-success" id="findQuestions">Search</button>        
                     </div> 
                      <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton">Find</button></div>
@@ -214,6 +229,9 @@
               <div class="well" id="paper"></div>
                </div>
 
+            
+            
+              </div>
             </div>
          </div>
       

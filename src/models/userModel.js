@@ -27,11 +27,14 @@ const userSchema = new mongoose.Schema( {
         }
     }],
     testPaper:[{
+        testName:{
+            type:String
+        },
         testID:{
             type:String
         },
         visibility:{
-            type:String //0 = No & 1 = No
+            type:String //0 = NoOne & 1 = ToMyStudents & 2 = ToEveryone
         }
     }],
     email:{

@@ -19,11 +19,15 @@ router.get('/allTests', async (req, res) => {
 
 //Add New Test
 router.post('/testPaper', async (req, res) => {
-    console.log('Hello')
+  //  console.log(req.body)
     try {
-        console.log(req.body)
         const test = new TestPaper(req.body)
         await test.save()
+        const user = await User.findOne({_id:req.body.author})
+      //  console.log('User: '+user)
+        user.testPaper.push({'testName':test.name,'testID':test.id,'visibility':'0'})
+        await user.save()
+      //  console.log('Updated User: '+user)
         return res.status(201).json(test)
     } catch (error) {
         return res.status(500).json({"error":error})
@@ -62,7 +66,7 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
     }
 })
 
-//Get One Test For Taking
+//Get One Test For Student Sovling
 router.post('/testPaperWithName', async (req, res) => {
     try {
        // console.log(req.body)
@@ -185,8 +189,80 @@ router.patch('/testPaper/:id',async(req,res)=>{
 
 })
 
+//Get All Test of One Teacher Sovling
+router.get('/testTestsOfTeacher/:id', async (req, res) => {
+    //console.log('1')
+    try {
+       const user = await User.findOne({_id:req.params.id})
+       console.log(user.id)
+       const allTestsOfTeacher = []
+       user.testPaper.forEach(test=>{
+            allTestsOfTeacher.push(test)
+       })
+       //console.log(allTestsOfTeacher)
+
+    //    if(!user||allTestsOfTeacher.length==0)
+    //    req.status(404).send('No Paper of this Teacher')
+       
+      return res.json(allTestsOfTeacher)
+
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
 
 
+//Get All Test of One Teacher Sovling
+router.get('/testTestsOfAdmin', async (req, res) => {
+    //console.log('1')
+    try {
+       const allTestsOfTeacher = await TestPaper.find({author:'unknown'})
+       
+       //console.log(allTestsOfTeacher)
+
+    //    if(!user||allTestsOfTeacher.length==0)
+    //    req.status(404).send('No Paper of this Teacher')
+       
+      return res.json(allTestsOfTeacher)
+
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// AddAllTestToUser('60ad429f93141d0015f8f4e5')
+
+// async function AddAllTestToUser(userID){
+//     const alltests = await TestPaper.find()
+//     alltests.forEach(test=>{
+//         AddOneTestToUser(test.id,userID)
+//     })
+// }
+
+// async function AddOneTestToUser(testID,userID){
+//     const test = await TestPaper.findOne({_id:testID})
+//     const user = await User.findOne({_id:userID})
+//     console.log(user.id + '   '+ test.id)
+//     console.log(user.testPaper.length)
+//     user.testPaper.push({'testID':test.id,'visibility':'0'})
+//     await user.save() 
+//     console.log(user.testPaper.length)
+   
+// }
  
 
 
