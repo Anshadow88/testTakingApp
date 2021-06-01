@@ -324,9 +324,10 @@ function makeMyExamTable(myExams)
     if(myExams.length==0)return
     //console.log('211')
     const myTestTableDiv  = document.getElementById('myTestTableDiv')
-    //console.log('212')
-    //while(myTestTableDiv.hasChildNodes)myTestTableDiv.remove(myTestTableDiv.firstChild)
-    //console.log('213')
+    while (myTestTableDiv.firstChild) {
+        myTestTableDiv.removeChild(myTestTableDiv.firstChild);
+    }
+    
     const newTable = document.createElement('table')
     //console.log('214')
     newTable.className='table'
@@ -336,6 +337,7 @@ function makeMyExamTable(myExams)
     const thead = document.createElement('thead')
     //console.log('217')
     newTable.appendChild(thead)
+    
     //console.log('218')
     for(i=0;i<3;i++)
     {
@@ -343,15 +345,15 @@ function makeMyExamTable(myExams)
         thead.appendChild(td)
         if(i==0)td.appendChild(document.createTextNode('#'))
         if(i==1)td.appendChild(document.createTextNode('Exam Code'))
-        if(i==2)td.appendChild(document.createTextNode('Description'))
+        if(i==2)td.appendChild(document.createTextNode('Availible'))
     }
     //console.log('219')
     const tbody = document.createElement('tbody')
     //console.log('220')
     newTable.appendChild(tbody)
-    for(j=0;j<myExams.length;j++)
+    for(j=0; j<myExams.length;j++)
     {
-        console.log('Here'+myExams[j])
+       // console.log('Here'+myExams[j])
             
         const tr = document.createElement('tr')
         tbody.appendChild(tr)
@@ -361,12 +363,12 @@ function makeMyExamTable(myExams)
             const td = document.createElement('td')
             tr.appendChild(td)
             if(i==0)td.appendChild(document.createTextNode(j+1))
-            if(i==1)td.appendChild(document.createTextNode(myExams[j].examName))
-            if(i==2)td.appendChild(document.createTextNode(myExams[j].visibility))            
+            if(i==1)td.appendChild(document.createTextNode(myExams[j].name))
+            if(i==2)td.appendChild(document.createTextNode(myExams[j].questions.length+' Questions'))            
             if(i==3){
                 let newButton = document.createElement('button')
                 newButton.innerHTML = 'Send'
-                console.log(newButton+'  '+myExams[j]._id)     
+              //  console.log(newButton+'  '+myExams[j]._id)     
                 let id =  myExams[j]._id  
                 newButton.addEventListener('click',e=>{SendThisTestToStudents(id)})
                 td.appendChild(newButton)
@@ -398,6 +400,7 @@ async function getAllAdminTests()
     makeAdminExamTable(data)
 }
 
+
 function makeAdminExamTable(myExams)
 {
     //console.log(myExams.length) 
@@ -405,7 +408,9 @@ function makeAdminExamTable(myExams)
     //console.log('211')
     const myTestTableDiv  = document.getElementById('AdminTableDiv')
     //console.log('212')
-    //while(myTestTableDiv.hasChildNodes)myTestTableDiv.remove(myTestTableDiv.firstChild)
+    while (myTestTableDiv.firstChild) {
+        myTestTableDiv.removeChild(myTestTableDiv.firstChild);
+    }
     //console.log('213')
     const newTable = document.createElement('table')
     //console.log('214')
@@ -416,6 +421,7 @@ function makeAdminExamTable(myExams)
     const thead = document.createElement('thead')
     //console.log('217')
     newTable.appendChild(thead)
+    
     //console.log('218')
     for(i=0;i<3;i++)
     {
@@ -429,9 +435,9 @@ function makeAdminExamTable(myExams)
     const tbody = document.createElement('tbody')
     //console.log('220')
     newTable.appendChild(tbody)
-    for(j=0;j<myExams.length;j++)
+    for(j=0; j<myExams.length;j++)
     {
-        console.log('Here'+myExams[j])
+       // console.log('Here'+myExams[j])
             
         const tr = document.createElement('tr')
         tbody.appendChild(tr)
@@ -442,14 +448,13 @@ function makeAdminExamTable(myExams)
             tr.appendChild(td)
             if(i==0)td.appendChild(document.createTextNode(j+1))
             if(i==1)td.appendChild(document.createTextNode(myExams[j].name))
-            if(i==2)td.appendChild(document.createTextNode(myExams[j].author))            
+            if(i==2)td.appendChild(document.createTextNode(myExams[j].questions.length+' Questions'))            
             if(i==3){
                 let newButton = document.createElement('button')
                 newButton.innerHTML = 'Send'
-                console.log(newButton+'  '+myExams[j]._id)     
+              //  console.log(newButton+'  '+myExams[j]._id)     
                 let id =  myExams[j]._id  
-                let name = myExams[j].name
-                newButton.addEventListener('click',e=>{AddThisAdminTestToTeachersTests(id,name)})
+                newButton.addEventListener('click',e=>{SendThisTestToStudents(id)})
                 td.appendChild(newButton)
             }
            // console.log('Heretoo'+myExams[j])
@@ -458,8 +463,9 @@ function makeAdminExamTable(myExams)
     }
 }
 
-async function AddThisAdminTestToTeachersTests(testID,testName){
-    console.log(testID+'  '+testName)
+
+async function AddTestToAvailableTests(testID,testName){
+   //` console.log(testID+'  '+testName)
     const response  = await fetch("/AddThisAdminTestToTeachersTests/"+USERID, {          
     // Adding method type
     method: "PATCH",
@@ -471,7 +477,7 @@ async function AddThisAdminTestToTeachersTests(testID,testName){
     body: JSON.stringify({
         testName: testName,
         testID: testID ,
-        visibility: '1'
+        visibility: '0'
     }),
     // Adding headers to the request
     headers: {
@@ -486,7 +492,7 @@ async function AddThisAdminTestToTeachersTests(testID,testName){
 
 async function SendThisTestToStudents(testID){
 
-    const response  = await fetch("/changeTestVisibility/"+USERID, {          
+    const response  = await fetch("/AddTestToMyList/"+USERID, {          
     // Adding method type
     method: "PATCH",
       

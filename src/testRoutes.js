@@ -193,22 +193,14 @@ router.patch('/testPaper/:id',async(req,res)=>{
 router.get('/testTestsOfTeacher/:id', async (req, res) => {
     //console.log('1')
     try {
-       const user = await User.findOne({_id:req.params.id})
-       console.log(user.id)
-       const allTestsOfTeacher = []
-       user.testPaper.forEach(test=>{
-            allTestsOfTeacher.push(test)
-       })
-       //console.log(allTestsOfTeacher)
-
-    //    if(!user||allTestsOfTeacher.length==0)
-    //    req.status(404).send('No Paper of this Teacher')
-       
-      return res.json(allTestsOfTeacher)
-
-    } catch (error) {
-        return res.status(500).json({"error":error})
-    }
+        const allTestsOfTeacher = await TestPaper.find({author:req.params.id})       
+        
+        
+       return res.json(allTestsOfTeacher)
+ 
+     } catch (error) {
+         return res.status(500).json({"error":error})
+     }
 })
 
 
@@ -216,12 +208,8 @@ router.get('/testTestsOfTeacher/:id', async (req, res) => {
 router.get('/testTestsOfAdmin', async (req, res) => {
     //console.log('1')
     try {
-       const allTestsOfTeacher = await TestPaper.find({author:'unknown'})
+       const allTestsOfTeacher = await TestPaper.find({author:'60b3cba514a1d30015a8d0de'})
        
-       //console.log(allTestsOfTeacher)
-
-    //    if(!user||allTestsOfTeacher.length==0)
-    //    req.status(404).send('No Paper of this Teacher')
        
       return res.json(allTestsOfTeacher)
 
@@ -244,25 +232,20 @@ router.get('/testTestsOfAdmin', async (req, res) => {
 
 
 
-// AddAllTestToUser('60ad429f93141d0015f8f4e5')
+// AddAllTestToUser('')
 
 // async function AddAllTestToUser(userID){
 //     const alltests = await TestPaper.find()
+//     const user = await User.findOne({_id:userID})
 //     alltests.forEach(test=>{
-//         AddOneTestToUser(test.id,userID)
+//         if(test.author==userID)
+//         user.testPaper.push({'testName':test.name,'testID':test.id,'visibility':'0'})
+        
 //     })
+//     await user.save() 
+        
 // }
 
-// async function AddOneTestToUser(testID,userID){
-//     const test = await TestPaper.findOne({_id:testID})
-//     const user = await User.findOne({_id:userID})
-//     console.log(user.id + '   '+ test.id)
-//     console.log(user.testPaper.length)
-//     user.testPaper.push({'testID':test.id,'visibility':'0'})
-//     await user.save() 
-//     console.log(user.testPaper.length)
-   
-// }
  
 
 

@@ -252,8 +252,10 @@ async function postQuestion(){
         image: imageKeyAWS,
         exam: examName,
         year: yearOfExam,
-        type: questionType
-
+        type: questionType,
+        fileName : fileName,
+        subject: subjectName
+        
     }),
     // Adding headers to the request
     headers: {

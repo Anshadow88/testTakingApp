@@ -206,4 +206,28 @@ router.delete('/questions/:id', (req, res) => {
 // }
 
 
+
+
+// async function ALLQuestionsSubjectChange()
+// {
+//     const allQuestion = await Question.find()
+//     let count=0
+//     allQuestion.forEach(ques=>{
+//         OneQuestionsSubjectChange(ques.id)
+//         count++
+//         console.log(count)
+
+//     })
+
+// }
+// async function OneQuestionsSubjectChange(id)
+// {
+//     let question = await Question.findOne({_id:id})   
+//     question.subject = 'Physics'
+
+//     await question.save()   
+
+// }
+
+
 module.exports = router

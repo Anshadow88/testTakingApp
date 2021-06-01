@@ -22,27 +22,79 @@
         <input id ="FindChapterName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindChapterButton">Find</button>
         Ques ID
         <input id ="QuestionID"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindQuestionByIDButton">Find</button>
-        </div>
-
-        by TestName
+        
+        <p>by TestName:
         <input id ="FindTestName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindTestButton" >Find </button>
-       
-        Get Last 50 Questions by Name
+        </p>
+        </div>
+        <p> Typist Name:&nbsp;
         <input id ="FindByAuthorName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindByAuthorNameButton">Find</button>        
         
+        </p>
       </div>
     </div>
 
     <div class="container">
-      <form class="well">
-        Chapter Number:<input id="chapterNumber">(Can be edited)   
-        Subject:<input id="subjectName">(0:none, 1: Physics, 2:Chemistry, 3:Maths)  
-                 
-        <button type="button" style ="width:100px" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
-        <button type="button" style ="width:100px" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
+      <div class="well">
+        <div class = "row">
+        <div class = "col-sm-6">
+        <!-- Chapter Number:<input id="chapterNumber">(Can be edited)    -->
+        <p>Subject:&nbsp;
+          <select id="subjectName" style="width: fit-content;display: inline;"class="form-control">
+          <option value="undefined">Subject</option>
+          <option value="Physics">Physics</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Maths">Maths</option>
+          <option value="Biology">Biology</option>         
+        </select>
+        </p>
+        <p>Chapter:
+          <select id="chapterNumber" style="width: fit-content;display: inline;"class="form-control">
+            <option value="undefined">All Chapters</option>            
+            <option value="0">0. Unknown</option>
+            <option value="1">1. Vectors, Maths &  Errors</option>
+            <option value="2">2. Kinematics</option>
+            <option value="3">3. Newtons's Laws</option>
+            <option value="4">4. Work, Power & Energy</option>
+            <option value="5">5. Conservation of Momentum</option>
+            <option value="6">6. Rotational Motion</option>
+            <option value="7">7. Properties of Solids</option>
+            <option value="8">8. Gravitation</option>
+            <option value="9">9. Fluids</option>
+            <option value="10">10. Thermodynamics</option>
+            <option value="11">11. Oscillation (SHM)</option>
+            <option value="12">12. Waves</option>
+            <option value="13">13. Electrostatics</option>
+            <option value="14">14. Current Electricity</option>
+            <option value="15">15. Magnetism</option>
+            <option value="16">16. EMI & Alternate Current</option>          
+            <option value="17">17. Ray Optics</option>
+            <option value="18">18. Wave Optics</option>          
+            <option value="19">19. Modern Physics</option>
+            <option value="20">20. Semiconductors</option>
+          </select>
+          </p>
+        
+        <!-- <p>Topic:&nbsp;&nbsp;&nbsp;&nbsp;
+          <select id="topicName" style="width: fit-content;display: inline;"class="form-control">                  
+          </select>
+        </p> -->
+      </div>
+      <div class = "col-sm-6">        
+        <!-- <input id="subjectName">(0:none, 1: Physics, 2:Chemistry, 3:Maths)   -->
+        <div class = "well">  
         <button type="button" class="btn btn-danger" id="postQuestionButton">Update Question</button>
-
-      </form>
+        </div>
+        <div class="well">
+          <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
+          <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
+          <button type="button" style="width: 80px;" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
+          <button type="button" style="width: 30px;" class="btn btn-success" id="nextBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8680;</button>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
     </div>
 
 
