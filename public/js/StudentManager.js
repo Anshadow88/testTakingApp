@@ -24,11 +24,11 @@ function SwitchStudentSections(count){
 
    // document.getElementById('profileSection').style.display='none'   
     document.getElementById('resultSection').style.display='none'
-    document.getElementById('testApp').style.display='none'
+    document.getElementById('homeworkSection').style.display='none'
 
     if(count==1)document.getElementById('profileSection').style.display= 'block'
     else if(count==2)document.getElementById('resultSection').style.display='block'
-    else if(count==3)document.getElementById('testApp').style.display='block'
+    else if(count==3)document.getElementById('homeworkSection').style.display='block'
 }
 
 //RESULT SECTION
@@ -45,9 +45,12 @@ $openResultButton.addEventListener('click',(e) =>{
   })
   addTable()
 })
+
 function addTable() {
-  var $myTableDiv = document.getElementById("myDynamicTable");
-    
+  var $myTableDiv = document.getElementById("myResultTable");
+  while($myTableDiv.hasChild){
+    $myTableDiv.removeChild($myTableDiv)
+  }
   var table = document.createElement('TABLE');
   table.className ='table'
 
@@ -101,6 +104,11 @@ function addTable() {
 }
 
 addTable();
+
+
+//MY TESTS SECTION
+
+
 
 
 

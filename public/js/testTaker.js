@@ -1,5 +1,4 @@
 
-const $testStartbutton = document.querySelector('#getTestButton')
 const $testName = document.querySelector('#testName')
 const $messageReview = document.querySelector('#messageReview')
 const $time = document.querySelector('#time')
@@ -34,10 +33,10 @@ let questionwiseResut = []
 let isGiven = false
 
 window.TESTID =""
+window.TESTNAME=""
 confirmationMenu.style.display ='none'
 submitTestButton.style.display = 'none'
 
-$testStartbutton.addEventListener('click',GetTest)
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
 $OptionCButton.addEventListener('click',CheckOptionC)
@@ -52,7 +51,7 @@ $nextQuestionButton.addEventListener('click',(e)=>{
 const $openTestAppButton2 = document.getElementById('openTestAppButton')
 $openTestAppButton2.addEventListener('click',()=>{
     console.log('TestApp')
-    loadAllTestsData()
+    loadAvailableTests()
 })
 
 $previousQuestionButton.addEventListener('click',(e)=>{
@@ -91,16 +90,11 @@ function CheckIntegerType(){
     MarkAnswer(integerAnswer.value,availableQuestions[questionCount])
 }
 ///VERY IMPORTANT
-function GetTest()
-{
-    $testStartbutton.style.display='none'
-    testName = $testName.value
-    loadTest(testName)
-}
 
-async function loadAllTestsData(){     
-    //console.log("Global: "+TOKEN)
-    const response  = await fetch("/allTests", {          
+
+
+async function loadAvailableTests(){   
+    const response  = await fetch("/studentAvailibleTests/"+USERID, {          
     // Adding method type
     method: "GET",
       
@@ -113,83 +107,90 @@ async function loadAllTestsData(){
 
     var data = await response.json()   
     console.log(data)
-    DisplayAllTestCodes(data)
+    makeMyTestTable(data)
 }
 
-function DisplayAllTestCodes(allTests){
-    $question = document.querySelector('#question')
-
-    $question.innerHTML=''
-    $question.innerHTML = 'Tests Given By '+USERNAME
-    count =1
-    for(i=0;i<allTests.length;i++)    
-    {
-        
-        for(j=0;j<allTests[i].result.length;j++)
-        {
-            //console.log('user id in Global : .....'+USERID+' should match '+allTests[i].result[j].userID)
-            
-            if(USERID==allTests[i].result[j].userID)
-            {
-                $question.innerHTML+=('<br/>'+(count)+ ' TestCode '+allTests[i].name)
-                $question.innerHTML+=('..........'+'You scored '+
-                allTests[i].result[j].marksObtained+' out of '+
-                allTests[i].result[j].maxMarks )
-            }
-            
-        }    
-        count++
-
+function makeMyTestTable(myTests)
+{
+    console.log(myTests.length) 
+    if(myTests.length==0)return
+    //console.log('211')
+    const myTestTableDiv  = document.getElementById('myTestTableDiv')
+    //console.log('212')
+    while (myTestTableDiv.firstChild) {
+        myTestTableDiv.removeChild(myTestTableDiv.firstChild);
     }
+    //console.log('213')
+    const newTable = document.createElement('table')
+    //console.log('214')
+    newTable.className='table'
+    //console.log('215')
+    myTestTableDiv.appendChild(newTable)
+    //console.log('216')
+    const thead = document.createElement('thead')
+    //console.log('217')
+    newTable.appendChild(thead)
     
-    $question.innerHTML += '<br/><br/><br/>Other Available Tests '+USERNAME
-    count =1
-    for(i=0;i<allTests.length;i++)    
+    //console.log('218')
+    for(i=0;i<3;i++)
     {
-        
-        attempt = false
-        for(j=0;j<allTests[i].result.length;j++)
+        const td = document.createElement('td')
+        thead.appendChild(td)
+        if(i==0)td.appendChild(document.createTextNode('#'))
+        if(i==1)td.appendChild(document.createTextNode('Exam Code'))
+        if(i==2)td.appendChild(document.createTextNode('Given By'))
+    }
+    //console.log('219')
+    const tbody = document.createElement('tbody')
+    //console.log('220')
+    newTable.appendChild(tbody)
+    for(j=0; j<myTests.length;j++)
+    {
+       // console.log('Here'+myExams[j])
+            
+        const tr = document.createElement('tr')
+        tbody.appendChild(tr)
+        for(i=0;i<4;i++)
         {
-            //console.log('user id in Global : .....'+USERID+' should match '+allTests[i].result[j].userID)
             
-            if(USERID==allTests[i].result[j].userID)
-            {
-                attempt = true
-                
-            }              
-            
-        }   
-        if(attempt==false)$question.innerHTML+=('<br/>'+(count)+ ' TestCode '+allTests[i].name)
-             
-        count++
-
+            const td = document.createElement('td')
+            tr.appendChild(td)
+            if(i==0)td.appendChild(document.createTextNode(j+1))
+            if(i==1)td.appendChild(document.createTextNode(myTests[j].testName))
+            if(i==2)td.appendChild(document.createTextNode(myTests[j].teacherName))            
+            if(i==3){
+                let newButton = document.createElement('button')
+                newButton.innerHTML = 'Start Test'   
+                let name =  myTests[j].testName 
+                newButton.addEventListener('click',e=>{loadTest(name)})
+                td.appendChild(newButton)
+            }
+        
+        }
     }
 }
 
-async function loadTest(testName){     
-        //console.log("Global: "+TOKEN)
+
+async function loadTest(testName){  
+    TESTNAME = testName
+    document.getElementById('testApp').style.display ='block'
+    console.log("Test Name: "+testName)
         availableQuestions = []
-        const response  = await fetch("/testPaperWithName", {          
-        // Adding method type
-        method: "POST",
-          
+        const response  = await fetch("/testPaperWithName", {   
+        method: "POST",          
         header: {
             "Authorization": "Bearer " + TOKEN
         },
-        // Adding body or contents to send
         body: JSON.stringify({
             name: testName ,
             userID:USERID  
         }),
-        // Adding headers to the request
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
         }).then().then()
 
         var data = await response.json()   
-        //console.log(data)
-
         TESTID = data.testPaperID
        // //console.log(testPaperID)
         isGiven = data.isGiven
@@ -206,12 +207,9 @@ async function loadTest(testName){
                                     )
             availableQuestions.push(newQues)
             if(isGiven)
-            newQues.originalAttempt(data.previousAttempt[i].status)
-            
-        }       
-        
+            newQues.originalAttempt(data.previousAttempt[i].status)            
+        }              
         DisplayFirstQuestion()
-        //giving 3 minutes per question
         startTimer(availableQuestions.length*2*60,$time)
     }
 
@@ -222,8 +220,7 @@ async function saveTestResult(testName){
             questionwiseResut.push({questionID: availableQuestions[i].id,
                                     status: availableQuestions[i].getAttempted()})
         }
-        //console.log(questionwiseResut)
-        const response  = await fetch("/testPaper/"+TESTID, {          
+        const response  = await fetch("/userTestUpdate/"+USERID, {          
         // Adding method type
         method: "PATCH",
           
@@ -232,11 +229,11 @@ async function saveTestResult(testName){
         },
         // Adding body or contents to send
         body: JSON.stringify({
-                result:[{userID:USERID,
-                userName:USERNAME,
-                marksObtained:marksFinal,
+                testID:TESTID,
+                testName:TESTNAME,
+                marks:marksFinal,
                 maxMarks : maxMarks,
-                questions : questionwiseResut}]
+                questions : questionwiseResut
         }        
         ),
         // Adding headers to the request
@@ -267,8 +264,6 @@ function DisplayFirstQuestion()
     }    
     ManageAnswerOptions(availableQuestions[questionCount].getType())
 }
-
-
 
 function DisplayNextQuestion()
 {

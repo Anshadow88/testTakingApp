@@ -43,7 +43,7 @@ async function loginUser(email,password,userRole){
         console.log('User :'+USERID+' is a '+data.user.role)
 
 
-        data.user.testsTaken.forEach(testdata => {
+        data.user.result.forEach(testdata => {
             TESTSTAKEN.push(testdata)
 
         });

@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema( {
         }
     }],
     students:[{
+        studentName:{
+            type:String
+        },
         studentID:{
             type:String
         },
@@ -67,26 +70,21 @@ const userSchema = new mongoose.Schema( {
         },
         correct:{
             type: Boolean
-        }     
-
+        }
     }],
-    testsTaken: [{
-        testID:{
-            type: String,
-            required: true
-        },
-        testName:{
-            type: String
-
-        },
-        marks:{
-            type: Number
-
-        },maxMarks:{
-            type: Number
-        }     
-
+    testAvailable:[{
+        testID:{type :String,required:true,unique:true},
+        testName:{type:String, require:true},
+        teacherID:{type:String,require:true},
+        teacherName:{type:String,require:true}        
     }],
+    result:[{
+        testID:{type :String,required:true,unique:true},
+        testName:{type:String, require:true},
+        marks:{type:Number},
+        maxMarks:{type:Number,default:60},
+        questions:[{questionID:{type:String,required:true},status:{type:String,default:'NA'}}]
+    }],    
     tokens: [{
         token:{
             type: String,
@@ -99,11 +97,11 @@ const userSchema = new mongoose.Schema( {
     
 })
 
-userSchema.virtual('tasks',{
-    ref: 'Task',
-    localField:'_id',
-    foreignField: 'owner'
-})
+// userSchema.virtual('tasks',{
+//     ref: 'Task',
+//     localField:'_id',
+//     foreignField: 'owner'
+// })
 
 userSchema.methods.generateAuthToken = async function(){
     const user = this      

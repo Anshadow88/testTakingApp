@@ -165,6 +165,16 @@ catch(e){
 }
 
 })
+
+router.get('/studentAvailibleTests/:id',async(req,res)=>{
+    const user = await User.findOne({_id:req.params.id})
+    if(!user) return res.status(404).send('No User')
+    
+    const testAvailable = user.testAvailable
+    //console.log(user)
+     return res.status(200).send(testAvailable)
+
+})
 //LOGOUT
 router.post('/users/logout',auth,async(req,res)=>{
     try{
@@ -237,16 +247,13 @@ router.patch('/users/me',auth, async(req,res)=>{
 
 //update TestResult of any new test given
 router.patch('/userTestUpdate/:id',async(req,res)=>{
-    const updates = Object.keys(req.body)
-    console.log(updates)
     try{
+        console.log(req.body)
         const user = await User.findOne({_id: req.params.id})
         if(!user){return res.status(404).send()}
+        user.result.push({'testID':req.body.testID,'testName':req.body.testName,'marks':req.body.marks,
+                        'maxMarks':req.body.maxMarks,'questions':req.body.questions})
         
-        updates.forEach((update)=>{
-            console.log(update)
-            user[update] = req.body[update]
-        })
         await user.save()
         //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
         res.send(user)
@@ -325,41 +332,43 @@ router.patch('/masterLogout',async(req,res)=>{
 })
 
 //seend this test to all my students
-router.patch('/changeTestVisibility/:id',async(req,res)=>{
+router.post('/teacherSendTestToBatch/:id',async(req,res)=>{
     console.log(req.body)
-    const user = await User.findOne({_id:req.params.id})
-    if(!user)return res.status(404).send('No User found')
+    const teacher = await User.findOne({_id:req.params.id})
+    const test = await TestPaper.findOne({_id:req.body.testID})
     
-       // console.log(user)
-        user.testPaper.forEach(test=>{
-            console.log(test.testID+' == '+req.body.testID)            
-            console.log(test.visibility+' == '+req.body.visibility)
-            if(test.testID==req.body.testID)
-            {
-                test.visibility = req.body.visibility
-                console.log('Changinf visibility')
-            }
-            
-            console.log(test.visibility+' == '+req.body.visibility)
-        })
-    
-    await user.save()
-    res.status(200).send(user)
+    if(!teacher||!test)return res.status(404).send('No User found or No Test Found')
 
+    teacher.students.forEach(student=>{
+        console.log(student)
+        if(student.batch==req.body.batch)
+        {
+        AddTestPaperToStudent(student.studentID,test.id,test.name,teacher.id,teacher.name)
+        }
+    })
+
+    res.status(200).send('DONE')
 })
+
+async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
+    console.log('Here: '+studentID)
+    const student = await User.findOne({_id:studentID})
+    console.log(student.name)
+    //console.log(!student.testAvailable)
+    
+    console.log(student.testAvailable.length)
+    //if(!student) return
+    const newTestData = {'testID':testID,'testName':testName,'teacherID':teacherID,'teacherName':teacherName}
+
+    student.testAvailable.push(newTestData)
+    console.log(student.testAvailable.length)
+    await student.save()
+}
+
+
 
 //Add This Admin Test To Teachers Tests
-router.patch('/AddThisAdminTestToTeachersTests/:id',async(req,res)=>{
-   // console.log('Here'+req.body.testName)
-    const user = await User.findOne({_id:req.params.id})
-    if(!user)return res.status(404).send('No User found')
-    
-    user.testPaper.push({'testName':req.body.testName,'testID':req.body.testID,'visibility':'1'})
-    
-    await user.save()
-    res.status(200).send(user)
 
-})
 // AllUsersUpdateTheirTeacherID('60ad429f93141d0015f8f4e5')
 
 // async function AllUsersUpdateTheirTeacherID(teacherID)
@@ -459,5 +468,30 @@ router.patch('/AddThisAdminTestToTeachersTests/:id',async(req,res)=>{
 // }
 
 
+// async function ALLUserFindHisResultAndSaveIt(){
+//     const allUsers = await User.find()
+//     allUsers.forEach(user=>{
+//         OneUserFindHisResultAndSaveIt(user.id)
+//     })
+
+// }
+
+// async function OneUserFindHisResultAndSaveIt(id)
+// {
+//     const user= await User.findOne({_id:id})
+//     const allTests = await TestPaper.find()
+//     allTests.forEach(test=>{
+//         test.result.forEach(result=>{
+//             console.log()
+//             if(result.userID==id)
+//             {
+//                 user.result.push({'testID':test.id,'testName':test.name,'marks':result.marksObtained
+//                                 ,'maxMarks': result.maxMarks,'questions': result.questions})
+//             }
+//         })
+//     })
+//     user.save()
+
+// }
 
 module.exports = router

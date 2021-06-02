@@ -370,7 +370,7 @@ function makeMyExamTable(myExams)
                 newButton.innerHTML = 'Send'
               //  console.log(newButton+'  '+myExams[j]._id)     
                 let id =  myExams[j]._id  
-                newButton.addEventListener('click',e=>{SendThisTestToStudents(id)})
+                newButton.addEventListener('click',e=>{SendTestToMyBatch(id,'Batch-A')})
                 td.appendChild(newButton)
             }
            // console.log('Heretoo'+myExams[j])
@@ -464,20 +464,15 @@ function makeAdminExamTable(myExams)
 }
 
 
-async function AddTestToAvailableTests(testID,testName){
-   //` console.log(testID+'  '+testName)
-    const response  = await fetch("/AddThisAdminTestToTeachersTests/"+USERID, {          
+async function SendTestToMyBatch(testID,batchName){
+    console.log(testID+'  '+batchName)
+    const response  = await fetch("/teacherSendTestToBatch/"+USERID, {          
     // Adding method type
-    method: "PATCH",
-      
-    // header: {
-    //     "Authorization": "Bearer " + TOKEN
-    // },
-    // Adding body or contents to send
+    method: "POST",
+
     body: JSON.stringify({
-        testName: testName,
-        testID: testID ,
-        visibility: '0'
+        testID: testID,
+        batch:batchName
     }),
     // Adding headers to the request
     headers: {
@@ -485,58 +480,6 @@ async function AddTestToAvailableTests(testID,testName){
     }
     }).then().then()
 
-    var data = await response.json()   
-    console.log(data)
-
-}
-
-async function SendThisTestToStudents(testID){
-
-    const response  = await fetch("/AddTestToMyList/"+USERID, {          
-    // Adding method type
-    method: "PATCH",
-      
-    // header: {
-    //     "Authorization": "Bearer " + TOKEN
-    // },
-    // Adding body or contents to send
-    body: JSON.stringify({
-        testID: testID ,
-        visibility: '1'
-    }),
-    // Adding headers to the request
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    }).then().then()
-
-    var data = await response.json()   
-    console.log(data)
-
-}
-
-async function HideThisTestToStudents(testID){
-
-    const response  = await fetch("/changeTestVisibility/"+USERID, {          
-    // Adding method type
-    method: "PATCH",
-      
-    // header: {
-    //     "Authorization": "Bearer " + TOKEN
-    // },
-    // Adding body or contents to send
-    body: JSON.stringify({
-        testID: testID ,
-        visibility: '0'
-    }),
-    // Adding headers to the request
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    }).then().then()
-
-    var data = await response.json()   
-    console.log(data)
 
 }
 

@@ -31,11 +31,6 @@ $NewTestButton.addEventListener('click',(e)=>{
 })
 
 const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
-$FindQuestionByIDButton.addEventListener('click',(e)=>{
-    const $QuestionID = document.getElementById('QuestionID')
-    QUESID = $QuestionID.value
-    getQuestion(QUESID)
-})
 
 
 const $findQuestions = document.getElementById('findQuestions')
@@ -203,8 +198,7 @@ function AddAQuestionToSelection(){
  
 
  function RemoveThisQuestionToSelection(id){     
-    console.log(SelectedQuestionIDs)
-    console.log('Remove '+SelectedQuestionIDs[id].questionID)
+    
     SelectedQuestionIDs.pop({'questionID': SelectedQuestionIDs[id]})
     SelectedQuestions.pop(QuestionsOFChapters[id])
     

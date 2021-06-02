@@ -81,7 +81,7 @@
 
                 <div class="container" id = "resultSection" style="display: none;">
                   <div class = "well">                    
-                    <div id="myDynamicTable">
+                    <div id="myResultTable">
 
 
 
@@ -91,72 +91,65 @@
                   </div>
                 </div>
 
-                <div class="container" id = "homeworkSection" style="display: none;">
-                  <div class = "well">                    
-                    <div>
-
-
-
+                <div class="well" id = "homeworkSection" style="display: none;">
+                  
+                    <div class = "well" id="myTestTableDiv">
+                      <p>HERE</p>
                     </div>  
-                    
+
+                    <div class = "well" id = "testApp" style="display: none;">          
+                      <div>
+                        <h4 class = "well">Tests Section</h4>     
+                        <h5 class="well"> Time Remaining:  <span class ="well" id="time">00:00 minutes </span></h5>
+                        <p id="messageReview"></p>    
+                     </div>
+                      
+                        <div name="questionDisplay"class="well">
+                        
+                        <h4 class="well" id = "questionNumber" style="text-align: left;">Tips:</h4>
+                          
+                          <p  id = "question">1. Enter Test Code and click Start. </br/>
+                            2. After Solving the Question, click next to solve another question.</br/>
+                            3. At the last question a Submit Button will appear to SUBMIT the test</p>
+                        
+                        </div>
+
+                        <img id ="image">
+                      
+                      <div name="Options" class="well">
+                        <div id=singleOptionTypeAnswer>
+                        <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
+                        <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
+                        <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionCButton">Option C</button>
+                        <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionDButton">Option D</button>
+                        </div>
+                        <div id= "integerTypeAnswer">
+                          Integer Type Answer: <input id="integerAnswer"><button id="integerButton">Submit</button>
+                        </div>
+                      </div>                        
+
+                      <div name="nextPrevious"class="well"> 
+                        <p id="lastQuestionStatus"></p>
+                        <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
+                        <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
+                      </div>
+                      
+                      <div name="Submission"class="well">
+                          <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
+                          <span style = "display:inline-block" id ="confirmationMenu"> 
+                          <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>
+                          <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="confirmSubmitButton">Confirm</button>
+                          </span>
+                      </div>
+
+                   </div>
+              
                     
                   </div>
                 </div>
+              
 
-                <div class = "container" id = "testApp" style="display: none;">          
-                    <div class="well" >
-                    <h4 class = "well">DPPs & Tests Section</h4>         
-                            
-                      <div class="well" >
-                      <p>Test Code: <input  type="text" id = "testName"> 
-                        <button type="button" style="margin: 10px" class="btn btn-danger" id="getTestButton">Start Test</button>
-                      
-                      <span class="well"> Time Remaining:  <span class ="well" id="time">00:00 minutes </span></span>
-                      </div>
-                      <p id="messageReview"></p>    
-                      
-                    
-                    <div class="well">
-                    
-                    <h4 class="well" id = "questionNumber" style="text-align: left;">Tips:</h4>
-                      
-                      <p  id = "question">1. Enter Test Code and click Start. </br/>
-                        2. After Solving the Question, click next to solve another question.</br/>
-                        3. At the last question a Submit Button will appear the test</p>
-                    
-                    </div>
-
-                    <img id ="image">
-                    
-                    <div class="container">
-                      <div id=singleOptionTypeAnswer>
-                      <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
-                      <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
-                      <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionCButton">Option C</button>
-                      <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionDButton">Option D</button>
-                      </div>
-                      <div id= "integerTypeAnswer">
-                        Integer Type Answer: <input id="integerAnswer"><button id="integerButton">Submit</button>
-                      </div>
-                      </div>
-                      
-
-                    <div class="container"> 
-                    <p id="lastQuestionStatus"></p>
-                    <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
-                    <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
-                    </div>
-                    
-                    <div class="container">
-                    <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
-                    <span style = "display:inline-block" id ="confirmationMenu"> 
-                    <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>
-                    <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-success" id="confirmSubmitButton">Confirm</button>
-                    </span>
-                    </div>
-
-                    </div>
-                </div>
+                
 
       </div>
 

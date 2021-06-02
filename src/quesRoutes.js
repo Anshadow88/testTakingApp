@@ -207,7 +207,6 @@ router.delete('/questions/:id', (req, res) => {
 
 
 
-
 // async function ALLQuestionsSubjectChange()
 // {
 //     const allQuestion = await Question.find()
