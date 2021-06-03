@@ -222,6 +222,7 @@ router.delete('/questions/:id', (req, res) => {
 // async function OneQuestionsSubjectChange(id)
 // {
 //     let question = await Question.findOne({_id:id})   
+//     if(question.subject=='')
 //     question.subject = 'Physics'
 
 //     await question.save()   

@@ -183,15 +183,31 @@ async function getQuestionByAuthor(AuthorName){
     
 }
 
-async function getQuestionOfTests(testName){     
-    // console.log("Test: "+testName)
-    
+async function getQuestionOfTests(testName){   
+    console.log("Author: "+testName)
+    const response  = await fetch("/testPaperWithNameForEditing", {          
+    // Adding method type
+    method: "POST",
+      
+    header: {
+    },
 
-    // var data = await response.json()   
-    // QuestionsOFChapters = data
-    // console.log(data)
-    // QuestionCount = QuestionsOFChapters.length-1
-    // showCurrentQuestion()
+    body: JSON.stringify({
+        testName : testName
+    }),
+    // Adding body or contents to send
+        // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+    var data = await response.json()   
+    QuestionsOFChapters = data.questionsOfChapter
+    
+    QuestionCount = 0
+    showCurrentQuestion()
+
     
 }
 
@@ -204,6 +220,7 @@ async function getQuestionOfTests(testName){
 
 async function showCurrentQuestion(){
     //Remove Selected image for last update  
+    console.log(QuestionsOFChapters)
     inputImage.value=''    
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0

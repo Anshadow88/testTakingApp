@@ -33,7 +33,7 @@
       
       <div class="container" id ="teacherMenu" style="display: none;">
           <div class = "well">
-            <h4 class ="well" id="intro"></h4>
+            <h4 style="display: none;"class ="well" id="intro"></h4>
             <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
             <button class = "btn btn-primary" id="StudyMaterialSectionButton">Dpps & Tests</button>
             <button class = "btn btn-primary" id="myStudentSectionButton">My Students</button>
@@ -89,21 +89,19 @@
             </div>            
           </div>
           
-          <div class="well" id= "teacherProfileSection" style="display: none;"> 
-            <div class="well">
-              Profile
-            <table class="table">
-              
-
-                </tbody>
-              </thead>
-              
-
-
-            </table>
+          <div class="well" id= "teacherProfileSection" style="display: block";"> 
+             <div class="well">
+                <h3 id="name">Anshul Gupta</h3>
+                <h4 id="subject">Physics</h4>
+                <h5 id="city">Address: Vikaspuri, New Delhi</h5>                
+                <h5 id="city">Contact: 9560883948</h5>
+                <p id="aboutMe">I am a Physics Teacher with 10 year experience in IIT-JEE & NEET preparation.
+                  
+                </p> 
+                <table class="table">
             </div>
             
-          </div>
+          
 
           <div class="well" id= "StudyMaterialSection" style="display: none;"> 
             <div class="well">
@@ -118,9 +116,10 @@
               <div class="well" id="PreviousYearExams"style="display: none;">   
                 Previous Year Exams       
                 <div id="AdminTableDiv"></div>
-              </div>   
-              <div class = "well" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
-                 
+              </div>      
+              </div>
+              <div class = "container" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
+                 <div class="container">
                    <div class="well">
                     <div class="form-group">
                       
@@ -186,12 +185,13 @@
                         <option>2020</option>
                       </select>  
                       
-                      <button style="display: inline;"class="btn-success" id="findQuestions" onclick=setTimeout(function(){MathJax.typeset()},500)>Search</button>     
+                      <button style="display: inline;"class="btn-success" id="findQuestions" >Search</button>     
                       &nbsp;Typed By<input class="well" id="typistName">   
                     </div> 
+                     <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Find</button></div>
                   </div>
-                    
-                
+                </div>
+                 <div class="container">
                     <div class ="well">
                         <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
                         <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
@@ -201,38 +201,39 @@
                           <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
                           <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Select Question</button>
                           <button type="button" style="width: 130px;" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>
-                        
+                        </div>
                   </div>
                       
-                 
+                 <div class = "container">
                   <div class = "well">      
                   
-                    <p id = "chapterNumber">Chapter No. X</p>
+                    <p class = "well" id = "chapterNumber">Chapter No. X</p>
                       
-                    <p id = "questionNumber">Question No. X</p>
+                    <p class = "well" id = "questionNumber">Question No. X</p>
                         
-                    <p id="newQuestionTyped">text</p>
+                    <p class = "well" id="newQuestionTyped">text</p>
                         
                     <image class = "well"style="orientation: centre"id="image"></image> 
                   </div>                           
-               </div>
+                  </div>
+                 <div class="container">
               <div class = "well">
             
               New Test Name: <input id="NewTestName">
               Subject: <input id="TestSubject">
               <button type="button" class="btn btn-danger" id="NewTestButton">New Test with Selected Questions</button>
-              </div>
-                
+            </div>
+                 </div>
             
-                  
+                  <div class="container">
               <div class="well" id="paper"></div>
-               
+               </div>
 
             
             
-            
-            
-    </div>
+              </div>
+            </div>
+         </div>
       
       
       

@@ -37,25 +37,18 @@ router.post('/testPaper', async (req, res) => {
 // get One Test For Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {
-       console.log(req.body)
-        const testName = req.body.name 
-        const testPaper = await TestPaper.findOne({name:testName})  
-
-        
+     //  console.log(req.body)
+        const testName = req.body.testName 
+        const testPaper = await TestPaper.findOne({name:testName})       
+      //  console.log(testPaper)   
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
                allQuestionsIDs.push(testPaper.questions[i].questionID)
                
-        }
-       // console.log(allQuestionsIDs)
-        
+        }        
         let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
-       
-       // console.log(questionsOfChapter)
-        
-       // console.log(questionsOfChapter)
-
+      //  console.log(questionsOfChapter)
         if(!testPaper){
             return res.status(404).json({})
         }else{
