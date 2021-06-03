@@ -19,7 +19,7 @@ router.get('/allTests', async (req, res) => {
 
 //Add New Test
 router.post('/testPaper', async (req, res) => {
-  //  console.log(req.body)
+    console.log(req.body)
     try {
         const test = new TestPaper(req.body)
         await test.save()
@@ -39,8 +39,8 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {
      //  console.log(req.body)
         const testName = req.body.testName 
-        const testPaper = await TestPaper.findOne({name:testName})       
-      //  console.log(testPaper)   
+        const testPaper = await TestPaper.findOne({name:testName})  
+        
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
@@ -62,10 +62,11 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
 //Get One Test For Student Sovling DO NOT CHANGE THIS
 router.post('/testPaperWithName', async (req, res) => {
     try {
-       // console.log(req.body)
+        console.log(req.body)
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})      
-                
+        const testtime = testPaper.time
+        console.log('Time: '+testtime)   
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
@@ -76,7 +77,7 @@ router.post('/testPaperWithName', async (req, res) => {
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json({questionsOfChapter,testPaperID})
+            return res.status(200).json({questionsOfChapter,testPaperID,testtime})
         }
     } catch (error) {
         return res.status(500).json({"error":error})

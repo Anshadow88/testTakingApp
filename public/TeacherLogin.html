@@ -183,7 +183,7 @@
                         <option>2020</option>
                       </select>  
                       
-                      <button style="display: inline;"class="btn-success" id="findQuestions" >Search</button>     
+                      <button style="display: inline;"class="btn-success" id="findQuestions" onclick=setTimeout(function(){MathJax.typeset()},500) >Search</button>     
                       &nbsp;Typed By<input class="well" id="typistName">   
                     </div> 
                      <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Find</button></div>
@@ -195,7 +195,7 @@
                         <button type="button" style="width: 30px;" class="btn btn-success" id="nextBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8680;</button>
                         
                           <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
-                          <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Add Question To Test</button>
+                          <button type="button" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Add Question To Test</button>
                     </div>
                     <div class = "well">      
                   
@@ -208,8 +208,30 @@
                     <image class = "well"style="orientation: centre"id="image"></image> 
                     </div>   
                     <div class = "well">            
-                       New Test Name: <input id="NewTestName">
-                       Subject: <input id="TestSubject">
+                      <p> New Test Name: <input id="NewTestName"></p>
+                      <p>Subject :
+                        <select id="TestSubject" style="width: fit-content;display: inline;"class="form-control">
+                        <option value="undefined">Subject</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Maths">Maths</option>
+                        <option value="Biology">Biology</option>         
+                      </select>
+                       <p>Remarks: <input id="TestDescription" placeholder="Eg. 30 Ques Electrostats JEE Mains 2020">
+                        <p>Time Alloted (in Munutes):
+                          <select id="TestTime" style="width: fit-content;display: inline;"class="form-control">
+                          <option value="180">180 minutes</option>                          
+                          <option value="120">120 minutes</option>
+                          <option value="90">90 minutes</option>                        
+                          <option value="60" selected>60 minutes</option>
+                          <option value="45">45 minutes</option>
+                          <option value="30">30 minutes</option>
+                          <option value="15">15 minutes</option>
+                          <option value="5">5 minutes</option>                          
+                          <option value="5">1 minutes</option>    
+
+                        </select>
+
                        <button type="button" class="btn btn-danger" id="NewTestButton">Create New Test with Selected Questions</button>
                     </div>
 

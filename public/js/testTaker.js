@@ -207,7 +207,9 @@ async function loadTest(testName){
             newQues.originalAttempt(data.previousAttempt[i].status)            
         }              
         DisplayCurrentQuestion()
-        startTimer(availableQuestions.length*2*60,$time)
+        timeParsed = parseInt(data.testtime)
+        console.log(data.testtime+' '+timeParsed)
+        startTimer(timeParsed*60,$time)
 }
 
 async function saveTestResult(testName){     

@@ -4,7 +4,7 @@ const $writeMathsButton = document.querySelector('#writeMathsButton')
 const $selectQuestionButton = document.querySelector('#selectQuestionButton')
 const $removeQuestionButton = document.querySelector('#removeQuestionButton')
 const $NewTestButton = document.querySelector('#NewTestButton')
-const $NewTestName = document.querySelector('#NewTestName')
+
 
 let QUESID
 let QuestionsOFChapters
@@ -21,13 +21,15 @@ let selectedAnswer = ""
 let $image = document.getElementById('image')
 
 $NewTestButton.addEventListener('click',(e)=>{
-    console.log('1001')
-    TestSubject = document.querySelector('#TestSubject')
-    if(!$NewTestName.value||!TestSubject.value)
+    let $TestTime = document.querySelector('#TestTime')
+    let $TestDescription = document.querySelector('#TestDescription')
+    let TestSubject = document.querySelector('#TestSubject')
+    const $NewTestName = document.querySelector('#NewTestName')
+    if(!$NewTestName.value||!TestSubject.value||!$TestDescription.value||!$TestTime.value)
     alert('Fill All Fields about New Test')    
     else
-    postNewTestPaper(TestSubject.value,$NewTestName.value,'0')
-
+    postNewTestPaper(TestSubject.value,$NewTestName.value,$TestDescription.value,$TestTime.value)
+ //subject,testName,visibility,description,time
 })
 
 const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
@@ -228,7 +230,7 @@ function AddAQuestionToSelection(){
     }
  }
  
-async function postNewTestPaper(subject,testName,visibility){
+async function postNewTestPaper(subject,testName,description,time){
     const response = await fetch("/testPaper", {      
     // Adding method type
     method: "POST",      
@@ -237,8 +239,10 @@ async function postNewTestPaper(subject,testName,visibility){
         name: testName,
         author: USERID,
         questions: SelectedQuestionIDs,
-        visibility: visibility,
-        subject: subject
+        visibility: '1',
+        subject: subject,
+        description: description,
+        time:time
     }),
     // Adding headers to the request
     headers: {
@@ -249,6 +253,7 @@ async function postNewTestPaper(subject,testName,visibility){
 
 var data = await response.json()
 console.log(data)
+location.reload()
 }
 
 function getChapterName(number){
