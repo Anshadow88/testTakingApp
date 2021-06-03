@@ -90,9 +90,6 @@ function CheckIntegerType(){
     MarkAnswer(integerAnswer.value,availableQuestions[questionCount])
 }
 ///VERY IMPORTANT
-
-
-
 async function loadAvailableTests(){   
     const response  = await fetch("/studentAvailibleTests/"+USERID, {          
     // Adding method type
@@ -209,9 +206,9 @@ async function loadTest(testName){
             if(isGiven)
             newQues.originalAttempt(data.previousAttempt[i].status)            
         }              
-        DisplayFirstQuestion()
+        DisplayCurrentQuestion()
         startTimer(availableQuestions.length*2*60,$time)
-    }
+}
 
 async function saveTestResult(testName){     
     console.log('name1: '+USERNAME)
@@ -246,98 +243,49 @@ async function saveTestResult(testName){
         //console.log(data)
 
        
-    }
+}
 
-function DisplayFirstQuestion()
+function DisplayCurrentQuestion()
 {
     $questionText.innerHTML = availableQuestions[questionCount].question
     MathJax.typeset()
     $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
     $image.style.display='none'
-    console.log(availableQuestions[questionCount].image)
     if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
     {
      console.log('ARE WE LOOKING FOR AWS')
      $image.style.display=''
-     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
-     
-    }    
+     image.src = ('/uploads/'+availableQuestions[questionCount].image)       
+    }  
+    if(availableQuestions[questionCount].getAttempted())  
+    $lastQuestionStatus.innerHTML = "Marked Answer: "+availableQuestions[questionCount].getAttempted()
+    else
+    $lastQuestionStatus.innerHTML = "NOT Attempted"    
+        
     ManageAnswerOptions(availableQuestions[questionCount].getType())
+    if(questionCount==availableQuestions.length-1)
+    $submitTestButton.style.display='block'
 }
 
 function DisplayNextQuestion()
 {
-    if(questionCount<availableQuestions.length-1)
-    {  
-         questionCount++
-         $questionText.innerHTML = availableQuestions[questionCount].question
-    }
-    if(!availableQuestions[questionCount].getAttempted())
-    $lastQuestionStatus.innerHTML = ""
-    else
-    $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
-    
-    $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
-    MathJax.typeset()
-    $image.style.display='none'
-    console.log(availableQuestions[questionCount].image)
-    if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
-    {
-     console.log('ARE WE LOOKING FOR AWS')
-     $image.style.display=''
-     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
-     
-    }
-    if(questionCount==availableQuestions.length-1)
-    {
-        $submitTestButton.style.display =''
-    }
+    if(questionCount<availableQuestions.length-1) questionCount++
 
-    ManageAnswerOptions(availableQuestions[questionCount].getType())
-    
-   
+    DisplayCurrentQuestion()
 }
 
 function DisplayPreviousQuestion()
 {
-    //console.log(0 +"<"+questionCount)
-    if(questionCount>0)
-    {questionCount--
-    $questionText.innerHTML = availableQuestions[questionCount].question}  
-    
-    if(!availableQuestions[questionCount].getAttempted())
-    $lastQuestionStatus.innerHTML = ""
-    else
-    $lastQuestionStatus.innerHTML = "You Marked: "+availableQuestions[questionCount].getAttempted()
-    $questionNumber.innerHTML = 'Question '+(questionCount+1)+' out of '+availableQuestions.length
-    MathJax.typeset()
-    $image.style.display='none'
-    console.log(availableQuestions[questionCount].image)
-    if(availableQuestions[questionCount].image&&availableQuestions[questionCount].image!='')
-    {
-     console.log('ARE WE LOOKING FOR AWS')
-     $image.style.display=''
-     image.src = ('/uploads/'+availableQuestions[questionCount].image)  
-     
-    }
-    ManageAnswerOptions(availableQuestions[questionCount].getType())
+    if(questionCount>0) questionCount--
+    DisplayCurrentQuestion()
 }
 
 function MarkAnswer(markedAnswer,question)
 {
     try{
-        question.markAttemped(markedAnswer)
-
-        if(isGiven==false){
+        question.markAttemped(markedAnswer)        
         if(questionCount < availableQuestions.length-1)
-        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()
-        else
-        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". :Please Submit Answers before leaving"
-        }
-        if(isGiven==true){
-            $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". Correct Answer: "+question.getCorrectAnswer()+". Originally Answered: "+question.getSavedAnswer()
-        }
-
+        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()  
         for(i=0;i<availableQuestions.length;i++)
         {
             console.log(i+1+"th is Marked: "+availableQuestions[i].getAttempted())

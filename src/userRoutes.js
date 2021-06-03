@@ -251,6 +251,14 @@ router.patch('/userTestUpdate/:id',async(req,res)=>{
         console.log(req.body)
         const user = await User.findOne({_id: req.params.id})
         if(!user){return res.status(404).send()}
+        let firstTry=true
+        user.result.forEach(result=>{
+            console.log(result.testID+' = '+req.body.testID)
+            if(result.testID==req.body.testID)
+            firstTry=false
+        })
+
+        if(firstTry)
         user.result.push({'testID':req.body.testID,'testName':req.body.testName,'marks':req.body.marks,
                         'maxMarks':req.body.maxMarks,'questions':req.body.questions})
         

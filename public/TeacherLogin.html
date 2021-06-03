@@ -12,7 +12,10 @@
 
 </head>
 <body onselectstart="return false">
-    
+      <div class= "container">
+      <h3 class="well" >Teacher's Section </h3>
+      </div>
+  
       <div class="container" id = "loginForm">
         <div class="well">                         
                 <div class="form-group">
@@ -24,21 +27,19 @@
                   <label for="pwd">Password:</label>
                   <input type="password" class="form-control" id="studentPassword">
                 </div>
-
                 <button class="well" type="button" id="teacherLoginButton">TeacherLogin</button>
-              </div>
+        </div>
       </div>
            
 
       
       <div class="container" id ="teacherMenu" style="display: none;">
-          <div class = "well">
+          <div name="menu"class = "well">
             <h4 style="display: none;"class ="well" id="intro"></h4>
             <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
             <button class = "btn btn-primary" id="StudyMaterialSectionButton">Dpps & Tests</button>
             <button class = "btn btn-primary" id="myStudentSectionButton">My Students</button>
           </div>
-
           <div class="well" id= "myStudentSection" style="display: none;"> 
             
             <div class = "well">
@@ -87,9 +88,8 @@
               <button id= "deleteOldStudentButton">Delete Student</button>
               <button id= "changeStudentDataButton">Edit Details</button>
             </div>            
-          </div>
-          
-          <div class="well" id= "teacherProfileSection" style="display: block";"> 
+          </div>          
+          <div class="well" id= "teacherProfileSection" style="display: none"> 
              <div class="well">
                 <h3 id="name">Anshul Gupta</h3>
                 <h4 id="subject">Physics</h4>
@@ -99,16 +99,15 @@
                   
                 </p> 
                 <table class="table">
+                  </table>
             </div>
-            
-          
-
-          <div class="well" id= "StudyMaterialSection" style="display: none;"> 
-            <div class="well">
-              <button id= "ShowMyTestButton">My Own Tests</button>
-              <button id= "ShowreviousYearButton">Previous Year Exams</button> 
+          </div>  
+          <div class="well" id= "StudyMaterialSection" style="display: block;"> 
+              <div class="well">
+              <button id= "ShowMyTestButton">My Tests</button>
+              <button id= "ShowreviousYearButton">Previous Year Papers</button> 
               <button id= "CreateNewButton">Create New Test</button>
-            </div>
+              </div>
               <div class="well" id="MyTests"style="display: none;">
                 My Tests
                 <div id="myTestTableDiv"></div>
@@ -117,10 +116,9 @@
                 Previous Year Exams       
                 <div id="AdminTableDiv"></div>
               </div>      
-              </div>
-              <div class = "container" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
-                 <div class="container">
-                   <div class="well">
+              <div class = "well" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
+                 
+                    <div class="well">
                     <div class="form-group">
                       
                       <select id="chapterNameInput" style="width: fit-content;display: inline;"class="form-control">
@@ -189,9 +187,7 @@
                       &nbsp;Typed By<input class="well" id="typistName">   
                     </div> 
                      <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Find</button></div>
-                  </div>
-                </div>
-                 <div class="container">
+                  ` </div>
                     <div class ="well">
                         <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
                         <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
@@ -199,13 +195,9 @@
                         <button type="button" style="width: 30px;" class="btn btn-success" id="nextBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8680;</button>
                         
                           <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
-                          <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Select Question</button>
-                          <button type="button" style="width: 130px;" class="btn btn-danger" id="removeQuestionButton"onclick=setTimeout(function(){MathJax.typeset()},500)>Remove Question</button>
-                        </div>
-                  </div>
-                      
-                 <div class = "container">
-                  <div class = "well">      
+                          <button type="button" style="width: 130px;" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Add Question To Test</button>
+                    </div>
+                    <div class = "well">      
                   
                     <p class = "well" id = "chapterNumber">Chapter No. X</p>
                       
@@ -214,27 +206,20 @@
                     <p class = "well" id="newQuestionTyped">text</p>
                         
                     <image class = "well"style="orientation: centre"id="image"></image> 
-                  </div>                           
-                  </div>
-                 <div class="container">
-              <div class = "well">
-            
-              New Test Name: <input id="NewTestName">
-              Subject: <input id="TestSubject">
-              <button type="button" class="btn btn-danger" id="NewTestButton">New Test with Selected Questions</button>
-            </div>
-                 </div>
-            
-                  <div class="container">
-              <div class="well" id="paper"></div>
-               </div>
+                    </div>   
+                    <div class = "well">            
+                       New Test Name: <input id="NewTestName">
+                       Subject: <input id="TestSubject">
+                       <button type="button" class="btn btn-danger" id="NewTestButton">Create New Test with Selected Questions</button>
+                    </div>
 
             
-            
+                     <div class="well" id="paper"></div>
               </div>
-            </div>
-         </div>
-      
+          </div>
+            
+         
+      </div>
       
       
           

@@ -12,7 +12,9 @@
 
 </head>
 <body onselectstart="return false">
-   
+      <div class= "container">
+        <h3 class="well" >Student Section </h3>
+      </div>
       <div class="container" id = "loginForm">
         <div class="well">                         
                 <div class="form-group">
@@ -94,7 +96,7 @@
                 <div class="well" id = "homeworkSection" style="display: none;">
                   
                     <div class = "well" id="myTestTableDiv">
-                      <p>HERE</p>
+                    
                     </div>  
 
                     <div class = "well" id = "testApp" style="display: none;">          
@@ -117,6 +119,7 @@
                         <img id ="image">
                       
                       <div name="Options" class="well">
+                        <p class = "well" id="lastQuestionStatus">Your Answer</p>
                         <div id=singleOptionTypeAnswer>
                         <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
                         <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
@@ -129,7 +132,7 @@
                       </div>                        
 
                       <div name="nextPrevious"class="well"> 
-                        <p id="lastQuestionStatus"></p>
+                        
                         <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
                         <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
                       </div>
