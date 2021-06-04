@@ -13,10 +13,10 @@
 </head>
 <body onselectstart="return false">
       <div class= "container">
-        <h3 class="well" >Student Section </h3>
+        <h3 class="well well-sm" >Student Section </h3>
       </div>
       <div class="container" id = "loginForm">
-        <div class="well">                         
+        <div class="well well-sm">                         
                 <div class="form-group">
                 <h3>Login For Students </h3>
                   <label for="usr">Email:</label>
@@ -27,15 +27,15 @@
                   <input type="password" class="form-control" id="studentPassword">
                 </div>
 
-                <button class= "well" type="button" id="studentLoginButton">StudentLogin</button>
+                <button class= "well well-sm" type="button" id="studentLoginButton">StudentLogin</button>
                 
                </div>
       </div>
               
 
       <div class="container" id = "studentMenu" style="display: none;">
-        <div class = "well">
-          <h4 class ="well" id="intro"></h4>
+        <div class = "well well-sm">
+          <h4 class ="well well-sm" id="intro"></h4>
           <button class = "btn btn-primary" id="openProfieButton">Profile</button>
           <button class = "btn btn-primary" id="openTestAppButton">Get Test</button>
           <button class = "btn btn-primary" id="openResultButton">My Results</button>
@@ -43,7 +43,7 @@
 
 
                 <div class="container" id = "profileSection" style="display: none;" >
-                  <div class = "well">    
+                  <div class = "well well-sm">    
                     <div id="profile">   
                       <table class="table table-hover">
                         <thead>
@@ -82,7 +82,7 @@
                 </div>
 
                 <div class="container" id = "resultSection" style="display: none;">
-                  <div class = "well">                    
+                  <div class = "well well-sm">                    
                     <div id="myResultTable">
 
 
@@ -93,22 +93,22 @@
                   </div>
                 </div>
 
-                <div class="well" id = "homeworkSection" style="display: none;">
+                <div class="well well-sm" id = "homeworkSection" style="display: none;">
                   
-                    <div class = "well" id="myTestTableDiv">
+                    <div class = "well well-sm" id="myTestTableDiv">
                     
                     </div>  
 
-                    <div class = "well" id = "testApp" style="display: none;">          
+                    <div class = "well well-sm" id = "testApp" style="display: none;">          
                       <div>
-                        <h4 class = "well">Tests Section</h4>     
-                        <h5 class="well"> Time Remaining:  <span class ="well" id="time">00:00 minutes </span></h5>
+                        <h4 class = "well well-sm">Tests Section</h4>     
+                        <h5 class="well well-sm"> Time Remaining:  <span class ="well well-sm" id="time">00:00 minutes </span></h5>
                         <p id="messageReview"></p>    
                      </div>
                       
-                        <div name="questionDisplay"class="well">
+                        <div name="questionDisplay"class="well well-sm">
                         
-                        <h4 class="well" id = "questionNumber" style="text-align: left;">Tips:</h4>
+                        <h4 class="well well-sm" id = "questionNumber" style="text-align: left;">Tips:</h4>
                           
                           <p  id = "question">1. Enter Test Code and click Start. </br/>
                             2. After Solving the Question, click next to solve another question.</br/>
@@ -118,8 +118,8 @@
 
                         <img id ="image"class="img-responsive">
                       
-                      <div name="Options" class="well">
-                        <p class = "well" id="lastQuestionStatus">Your Answer</p>
+                      <div name="Options" class="well well-sm">
+                        <p class = "well well-sm" id="lastQuestionStatus">Your Answer</p>
                         <div id=singleOptionTypeAnswer>
                         <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
                         <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
@@ -131,13 +131,13 @@
                         </div>
                       </div>                        
 
-                      <div name="nextPrevious"class="well"> 
+                      <div name="nextPrevious"class="well well-sm"> 
                         
                         <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
                         <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
                       </div>
                       
-                      <div name="Submission"class="well">
+                      <div name="Submission"class="well well-sm">
                           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
                           <span style = "display:inline-block" id ="confirmationMenu"> 
                           <button type="button" style="margin: 10px " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>

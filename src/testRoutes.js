@@ -60,12 +60,35 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
 })
 
 //Get One Test For Student Sovling DO NOT CHANGE THIS
-router.post('/testPaperWithName', async (req, res) => {
+router.post('/testPaperWithName/:id', async (req, res) => {
     try {
         console.log(req.body)
+        const student = await User.findOne({_id:req.params.id})
+        console.log('1')
         const testName = req.body.name 
-        const testPaper = await TestPaper.findOne({name:testName})      
+        console.log('2')
+        const testPaper = await TestPaper.findOne({name:testName})   
+        console.log(testPaper)   
         const testtime = testPaper.time
+        console.log('4')
+        let isGiven = false
+        const previousAttempt=[]
+        console.log('5')
+        student.result.forEach(result=>{
+            console.log(result.testID+' == '+testPaper.id)
+            if(result.testID==testPaper.id)
+            {   
+                console.log('5.5')
+                isGiven = true
+                console.log('6')
+                result.questions.forEach(q=>{
+                    previousAttempt.push(q.status)
+                    console.log(q)
+                })
+            }
+
+        })
+
         console.log('Time: '+testtime)   
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
@@ -77,7 +100,7 @@ router.post('/testPaperWithName', async (req, res) => {
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json({questionsOfChapter,testPaperID,testtime})
+            return res.status(200).json({questionsOfChapter,testPaperID,testtime,isGiven,previousAttempt})
         }
     } catch (error) {
         return res.status(500).json({"error":error})

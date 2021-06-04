@@ -164,7 +164,7 @@ function showCurrentQuestion(){
     
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
-    $questionNumber.innerHTML = 'Ques. <b>'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length+'</b>'+'Question ID:'+QuestionsOFChapters[QuestionCount]._id
+    $questionNumber.innerHTML = 'Ques. <b>'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length+' </b> '+' Question ID:'+QuestionsOFChapters[QuestionCount]._id
     $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+
                                 '<br/><br/> Answer: <b>'+(QuestionsOFChapters[QuestionCount].answer)+'</b>'
     $chapterNumber.innerHTML = 'Chapter Name: <b>'+getChapterName((QuestionsOFChapters[QuestionCount].chapter))+'</b>&nbsp'+

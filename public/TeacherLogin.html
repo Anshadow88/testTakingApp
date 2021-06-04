@@ -13,11 +13,11 @@
 </head>
 <body onselectstart="return false">
       <div class= "container">
-      <h3 class="well" >Teacher's Section </h3>
+      <h3 class="well well-sm" >Teacher's Section </h3>
       </div>
   
       <div class="container" id = "loginForm">
-        <div class="well">                         
+        <div class="well well-sm">                         
                 <div class="form-group">
                 <h3>Login For Teachers</h3>
                   <label for="usr">Email:</label>
@@ -27,29 +27,29 @@
                   <label for="pwd">Password:</label>
                   <input type="password" class="form-control" id="studentPassword">
                 </div>
-                <button class="well" type="button" id="teacherLoginButton">TeacherLogin</button>
+                <button class="well well-sm" type="button" id="teacherLoginButton">TeacherLogin</button>
         </div>
       </div>
            
 
       
       <div class="container" id ="teacherMenu" style="display: none;">
-          <div name="menu"class = "well">
-            <h4 style="display: none;"class ="well" id="intro"></h4>
+          <div name="menu"class = "well well-sm">
+            <h4 style="display: none;"class ="well well-sm" id="intro"></h4>
             <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
             <button class = "btn btn-primary" id="StudyMaterialSectionButton">Dpps & Tests</button>
             <button class = "btn btn-primary" id="myStudentSectionButton">My Students</button>
           </div>
-          <div class="well" id= "myStudentSection" style="display: none;"> 
+          <div class="well well-sm" id= "myStudentSection" style="display: none;"> 
             
-            <div class = "well">
+            <div class = "well well-sm">
             <button id="getAllResultButton">Show  Results</button>
             <button id="hideResultButton">Hide Result</button>
             
             <p id="resultText">Cleck to see all Result </p>
             </div>
 
-            <div class="well">
+            <div class="well well-sm">
             <table class="table">
               <thead>
                 <tr>
@@ -80,7 +80,7 @@
             </table>
             </div>
             
-            <div class ="well">
+            <div class ="well well-sm">
               <input placeholder= "Name" id="newStudentName" type="text">              
               <input placeholder= "Email" id="newStudentEmail" type="text">              
               <input placeholder= "Password" id="newStudentPassword" type="text">
@@ -89,8 +89,8 @@
               <button id= "changeStudentDataButton">Edit Details</button>
             </div>            
           </div>          
-          <div class="well" id= "teacherProfileSection" style="display: none"> 
-             <div class="well">
+          <div class="well well-sm" id= "teacherProfileSection" style="display: none"> 
+             <div class="well well-sm">
                 <h3 id="name">Anshul Gupta</h3>
                 <h4 id="subject">Physics</h4>
                 <h5 id="city">Address: Vikaspuri, New Delhi</h5>                
@@ -102,23 +102,23 @@
                   </table>
             </div>
           </div>  
-          <div class="well" id= "StudyMaterialSection" style="display: block;"> 
-              <div class="well">
+          <div class="well well-sm" id= "StudyMaterialSection" style="display: block;"> 
+              <div class="well well-sm">
               <button id= "ShowMyTestButton">My Tests</button>
               <button id= "ShowreviousYearButton">Previous Year Papers</button> 
               <button id= "CreateNewButton">Create New Test</button>
               </div>
-              <div class="well" id="MyTests"style="display: none;">
+              <div class="well well-sm" id="MyTests"style="display: none;">
                 My Tests
                 <div id="myTestTableDiv"></div>
               </div>
-              <div class="well" id="PreviousYearExams"style="display: none;">   
+              <div class="well well-sm" id="PreviousYearExams"style="display: none;">   
                 Previous Year Exams       
                 <div id="AdminTableDiv"></div>
               </div>      
-              <div class = "well" id="testCreatorApp" style="display: none;"><h3 class ="well"> Create Tests for Students </h3>
+              <div class = "well well-sm" id="testCreatorApp" style="display: none;"><h3 class ="well well-sm"> Create Tests for Students </h3>
                  
-                    <div class="well">
+                    <div class="well well-sm">
                     <div class="form-group">
                       
                       <select id="chapterNameInput" style="width: fit-content;display: inline;"class="form-control">
@@ -184,11 +184,11 @@
                       </select>  
                       
                       <button style="display: inline;"class="btn-success" id="findQuestions" onclick=setTimeout(function(){MathJax.typeset()},500) >Search</button>     
-                      &nbsp;Typed By<input class="well" id="typistName">   
+                      &nbsp;Typed By<input class="well well-sm" id="typistName">   
                     </div> 
                      <div style="display: none"></span>ID<input id ="QuestionID"><button id="FindQuestionByIDButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Find</button></div>
                   ` </div>
-                    <div class ="well">
+                    <div class ="well well-sm">
                         <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
                         <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
                         <button type="button" style="width: 80px;" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
@@ -197,17 +197,17 @@
                           <!-- <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button> -->
                           <button type="button" class="btn btn-danger" id="selectQuestionButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Add Question To Test</button>
                     </div>
-                    <div class = "well">      
+                    <div class = "well well-sm">      
                   
-                    <p class = "well" id = "chapterNumber">Chapter No. X</p>
+                    <p class = "well well-sm" id = "chapterNumber"></p>
                       
-                    <p class = "well" id = "questionNumber">Question No. X</p>
+                    <p class = "well well-sm" id = "questionNumber"></p>
                         
-                    <p class = "well" id="newQuestionTyped">text</p>
+                    <p class = "well well-sm" id="newQuestionTyped"></p>
                         
                     <image class = "img-responsive" style="orientation: centre"id="image"></image> 
                     </div>   
-                    <div class = "well">            
+                    <div class = "well well-sm">            
                       <p> New Test Name: <input id="NewTestName"></p>
                       <p>Subject :
                         <select id="TestSubject" style="width: fit-content;display: inline;"class="form-control">
@@ -236,7 +236,7 @@
                     </div>
 
             
-                     <div class="well" id="paper"></div>
+                     <div class="well well-sm" id="paper"></div>
               </div>
           </div>
             

@@ -173,7 +173,7 @@ async function loadTest(testName){
     document.getElementById('testApp').style.display ='block'
     console.log("Test Name: "+testName)
         availableQuestions = []
-        const response  = await fetch("/testPaperWithName", {   
+        const response  = await fetch("/testPaperWithName/"+USERID, {   
         method: "POST",          
         header: {
             "Authorization": "Bearer " + TOKEN
@@ -210,6 +210,7 @@ async function loadTest(testName){
         timeParsed = parseInt(data.testtime)
         console.log(data.testtime+' '+timeParsed)
         startTimer(timeParsed*60,$time)
+        document.getElementById('myTestTableDiv').style.display='none'
 }
 
 async function saveTestResult(testName){     

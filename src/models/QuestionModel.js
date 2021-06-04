@@ -7,6 +7,7 @@ const QuestionSchema = new mongoose.Schema({
     subject:{type:String},       
     chapter:{type:String,required:true}, 
     topic:{type:String,required:true,default:"NA"},
+    tags:[{ type:String}],
     fileName:{type:String},
     difficulty:{type:Number,default:5},
     author:{type:String,default:"unknown"},
