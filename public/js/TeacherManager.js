@@ -297,7 +297,7 @@ CreateNewButton.addEventListener('click',e=>{
 
 })
 
-
+window.ALLMYTESTS = []
 async function getAllMyTests()
 {
     const response  = await fetch("/testTestsOfTeacher/"+USERID, {          
@@ -316,6 +316,7 @@ async function getAllMyTests()
     var data = await response.json()
     console.log(data)
     makeMyExamTable(data)
+    ALLMYTESTS = data
 }
 
 function makeMyExamTable(myExams)

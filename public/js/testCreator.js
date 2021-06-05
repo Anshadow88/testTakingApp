@@ -160,11 +160,16 @@ function showCurrentQuestion(){
     const $questionNumber = document.getElementById('questionNumber')
     const $newQuestionText = document.querySelector('#newQuestionTyped')
     const $chapterNumber = document.querySelector('#chapterNumber')
+    
 
     
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
-    $questionNumber.innerHTML = 'Ques. <b>'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length+' </b> '+' Question ID:'+QuestionsOFChapters[QuestionCount]._id
+    $questionNumber.innerHTML = 'Ques.'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length
+                            +'</br>Database ID:'+QuestionsOFChapters[QuestionCount]._id
+    if(getTestInWhichThisQuestionIsPresent(QuestionsOFChapters[QuestionCount]._id)!='')
+    $questionNumber.innerHTML+='</br>You added this question in Test(s): '+getTestInWhichThisQuestionIsPresent(QuestionsOFChapters[QuestionCount]._id)
+    
     $newQuestionText.innerHTML = (QuestionsOFChapters[QuestionCount].question)+
                                 '<br/><br/> Answer: <b>'+(QuestionsOFChapters[QuestionCount].answer)+'</b>'
     $chapterNumber.innerHTML = 'Chapter Name: <b>'+getChapterName((QuestionsOFChapters[QuestionCount].chapter))+'</b>&nbsp'+
@@ -173,7 +178,7 @@ function showCurrentQuestion(){
 
     
     $image.style.display='none'
-    console.log(QuestionsOFChapters[QuestionCount].image)
+   // console.log(QuestionsOFChapters[QuestionCount].image)
     if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
     {
      console.log('ARE WE LOOKING FOR AWS')
@@ -183,6 +188,25 @@ function showCurrentQuestion(){
     }
    
 }
+
+
+function getTestInWhichThisQuestionIsPresent(quesID){
+    let testsWithQues =''
+    console.log('Looking for:'+quesID+'string')
+    console.log(ALLMYTESTS)
+    ALLMYTESTS.forEach(test=>{
+        test.questions.forEach(ques=>{
+            console.log('comparing to:'+ques.questionID+'of Test: '+test.name)
+            if(ques.questionID==quesID){
+            console.log('Found A Match')
+            testsWithQues+= test.name.toString()+'/'
+        }
+        })
+    })
+    return testsWithQues
+
+}
+
 
 function AddAQuestionToSelection(){     
     let alreadySelected = false

@@ -112,7 +112,7 @@ router.post('/findQuestions',async (req, res) => {
         const year = req.body.year     
         const chapter = req.body.chapter
         const author = req.body.author
-        var questionsFound        
+        
         
         if(exam!='undefined'&&year!='undefined'&&author!='')
         { questionsFound = await Question.find({author: author,exam: exam,year:year }).exec()   }
