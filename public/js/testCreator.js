@@ -120,7 +120,7 @@ async function getQuestionOfChapter(chapter){
 
     var data = await response.json()   
     QuestionsOFChapters = data
-    console.log(data)
+   // console.log(data)
     QuestionCount = (QuestionsOFChapters.length-1)
     showCurrentQuestion()
     
@@ -150,7 +150,7 @@ async function getQuestions(exam,year,chapter){
 
     var data = await response.json()   
     QuestionsOFChapters = data
-    console.log(data)
+  //  console.log(data)
     QuestionCount = (0)
     showCurrentQuestion()
     
@@ -192,13 +192,13 @@ function showCurrentQuestion(){
 
 function getTestInWhichThisQuestionIsPresent(quesID){
     let testsWithQues =''
-    console.log('Looking for:'+quesID+'string')
-    console.log(ALLMYTESTS)
+    console.log(quesID)
+   // console.log(ALLMYTESTS)
     ALLMYTESTS.forEach(test=>{
         test.questions.forEach(ques=>{
-            console.log('comparing to:'+ques.questionID+'of Test: '+test.name)
+           // console.log('comparing to:'+ques.questionID+'of Test: '+test.name)
             if(ques.questionID==quesID){
-            console.log('Found A Match')
+           // console.log('Found A Match')
             testsWithQues+= test.name.toString()+'/'
         }
         })
@@ -277,7 +277,7 @@ async function postNewTestPaper(subject,testName,description,time){
 .then().then()
 
 var data = await response.json()
-console.log(data)
+//console.log(data)
 location.reload()
 }
 

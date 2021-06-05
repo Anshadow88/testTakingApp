@@ -220,7 +220,7 @@ async function getQuestionOfTests(testName){
 
 async function showCurrentQuestion(){
     //Remove Selected image for last update  
-    console.log(QuestionsOFChapters)
+    //console.log(QuestionsOFChapters)
     inputImage.value=''    
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
@@ -228,7 +228,7 @@ async function showCurrentQuestion(){
     $newQuestionText.value = (QuestionsOFChapters[QuestionCount].question);
     $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
     $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
-    console.log(QuestionsOFChapters[QuestionCount].subject+ ' should be set to '+$subjectName.value)
+   // console.log(QuestionsOFChapters[QuestionCount].subject+ ' should be set to '+$subjectName.value)
     $subjectName.value=(QuestionsOFChapters[QuestionCount].subject)
 
     //CreateTopicNameDiv('Physics',chapterNumber.value)
