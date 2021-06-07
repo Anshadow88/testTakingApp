@@ -106,7 +106,7 @@ router.post('/users/login', async(req,res)=>{
         //console.log("0")
         const user = await User.findByCredentials(req.body.email,req.body.password)        
         const token = await user.generateAuthToken() 
-        //console.log("1")  
+        console.log(user.students)  
         res.status(200).send({user,token})
     
     }
@@ -358,19 +358,37 @@ router.post('/teacherSendTestToBatch/:id',async(req,res)=>{
     res.status(200).send('DONE')
 })
 
+async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
+    console.log('Here: '+studentID)
+    const student = await User.findOne({_id:studentID})
+   
+    
+    
+    const newTestData = {'testID':testID,'testName':testName,'teacherID':teacherID,'teacherName':teacherName}
+
+    student.testAvailable.push(newTestData)
+    await student.save()
+}
+
 //teacher get Results of His Student
 router.post('/teacherGetTestResults/:id',async(req,res)=>{
     console.log(req.body)
     const teacher = await User.findOne({_id:req.params.id})
     const allStudents = await User.find({teachers:{$elemMatch:{teacherID:teacher.id}}})
    // db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
+    const batchWiseStudents = teacher.students
     
     if(!teacher)return res.status(404).send('No Teacher found')
 
     const resultdata =[]
     allStudents.forEach(student=>{
+        let batch
+        batchWiseStudents.forEach(myStud=>{
+            if(myStud.studentID==student.id)
+            batch = myStud.batch
+        })
         student.result.forEach(result=>{
-            resultdata.push({'student':student.name,'testName':result.testName,'marks':result.marks,'maxMarks':result.maxMarks})
+            resultdata.push({'student':student.name,'testName':result.testName,'marks':result.marks,'maxMarks':result.maxMarks,'batch':batch})
         })
     })
     
@@ -378,20 +396,6 @@ router.post('/teacherGetTestResults/:id',async(req,res)=>{
 })
 
 
-async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
-    console.log('Here: '+studentID)
-    const student = await User.findOne({_id:studentID})
-    console.log(student.name)
-    //console.log(!student.testAvailable)
-    
-    console.log(student.testAvailable.length)
-    //if(!student) return
-    const newTestData = {'testID':testID,'testName':testName,'teacherID':teacherID,'teacherName':teacherName}
-
-    student.testAvailable.push(newTestData)
-    console.log(student.testAvailable.length)
-    await student.save()
-}
 
 
 

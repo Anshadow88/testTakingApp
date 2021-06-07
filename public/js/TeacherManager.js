@@ -1,3 +1,4 @@
+
 let studentData = []
 // $addNewStudentButton = document.getElementById('addNewStudentButton')
 
@@ -91,49 +92,60 @@ async function deleteOldStudentFromDatabase(name, email){
 
 async function getAllMyStudents(teacherID)
 {
-    const response = await fetch('/getStudentsOfTeacher/'+teacherID,{
-        method:'GET',     
-   
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    })
-    .then(
-    ).then()    
-    const data = await response.json()
-  //  //console.log(data)
-    studentData = data
+    studentData = MYSTUDENTS
     addOldStudentsToList(studentData)
-
-
 }
 
+
 function addOldStudentsToList(data){
+    allBatches = []
+    
+    data.forEach(student =>{
+        if(allBatches.indexOf(student.batch)==-1)
+        allBatches.push(student.batch)
+    })
+    
     
     let $myStudentTable = document.getElementById('myStudentTable')
     while($myStudentTable.hasChildNodes())
         {
             $myStudentTable.removeChild($myStudentTable.firstChild);
         }
-    for(i=0;i<data.length;i++)
-    {
-    let tr = document.createElement('tr')
-    $myStudentTable.appendChild(tr)
-    
-    for (var j = 0; j < 4; j++) {
-        var td = document.createElement('TD')        
-        if(j==0)
-        td.appendChild(document.createTextNode(i+1))
-        if(j==1)
-        td.appendChild(document.createTextNode(data[i].name))
-        else if(j==2)
-        td.appendChild(document.createTextNode(data[i].email))
-        else if(j==3)
-        td.appendChild(document.createTextNode('********'))
-
+    allBatches.forEach(batch=>{
+        let count =0
+        let tr = document.createElement('tr')
+        $myStudentTable.appendChild(tr)
+        var td = document.createElement('TD')
+        td.appendChild(document.createTextNode('Liist of all Students in '+batch))
         tr.appendChild(td)
+
+        for(i=0;i<data.length;i++)
+        {   
+            if(data[i].batch == batch)
+            {
+                count++
+                let tr = document.createElement('tr')
+                $myStudentTable.appendChild(tr)
+                
+                for (var j = 0; j < 4; j++) {
+                    var td = document.createElement('TD')        
+                    if(j==0)
+                    td.appendChild(document.createTextNode(count))
+                    if(j==1)
+                    td.appendChild(document.createTextNode(data[i].studentName))
+                    else if(j==2)
+                    td.appendChild(document.createTextNode(data[i].studentID))
+                    else if(j==3)
+                    td.appendChild(document.createTextNode(data[i].batch))
+
+                    
+                    tr.appendChild(td)
+                    }
+            }
         }
-    }
+
+    })
+    
 
 }
 
@@ -145,11 +157,6 @@ function addOldStudentsToList(data){
 let AllTestResults
 let AllStudentResults = []
 
-// const $getResultButton = document.querySelector('#getResultButton')
-// $getResultButton.addEventListener('click',(e)=>{
-//     const $testName = document.querySelector('#testName')
-//     loadTestResult($testName.value)
-//})
 const $getAllResultButton = document.querySelector('#getAllResultButton')
 $getAllResultButton.addEventListener('click',(e)=>{
     loadAllTestResult()
@@ -179,20 +186,10 @@ async function loadAllTestResult(){
 
     var data = await response.json()   
     console.log(data)
-    DisplayAllResult(data)
-    
-
-}
-function DisplayAllResult(allResults){
-    allUniqueTestName = []
-    allResults.forEach(result =>{
-        if(allUniqueTestName.indexOf(result.testName)==-1)
-        allUniqueTestName.push(result.testName)
-    })
-    allUniqueStudentName = []
-    allResults.forEach(result =>{
-        if(allUniqueStudentName.indexOf(result.student)==-1)
-        allUniqueStudentName.push(result.student)
+    allBatches = []
+    data.forEach(result =>{
+        if(allBatches.indexOf(result.batch)==-1)
+        allBatches.push(result.batch)
     })
 
     let $AllResultTableDiv = document.getElementById("AllResultTableDiv");
@@ -200,6 +197,37 @@ function DisplayAllResult(allResults){
   {
     $AllResultTableDiv.removeChild($AllResultTableDiv.firstChild);
   }
+
+    allBatches.forEach(batch=>{
+            const batchData = []
+            data.forEach(student=>{
+                if(student.batch==batch)
+                batchData.push(student)
+            })
+            console.log(batchData)
+            DisplayAllResult(batchData,batch)
+    })
+
+    
+
+}
+function DisplayAllResult(allResults,batchName){
+    allUniqueTestName = []
+    allResults.forEach(result =>{
+        if(allUniqueTestName.indexOf(result.testName)==-1)
+        allUniqueTestName.push(result.testName)
+    })
+
+    allUniqueStudentName = []
+    allResults.forEach(result =>{
+        if(allUniqueStudentName.indexOf(result.student)==-1)
+        allUniqueStudentName.push(result.student)
+    })
+
+    
+
+    let $AllResultTableDiv = document.getElementById("AllResultTableDiv");
+    
     let table = document.createElement('TABLE');
      table.className ='table'
 
@@ -212,7 +240,7 @@ function DisplayAllResult(allResults){
         var td = document.createElement('TD') 
         
         if(i==0)         
-        td.appendChild(document.createTextNode('Name\\Test'))
+        td.appendChild(document.createTextNode(batchName))
         else {
         let studentName = (allUniqueStudentName[i-1])
         td.appendChild(document.createTextNode(studentName))
@@ -255,53 +283,6 @@ function hideAllTestResult(){
   }
 }
 
-// async function loadTestResult(testName){     
-//     ////console.log("Global: "+TOKEN)
-//     AllStudentResults = []
-//     const response  = await fetch("/testPaperNameResult", {          
-//     // Adding method type
-//     method: "POST",
-      
-//     header: {
-//         "Authorization": "Bearer " + TOKEN
-//     },
-//     // Adding body or contents to send
-//     body: JSON.stringify({
-//         name: testName ,
-//         userID:USERID  
-//     }),
-//     // Adding headers to the request
-//     headers: {
-//         "Content-type": "application/json; charset=UTF-8"
-//     }
-//     }).then().then()
-
-//     var data = await response.json()   
-    
-    
-
-//     for(i=0;i<data.allStudentsMarks.length;i++){
-//         var newStudent = new Student(data.allStudentNames[i],data.allStudentsMarks[i],data.maxMarks )
-//         AllStudentResults.push(newStudent)
-//     }
-      
-       
-    
-//     DisplayResult()
-//     //startTimer(900,$time)
-// }
-// function DisplayResult(){
-//     $resultText = document.querySelector('#resultText')
-
-//     $resultText.innerHTML=''
-    
-//     for(i=0;i<AllStudentResults.length;i++)
-//     {
-//         $resultText.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'&nbsp out of '+AllStudentResults[i].getMaxMarks()+'<br/>')
-//     }
-
-
-// }
 const Student = class{
     constructor(name,marks,maxMarks){        
         this.name = name
@@ -424,9 +405,13 @@ function makeMyExamTable(myExams)
             if(i==3){
                 let newButton = document.createElement('button')
                 newButton.innerHTML = 'Send'
+                let batchNameInput = document.createElement('input')
+                batchNameInput.type = 'text'
+                
               //  console.log(newButton+'  '+myExams[j]._id)     
                 let id =  myExams[j]._id  
-                newButton.addEventListener('click',e=>{SendTestToMyBatch(id,'Batch-A')})
+                newButton.addEventListener('click',e=>{SendTestToMyBatch(id,batchNameInput.value)})
+                td.appendChild(batchNameInput)
                 td.appendChild(newButton)
             }
            // console.log('Heretoo'+myExams[j])
@@ -434,7 +419,6 @@ function makeMyExamTable(myExams)
         }
     }
 }
-
 
 async function getAllAdminTests()
 {
@@ -455,7 +439,6 @@ async function getAllAdminTests()
     console.log(data)
     makeAdminExamTable(data)
 }
-
 
 function makeAdminExamTable(myExams)
 {
@@ -519,8 +502,27 @@ function makeAdminExamTable(myExams)
     }
 }
 
-
 async function SendTestToMyBatch(testID,batchName){
+    console.log(testID+'  '+batchName)
+    const response  = await fetch("/teacherSendTestToBatch/"+USERID, {          
+    // Adding method type
+    method: "POST",
+
+    body: JSON.stringify({
+        testID: testID,
+        batch:batchName
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    }).then().then()
+
+
+}
+
+
+async function RemoveTestFromMyBatch(testID,batchName){
     console.log(testID+'  '+batchName)
     const response  = await fetch("/teacherSendTestToBatch/"+USERID, {          
     // Adding method type

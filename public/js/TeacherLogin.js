@@ -4,6 +4,7 @@ window.USERID= ""
 window.TOKEN=""
 window.USERNAME=""
 window.TESTSTAKEN=[]
+window.MYSTUDENTS=[]
 
 const $studentLoginButton = document.querySelector('#studentLoginButton')
 const $teacherLoginButton = document.querySelector('#teacherLoginButton')
@@ -40,7 +41,7 @@ async function loginUser(email,password,userRole){
         USERNAME = data.user.name
         console.log('User :'+USERID+' is a '+data.user.role)
 
-
+        MYSTUDENTS = data.user.students
         data.user.testsTaken.forEach(testdata => {
             TESTSTAKEN.push(testdata)
 
