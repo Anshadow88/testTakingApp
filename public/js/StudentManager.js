@@ -27,7 +27,7 @@ function SwitchStudentSections(count){
     document.getElementById("profileSection").style.display="none";
     document.getElementById('resultSection').style.display='none'
     document.getElementById('homeworkSection').style.display='none'    
-    document.getElementById('chapterWise').style.display='block'
+    document.getElementById('chapterWise').style.display='none'
 
     if(count==1)document.getElementById('profileSection').style.display= 'block'
     else if(count==2)document.getElementById('resultSection').style.display='block'
@@ -52,8 +52,9 @@ $openResultButton.addEventListener('click',(e) =>{
 
 function addTable() {
   var $myTableDiv = document.getElementById("myResultTable");
-  while($myTableDiv.hasChild){
-    $myTableDiv.removeChild($myTableDiv)
+  while($myTableDiv.hasChildNodes())
+  {
+    $myTableDiv.removeChild($myTableDiv.firstChild);
   }
   var table = document.createElement('TABLE');
   table.className ='table'
@@ -62,32 +63,21 @@ function addTable() {
   table.appendChild(tableHead)
   var headRow = document.createElement('tr')
   tableHead.appendChild(headRow)
-  while(tableHead.hasChildNodes())
-  {
-    tableHead.removeChild(tableHead.firstChild);
+  for (var j = 0; j < 3; j++) {
+        var td = document.createElement('TD');
+        if(j==0)
+        td.appendChild(document.createTextNode('Test Code'))
+        else if(j==1)
+        td.appendChild(document.createTextNode('Marks'))
+        else if(j==2)
+        td.appendChild(document.createTextNode('Max Marks'))
+        headRow.appendChild(td)
   }
-
-
-    for (var j = 0; j < 3; j++) {
-      var td = document.createElement('TD');
-      if(j==0)
-      td.appendChild(document.createTextNode('Test Code'))
-      else if(j==1)
-      td.appendChild(document.createTextNode('Marks'))
-      else if(j==2)
-      td.appendChild(document.createTextNode('Max Marks'))
-
-      headRow.appendChild(td)
-    }
-  
+    
 
   var tableBody = document.createElement('TBODY');
   table.appendChild(tableBody);
-  while(tableBody.hasChildNodes())
-        {
-            tableBody.removeChild(tableBody.firstChild);
-        }
-  
+ 
 
   for (var i = 0; i < TESTSTAKEN.length; i++) {
     var tr = document.createElement('TR');
