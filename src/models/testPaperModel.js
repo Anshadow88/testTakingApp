@@ -10,6 +10,10 @@ const TestPaper= new mongoose.Schema({
         type:String//Physics,Chemisty,Maths,PCM,PCB
 
     },
+    testType:{
+        type:String, //1:Examwise 2: Chapterwise 3: Topicwise
+
+    },
     time:{
         type:Number 
     },

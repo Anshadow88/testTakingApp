@@ -124,8 +124,12 @@ async function getQuestion(quesID){
 
     var data = await response.json()   
     console.log(data)
-    $newQuestionText.append(data.question)
-    $image.src = '/uploads/'+QUESID+'.png'
+    //$newQuestionText.append(data.question)
+    //$image.src = '/uploads/'+QUESID+'.png'
+    QuestionsOFChapters = []
+    QuestionsOFChapters.push(data.question)
+    QuestionCount=0
+    showCurrentQuestion()
     
 }
 

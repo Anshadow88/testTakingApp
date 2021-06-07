@@ -9,14 +9,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-
+  <link rel="stylesheet" href="css\studentlogin.css">
 </head>
 <body onselectstart="return false">
-      <div class= "container">
+      <div class= "container-fluid">
       <h3 class="well well-sm" >Teacher's Section </h3>
       </div>
   
-      <div class="container" id = "loginForm">
+      <div class="container-fluid" id = "loginForm">
         <div class="well well-sm">                         
                 <div class="form-group">
                 <h3>Login For Teachers</h3>
@@ -33,7 +33,7 @@
            
 
       
-      <div class="container" id ="teacherMenu" style="display: none;">
+      <div class="container-fluid" id ="teacherMenu" style="display: none;">
           <div name="menu"class = "well well-sm">
             <h4 style="display: none;"class ="well well-sm" id="intro"></h4>
             <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
@@ -46,11 +46,12 @@
             <button id="getAllResultButton">Show  Results</button>
             <button id="hideResultButton">Hide Result</button>
             
-            <p id="resultText">Cleck to see all Result </p>
+            <div class ="container-fluid" id="AllResultTableDiv">Cleck to see all Result </div>
+            
             </div>
 
             <div class="well well-sm">
-            <table class="table">
+            <table class="table-responsive">
               <thead>
                 <tr>
                   <td>
@@ -98,7 +99,7 @@
                 <p id="aboutMe">I am a Physics Teacher with 10 year experience in IIT-JEE & NEET preparation.
                   
                 </p> 
-                <table class="table">
+                <table class="table-responsive">
                   </table>
             </div>
           </div>  

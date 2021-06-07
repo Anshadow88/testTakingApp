@@ -358,6 +358,26 @@ router.post('/teacherSendTestToBatch/:id',async(req,res)=>{
     res.status(200).send('DONE')
 })
 
+//teacher get Results of His Student
+router.post('/teacherGetTestResults/:id',async(req,res)=>{
+    console.log(req.body)
+    const teacher = await User.findOne({_id:req.params.id})
+    const allStudents = await User.find({teachers:{$elemMatch:{teacherID:teacher.id}}})
+   // db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
+    
+    if(!teacher)return res.status(404).send('No Teacher found')
+
+    const resultdata =[]
+    allStudents.forEach(student=>{
+        student.result.forEach(result=>{
+            resultdata.push({'student':student.name,'testName':result.testName,'marks':result.marks,'maxMarks':result.maxMarks})
+        })
+    })
+    
+    res.status(200).send(resultdata)
+})
+
+
 async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
     console.log('Here: '+studentID)
     const student = await User.findOne({_id:studentID})

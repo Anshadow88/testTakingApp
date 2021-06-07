@@ -9,13 +9,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+  <link rel="stylesheet" href="css\studentlogin.css">
 
 </head>
 <body onselectstart="return false">
-      <div class= "container">
-        <h3 class="well well-sm" >Student Section </h3>
+      <div class= "container-fluid">
+        <h3 class="well" >Student Section </h3>
       </div>
-      <div class="container" id = "loginForm">
+      <div class="container-fluid" id = "loginForm">
         <div class="well well-sm">                         
                 <div class="form-group">
                 <h3>Login For Students </h3>
@@ -33,19 +34,20 @@
       </div>
               
 
-      <div class="container" id = "studentMenu" style="display: none;">
+      <div class="container-fluid" id = "studentMenu" style="display: none;">
         <div class = "well well-sm">
           <h4 class ="well well-sm" id="intro"></h4>
           <button class = "btn btn-primary" id="openProfieButton">Profile</button>
           <button class = "btn btn-primary" id="openTestAppButton">Get Test</button>
           <button class = "btn btn-primary" id="openResultButton">My Results</button>
-        </div>      
+          <button class = "btn btn-primary" id="openChapterWise">Chapterwise</button>
+            
 
 
-                <div class="container" id = "profileSection" style="display: none;" >
+                <div class="container-fluid" id = "profileSection" style="display: none;" >
                   <div class = "well well-sm">    
                     <div id="profile">   
-                      <table class="table table-hover">
+                      <table class="table-responsive table-responsive-hover">
                         <thead>
                           <tr>
                             <th scope="col">1.</th>
@@ -81,7 +83,7 @@
                   </div>
                 </div>
 
-                <div class="container" id = "resultSection" style="display: none;">
+                <div class="container-fluid" id = "resultSection" style="display: none;">
                   <div class = "well well-sm">                    
                     <div id="myResultTable">
 
@@ -93,7 +95,7 @@
                   </div>
                 </div>
 
-                <div class="well well-sm" id = "homeworkSection" style="display: none;">
+                <div class="container-fluid" id = "homeworkSection" style="display: none;">
                   
                     <div class = "well well-sm" id="myTestTableDiv">
                     
@@ -145,18 +147,60 @@
                           </span>
                       </div>
 
+
                    </div>
               
                     
                   </div>
+
+                  <div class="container-fluid" id = "chapterWise" style="display: none;">
+                    <div class="big-sexy-buttons">
+                      <div class="container">
+                          <div class="row is-flex">
+                              <div class="col-sm-3">
+                                  <div class="box">
+                                      <h2>Wave-Optics & EM Waves</h2>
+                                      <p>Tests Available<br/>
+                                      1. YDSE JEE Mains(10 Question)<br/>
+                                      2. Single Slit Diffraction JEE Mains(10 Question)<br/>
+                                      3. E.M. WavesJEE Mains(10 Question)<br/>
+                                      4. Polarization JEE Mains(10 Question)<br/>
+                                      </p>
+                                      <a href="#" class="btn btn-primary">Link 1</a>
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="box">
+                                      <h2>Becky, Look at Her Butt!</h2>
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                                      <a href="#" class="btn btn-primary">Link 2</a>
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                  <div class="box">
+                                      <h2>It is like so super-duper this is a crazy long sentence big!</h2>
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+                                         incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
+                                      <a href="#" class="btn btn-primary">Link 3</a>
+                                  </div>
+                              </div>
+                              <div class="col-sm-3">
+                                <div class="box">
+                                    <h2>It is like so super-duper this is a crazy long sentence big!</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                       incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
+                                    <a href="#" class="btn btn-primary">Link 3</a>
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+
+
                 </div>
-              
 
-                
-
+        </div>
       </div>
-
-
 </body>
 
 <script src="/js/StudentLogin.js"></script>

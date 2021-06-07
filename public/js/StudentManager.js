@@ -11,9 +11,13 @@ $openResultButton.addEventListener('click',()=>{
 })
 const $openTestAppButton = document.getElementById('openTestAppButton')
 $openTestAppButton.addEventListener('click',()=>{
-    console.log('TestApp')
     SwitchStudentSections(3)
 })
+const $openChapterWise = document.getElementById('openChapterWise')
+$openChapterWise.addEventListener('click',()=>{
+    SwitchStudentSections(4)
+})
+
 function ShowProfile()
 {
     document.getElementById('studenName').innerHTML = USERNAME
@@ -21,14 +25,14 @@ function ShowProfile()
 }
 function SwitchStudentSections(count){
     document.getElementById("profileSection").style.display="none";
-
-   // document.getElementById('profileSection').style.display='none'   
     document.getElementById('resultSection').style.display='none'
-    document.getElementById('homeworkSection').style.display='none'
+    document.getElementById('homeworkSection').style.display='none'    
+    document.getElementById('chapterWise').style.display='block'
 
     if(count==1)document.getElementById('profileSection').style.display= 'block'
     else if(count==2)document.getElementById('resultSection').style.display='block'
-    else if(count==3)document.getElementById('homeworkSection').style.display='block'
+    else if(count==3)document.getElementById('homeworkSection').style.display='block'    
+    else if(count==4)document.getElementById('chapterWise').style.display='block'
 }
 
 //RESULT SECTION
@@ -106,7 +110,9 @@ function addTable() {
 addTable();
 
 
-//MY TESTS SECTION
+//CHAPTERWISE SECTION
+
+
 
 
 

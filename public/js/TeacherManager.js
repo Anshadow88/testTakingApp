@@ -161,14 +161,17 @@ $hideResultButton.addEventListener('click',(e)=>{
 async function loadAllTestResult(){     
     ////console.log("Global: "+TOKEN)
     AllStudentResults = []
-    const response  = await fetch("/allTests", {          
+    const response  = await fetch("/teacherGetTestResults/"+USERID, {          
     // Adding method type
-    method: "GET",
+    method: "POST",
       
     header: {
         // "Authorization": "Bearer " + TOKEN
     },
-
+    body: JSON.stringify({
+        
+        
+    }),
     headers: {
         "Content-type": "application/json; charset=UTF-8"
     }
@@ -176,77 +179,129 @@ async function loadAllTestResult(){
 
     var data = await response.json()   
     console.log(data)
-    
     DisplayAllResult(data)
+    
 
 }
-function DisplayAllResult(allTests){
-    $resultText = document.querySelector('#resultText')
+function DisplayAllResult(allResults){
+    allUniqueTestName = []
+    allResults.forEach(result =>{
+        if(allUniqueTestName.indexOf(result.testName)==-1)
+        allUniqueTestName.push(result.testName)
+    })
+    allUniqueStudentName = []
+    allResults.forEach(result =>{
+        if(allUniqueStudentName.indexOf(result.student)==-1)
+        allUniqueStudentName.push(result.student)
+    })
 
-    $resultText.innerHTML=''
-    
-    for(i=0;i<allTests.length;i++)    
-    {
-        $resultText.innerHTML+=((i+1)+ ' TestCode '+allTests[i].name+'<br/>')
-        for(j=0;j<allTests[i].result.length;j++)
-        {
-            $resultText.innerHTML+=('......'+(j+1)+' '+allTests[i].result[j].userName+' got '+
-            allTests[i].result[j].marksObtained+' out of '+
-            allTests[i].result[j].maxMarks )+'<br/>'
+    let $AllResultTableDiv = document.getElementById("AllResultTableDiv");
+    while($AllResultTableDiv.hasChildNodes())
+  {
+    $AllResultTableDiv.removeChild($AllResultTableDiv.firstChild);
+  }
+    let table = document.createElement('TABLE');
+     table.className ='table'
+
+    let tableHead = document.createElement('thead')
+    table.appendChild(tableHead)
+    var headRow = document.createElement('tr')
+    tableHead.appendChild(headRow)
+
+    for (var i = 0; i < allUniqueStudentName.length+1; i++) {
+        var td = document.createElement('TD') 
+        
+        if(i==0)         
+        td.appendChild(document.createTextNode('Name\\Test'))
+        else {
+        let studentName = (allUniqueStudentName[i-1])
+        td.appendChild(document.createTextNode(studentName))
         }
-    }
+        
+        headRow.appendChild(td)
+    } 
+
+        var tableBody = document.createElement('TBODY');
+        table.appendChild(tableBody);
+        for(j=0;j<allUniqueTestName.length;j++){    
+            var tr = document.createElement('TR');
+            tableBody.appendChild(tr);
+            let testName = allUniqueTestName[j]   
+                for (var k = 0; k< allUniqueStudentName.length+1; k++) {
+                    var td = document.createElement('TD');                                        
+                    if(k==0){
+                         td.appendChild(document.createTextNode(testName));
+                    }
+                    else
+                    {
+                        allResults.forEach(result=>{
+                            if(result.student==allUniqueStudentName[k-1]){
+                                if(result.testName==testName){ 
+                                td.appendChild(document.createTextNode(result.marks+'/'+result.maxMarks));
+                            }
+                        }
+                    })
+                }
+                tr.appendChild(td)
+        }
+        $AllResultTableDiv.appendChild(table);  }  
 }
+
 function hideAllTestResult(){
-    $resultText = document.querySelector('#resultText')
-    $resultText.innerHTML=''
+    let $AllResultTableDiv = document.getElementById("AllResultTableDiv");
+    while($AllResultTableDiv.hasChildNodes())
+  {
+    $AllResultTableDiv.removeChild($AllResultTableDiv.firstChild);
+  }
 }
-async function loadTestResult(testName){     
-    ////console.log("Global: "+TOKEN)
-    AllStudentResults = []
-    const response  = await fetch("/testPaperNameResult", {          
-    // Adding method type
-    method: "POST",
+
+// async function loadTestResult(testName){     
+//     ////console.log("Global: "+TOKEN)
+//     AllStudentResults = []
+//     const response  = await fetch("/testPaperNameResult", {          
+//     // Adding method type
+//     method: "POST",
       
-    header: {
-        "Authorization": "Bearer " + TOKEN
-    },
-    // Adding body or contents to send
-    body: JSON.stringify({
-        name: testName ,
-        userID:USERID  
-    }),
-    // Adding headers to the request
-    headers: {
-        "Content-type": "application/json; charset=UTF-8"
-    }
-    }).then().then()
+//     header: {
+//         "Authorization": "Bearer " + TOKEN
+//     },
+//     // Adding body or contents to send
+//     body: JSON.stringify({
+//         name: testName ,
+//         userID:USERID  
+//     }),
+//     // Adding headers to the request
+//     headers: {
+//         "Content-type": "application/json; charset=UTF-8"
+//     }
+//     }).then().then()
 
-    var data = await response.json()   
+//     var data = await response.json()   
     
     
 
-    for(i=0;i<data.allStudentsMarks.length;i++){
-        var newStudent = new Student(data.allStudentNames[i],data.allStudentsMarks[i],data.maxMarks )
-        AllStudentResults.push(newStudent)
-    }
+//     for(i=0;i<data.allStudentsMarks.length;i++){
+//         var newStudent = new Student(data.allStudentNames[i],data.allStudentsMarks[i],data.maxMarks )
+//         AllStudentResults.push(newStudent)
+//     }
       
        
     
-    DisplayResult()
-    //startTimer(900,$time)
-}
-function DisplayResult(){
-    $resultText = document.querySelector('#resultText')
+//     DisplayResult()
+//     //startTimer(900,$time)
+// }
+// function DisplayResult(){
+//     $resultText = document.querySelector('#resultText')
 
-    $resultText.innerHTML=''
+//     $resultText.innerHTML=''
     
-    for(i=0;i<AllStudentResults.length;i++)
-    {
-        $resultText.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'&nbsp out of '+AllStudentResults[i].getMaxMarks()+'<br/>')
-    }
+//     for(i=0;i<AllStudentResults.length;i++)
+//     {
+//         $resultText.innerHTML+=(AllStudentResults[i].getName()+'&nbsp got Marks: '+AllStudentResults[i].getMarks()+'&nbsp out of '+AllStudentResults[i].getMaxMarks()+'<br/>')
+//     }
 
 
-}
+// }
 const Student = class{
     constructor(name,marks,maxMarks){        
         this.name = name
