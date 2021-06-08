@@ -339,7 +339,7 @@ router.patch('/masterLogout',async(req,res)=>{
     }
 })
 
-//seend this test to all my students
+//seend this test to all my students of BATCH
 router.post('/teacherSendTestToBatch/:id',async(req,res)=>{
     console.log(req.body)
     const teacher = await User.findOne({_id:req.params.id})
@@ -351,22 +351,56 @@ router.post('/teacherSendTestToBatch/:id',async(req,res)=>{
         console.log(student)
         if(student.batch==req.body.batch)
         {
-        AddTestPaperToStudent(student.studentID,test.id,test.name,teacher.id,teacher.name)
+        AddTestPaperToStudent(student.studentID,test.id,test.name,teacher.id,teacher.name,test.description)
         }
     })
 
     res.status(200).send('DONE')
 })
 
-async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
-    console.log('Here: '+studentID)
+async function AddTestPaperToStudent(studentID,testID,testName,teacherID,teacherName,testDescription){
+    //console.log('Here: '+studentID)
     const student = await User.findOne({_id:studentID})
    
     
     
-    const newTestData = {'testID':testID,'testName':testName,'teacherID':teacherID,'teacherName':teacherName}
+    const newTestData = {'testID':testID,'testName':testName,'teacherID':teacherID,'teacherName':teacherName,'testDescription': testDescription}
 
     student.testAvailable.push(newTestData)
+    await student.save()
+}
+
+//seend this test to all my students of BATCH
+router.post('/teacherRemoveTestToBatch/:id',async(req,res)=>{
+    console.log(req.body)
+    const teacher = await User.findOne({_id:req.params.id})
+    const test = await TestPaper.findOne({_id:req.body.testID})
+    
+    if(!teacher||!test)return res.status(404).send('No User found or No Test Found')
+
+    teacher.students.forEach(student=>{
+        //console.log(student)
+        if(student.batch==req.body.batch)
+        {
+        RemoveTestPaperToStudent(student.studentID,test.id,test.name,teacher.id,teacher.name)
+        }
+    })
+
+    res.status(200).send('DONE')
+})
+
+async function RemoveTestPaperToStudent(studentID,testID,testName,teacherID,teacherName){
+    console.log('Here: '+studentID)
+    const student = await User.findOne({_id:studentID})
+
+    
+    student.testAvailable.forEach(test=>{
+        if(test.testID==testID)
+        {
+            student.testAvailable.pop(test)
+        }
+    })
+    
     await student.save()
 }
 

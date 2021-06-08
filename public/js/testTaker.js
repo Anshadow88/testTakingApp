@@ -136,7 +136,7 @@ function makeMyTestTable(myTests)
         thead.appendChild(td)
         if(i==0)td.appendChild(document.createTextNode('#'))
         if(i==1)td.appendChild(document.createTextNode('Exam Code'))
-        if(i==2)td.appendChild(document.createTextNode('Given By'))
+        if(i==2)td.appendChild(document.createTextNode('Description'))
     }
     //console.log('219')
     const tbody = document.createElement('tbody')
@@ -155,7 +155,7 @@ function makeMyTestTable(myTests)
             tr.appendChild(td)
             if(i==0)td.appendChild(document.createTextNode(j+1))
             if(i==1)td.appendChild(document.createTextNode(myTests[j].testName))
-            if(i==2)td.appendChild(document.createTextNode(myTests[j].teacherName))            
+            if(i==2)td.appendChild(document.createTextNode(myTests[j].testDescription))            
             if(i==3){
                 let newButton = document.createElement('button')
                 newButton.innerHTML = 'Start Test'   

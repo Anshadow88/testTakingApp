@@ -37,6 +37,7 @@ function SwitchSections(count){
     document.getElementById('myStudentSection').style.display='none'
     document.getElementById('StudyMaterialSection').style.display='none'
 
+
     if(count==1)document.getElementById('teacherProfileSection').style.display= 'block'
     else if(count==2)document.getElementById('StudyMaterialSection').style.display='block'
     else if(count==3)document.getElementById('myStudentSection').style.display='block'
@@ -333,6 +334,14 @@ CreateNewButton.addEventListener('click',e=>{
 
 })
 
+const EditOldTestButton = document.getElementById('EditOldTestButton')
+EditOldTestButton.addEventListener('click',e=>{
+    document.getElementById('MyTests').style.display='none'
+    document.getElementById('PreviousYearExams').style.display='none'    
+    document.getElementById('testCreatorApp').style.display='block'
+
+})
+
 window.ALLMYTESTS = []
 async function getAllMyTests()
 {
@@ -399,20 +408,29 @@ function makeMyExamTable(myExams)
             
             const td = document.createElement('td')
             tr.appendChild(td)
-            if(i==0)td.appendChild(document.createTextNode(j+1))
+            if(i==0){
+                td.appendChild(document.createTextNode(j+1))
+            }
             if(i==1)td.appendChild(document.createTextNode(myExams[j].name))
             if(i==2)td.appendChild(document.createTextNode(myExams[j].questions.length+' Questions'))            
             if(i==3){
                 let newButton = document.createElement('button')
                 newButton.innerHTML = 'Send'
+                newButton.className = 'btn btn-success'
+                let removeButton = document.createElement('button')
+                removeButton.innerHTML = 'Remove'
+                removeButton.className = 'btn btn-danger'
                 let batchNameInput = document.createElement('input')
                 batchNameInput.type = 'text'
                 
               //  console.log(newButton+'  '+myExams[j]._id)     
                 let id =  myExams[j]._id  
                 newButton.addEventListener('click',e=>{SendTestToMyBatch(id,batchNameInput.value)})
+                removeButton.addEventListener('click',e=>{RemoveTestFromMyBatch(id,batchNameInput.value)})
+                
                 td.appendChild(batchNameInput)
                 td.appendChild(newButton)
+                td.appendChild(removeButton)
             }
            // console.log('Heretoo'+myExams[j])
         
@@ -521,10 +539,9 @@ async function SendTestToMyBatch(testID,batchName){
 
 }
 
-
 async function RemoveTestFromMyBatch(testID,batchName){
     console.log(testID+'  '+batchName)
-    const response  = await fetch("/teacherSendTestToBatch/"+USERID, {          
+    const response  = await fetch("/teacherRemoveTestToBatch/"+USERID, {          
     // Adding method type
     method: "POST",
 
@@ -540,6 +557,8 @@ async function RemoveTestFromMyBatch(testID,batchName){
 
 
 }
+
+
 
 
 

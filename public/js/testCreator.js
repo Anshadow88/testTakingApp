@@ -24,7 +24,7 @@ $NewTestButton.addEventListener('click',(e)=>{
     let $TestTime = document.querySelector('#TestTime')
     let $TestDescription = document.querySelector('#TestDescription')
     let TestSubject = document.querySelector('#TestSubject')
-    const $NewTestName = document.querySelector('#NewTestName')
+    let $NewTestName = document.querySelector('#NewTestName')
     if(!$NewTestName.value||!TestSubject.value||!$TestDescription.value||!$TestTime.value)
     alert('Fill All Fields about New Test')    
     else
@@ -71,8 +71,6 @@ $previousButton.addEventListener('click',(e)=>{
 $selectQuestionButton.addEventListener('click',(e)=>{    
     AddAQuestionToSelection()
 })
-
-
 
 async function getQuestion(quesID){     
     //console.log("Global: "+TOKEN)
@@ -220,7 +218,6 @@ function AddAQuestionToSelection(){
     }
     ShowPaper()       
  }
-
  
 
  function RemoveThisQuestionToSelection(id){     
@@ -234,12 +231,13 @@ function AddAQuestionToSelection(){
  }
 
  function ShowPaper(){
+     console.log('Showing Paper')
     const $paper = document.getElementById('paper')
     while($paper.hasChildNodes())
         {
             $paper.removeChild($paper.firstChild);
         }
-    
+    console.log(SelectedQuestions.length)
     for(i=0;i<SelectedQuestions.length;i++)
     {
         let newDiv = document.createElement('div')        
@@ -277,8 +275,8 @@ async function postNewTestPaper(subject,testName,description,time){
 .then().then()
 
 var data = await response.json()
-//console.log(data)
-location.reload()
+console.log(data)
+//location.reload()
 }
 
 function getChapterName(number){
@@ -314,3 +312,117 @@ function getExamName(number){
 
 
 }
+
+
+const loadOldTestButton = document.getElementById('EditOldTestButton')
+loadOldTestButton.addEventListener('click',e=>{
+    LoadOldTestPaper()
+})
+async function LoadOldTestPaper(){
+    testName  = document.getElementById('EditPaperName').value
+    if(!testName) {
+        alert('Please Provide a Test ID to edit one')
+        return
+    }
+    const response = await fetch("/LoadOldTestPaperForPaperEditing/"+USERID, {      
+    // Adding method type
+    method: "POST",      
+    // Adding body or contents to send
+    body: JSON.stringify({
+        testName:testName
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+.then().then()
+
+var testdata = await response.json()
+SetOldTestPaperIntoCurrentValues(testdata)
+
+document.querySelector('#TestTime').value = testdata.time
+document.querySelector('#TestDescription').value = testdata.description
+document.querySelector('#TestSubject').value = testdata.subject
+document.querySelector('#NewTestName').value = testdata.name
+
+}
+
+async function SetOldTestPaperIntoCurrentValues(oldTest)
+{
+    
+    oldTest.questions.forEach(question=>{
+        SelectedQuestionIDs.push({'questionID':question.questionID})
+    })
+    //console.log(SelectedQuestionIDs)
+
+    await SelectedQuestionIDs.forEach(quesID=>{
+         getQuestionText(quesID.questionID)
+         
+    })
+
+    //console.log(SelectedQuestions)
+
+    tryShowingPaper()
+}
+
+function tryShowingPaper(){
+    if(SelectedQuestions.length==SelectedQuestionIDs.length)
+    {
+        ShowPaper()
+    }
+    else{
+        setTimeout(tryShowingPaper,1000)
+    }
+
+}
+
+async function getQuestionText(quesID){
+    
+    const response = await fetch("/questions/"+quesID, {      
+    // Adding method type
+    method: "GET",      
+    // Adding body or contents to send
+   
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+.then().then()
+
+var quesdata = await response.json()
+ SelectedQuestions.push(quesdata)
+
+
+}
+
+
+async function EditOldNewTestPaper(subject,testName,description,time){
+    const response = await fetch("/EditOldNewTestPaper/"+USERID, {      
+    // Adding method type
+    method: "PATCH",      
+    // Adding body or contents to send
+    body: JSON.stringify({
+        name: testName,
+        author: USERID,
+        questions: SelectedQuestionIDs,
+        visibility: '1',
+        subject: subject,
+        description: description,
+        time:time
+    }),
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+.then().then()
+
+var data = await response.json()
+//console.log(data)
+//location.reload()
+}
+
+
+

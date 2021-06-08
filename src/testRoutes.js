@@ -7,7 +7,7 @@ const User = require('./models/userModel')
 
 //GET ALL TESTS
 router.get('/allTests', async (req, res) => {
-    console.log('Hello')
+    //console.log('Hello')
     try {
         
         const allTests = await TestPaper.find()  
@@ -24,20 +24,19 @@ router.post('/testPaper', async (req, res) => {
         const test = new TestPaper(req.body)
         await test.save()
         const user = await User.findOne({_id:req.body.author})
-      //  console.log('User: '+user)
+        
         user.testPaper.push({'testName':test.name,'testID':test.id,'visibility':'0'})
         await user.save()
-      //  console.log('Updated User: '+user)
         return res.status(201).json(test)
     } catch (error) {
         return res.status(500).json({"error":error})
     }
 })
 
-// get One Test For Editing
+// get One Test For QUESTION Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {
-     //  console.log(req.body)
+     //  //console.log(req.body)
         const testName = req.body.testName 
         const testPaper = await TestPaper.findOne({name:testName})  
         
@@ -48,7 +47,7 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
                
         }        
         let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
-      //  console.log(questionsOfChapter)
+      //  //console.log(questionsOfChapter)
         if(!testPaper){
             return res.status(404).json({})
         }else{
@@ -59,37 +58,61 @@ router.post('/testPaperWithNameForEditing', async (req, res) => {
     }
 })
 
+//get Test Paper for PAPER Editing
+router.post('/LoadOldTestPaperForPaperEditing/:id', async (req, res) => {
+    try {
+        const teacher = await User.findOne({_id:req.params.id})
+        //console.log(teacher.id)
+        const testPaper = await TestPaper.findOne({name:req.body.testName})
+        //console.log(testPaper.author)
+        if(testPaper.author!=teacher.id)
+        {
+            return res.status(400).send()
+        }
+        
+
+        if(!testPaper){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json(testPaper)
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
+
 //Get One Test For Student Sovling DO NOT CHANGE THIS
 router.post('/testPaperWithName/:id', async (req, res) => {
     try {
-        console.log(req.body)
+        //console.log(req.body)
         const student = await User.findOne({_id:req.params.id})
-        console.log('1')
+        //console.log('1')
         const testName = req.body.name 
-        console.log('2')
+        //console.log('2')
         const testPaper = await TestPaper.findOne({name:testName})   
-        console.log(testPaper)   
+        //console.log(testPaper)   
         const testtime = testPaper.time
-        console.log('4')
+        //console.log('4')
         let isGiven = false
         const previousAttempt=[]
-        console.log('5')
+        //console.log('5')
         student.result.forEach(result=>{
-            console.log(result.testID+' == '+testPaper.id)
+            //console.log(result.testID+' == '+testPaper.id)
             if(result.testID==testPaper.id)
             {   
-                console.log('5.5')
+                //console.log('5.5')
                 isGiven = true
-                console.log('6')
+                //console.log('6')
                 result.questions.forEach(q=>{
                     previousAttempt.push(q.status)
-                    console.log(q)
+                    //console.log(q)
                 })
             }
 
         })
 
-        console.log('Time: '+testtime)   
+        //console.log('Time: '+testtime)   
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
@@ -110,7 +133,7 @@ router.post('/testPaperWithName/:id', async (req, res) => {
 //Get RESULT Of All Students
 router.post('/testPaperNameResult', async (req, res) => {
     try {
-       // console.log(req.body)
+       // //console.log(req.body)
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})  
 
@@ -140,7 +163,7 @@ router.post('/testPaperNameResult', async (req, res) => {
 
 router.post('/testPaperName/:id', async (req, res) => {
     try {
-       // console.log(req.body)
+       // //console.log(req.body)
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})  
 
@@ -167,7 +190,7 @@ router.post('/testPaperName/:id', async (req, res) => {
 //Updating Result Of One Student
 router.patch('/testPaper/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
-   // console.log("101"+updates)
+   // //console.log("101"+updates)
     try{
         const testPaper = await TestPaper.findOne({_id: req.params.id})
         if(!testPaper){return res.status(404).send()}
@@ -191,7 +214,7 @@ router.patch('/testPaper/:id',async(req,res)=>{
 
 //Get All Test of One Teacher Sovling
 router.get('/testTestsOfTeacher/:id', async (req, res) => {
-    //console.log('1')
+    ////console.log('1')
     try {
         const allTestsOfTeacher = await TestPaper.find({author:req.params.id})       
         
@@ -206,7 +229,7 @@ router.get('/testTestsOfTeacher/:id', async (req, res) => {
 
 //Get All Test of One Teacher Sovling
 router.get('/testTestsOfAdmin', async (req, res) => {
-    //console.log('1')
+    ////console.log('1')
     try {
        const allTestsOfTeacher = await TestPaper.find({author:'60b3cba514a1d30015a8d0de'})
        
