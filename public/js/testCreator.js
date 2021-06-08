@@ -240,16 +240,17 @@ function AddAQuestionToSelection(){
     console.log(SelectedQuestions.length)
     for(i=0;i<SelectedQuestions.length;i++)
     {
-        let newDiv = document.createElement('div')        
-             newDiv.className = "well well-sm"
-        $paper.appendChild(newDiv)
+        // let newDiv = document.createElement('div')        
+        //      newDiv.className = "well well-sm"
+        // $paper.appendChild(newDiv)
+        
         let cancelBtn = document.createElement('button')
             cancelBtn.innerHTML='&#10060'
             cancelBtn.addEventListener('click', e=>{RemoveThisQuestionToSelection(i)})
-        newDiv.appendChild(cancelBtn)
+            $paper.appendChild(cancelBtn)
         let newP = document.createElement('p')
-          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question+'<br/><br/>'
-          newDiv.appendChild(newP)
+          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,30)+'.......<br/><br/>'
+          $paper.appendChild(newP)
     }
  }
  
