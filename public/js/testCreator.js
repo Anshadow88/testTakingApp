@@ -165,6 +165,7 @@ function showCurrentQuestion(){
     if(QuestionCount<0) QuestionCount=0
     $questionNumber.innerHTML = 'Ques.'+(QuestionCount+1)+ ' / '+QuestionsOFChapters.length
                             +'</br>Database ID:'+QuestionsOFChapters[QuestionCount]._id
+  
     if(getTestInWhichThisQuestionIsPresent(QuestionsOFChapters[QuestionCount]._id)!='')
     $questionNumber.innerHTML+='</br>You added this question in Test(s): '+getTestInWhichThisQuestionIsPresent(QuestionsOFChapters[QuestionCount]._id)
     
@@ -190,14 +191,14 @@ function showCurrentQuestion(){
 
 function getTestInWhichThisQuestionIsPresent(quesID){
     let testsWithQues =''
-    console.log(quesID)
+    console.log('Finfing match')
    // console.log(ALLMYTESTS)
     ALLMYTESTS.forEach(test=>{
         test.questions.forEach(ques=>{
            // console.log('comparing to:'+ques.questionID+'of Test: '+test.name)
             if(ques.questionID==quesID){
-           // console.log('Found A Match')
-            testsWithQues+= test.name.toString()+'/'
+            {console.log('Found A Match')
+            testsWithQues+= test.name.toString()+'/'}
         }
         })
     })
@@ -249,7 +250,7 @@ function AddAQuestionToSelection(){
             cancelBtn.addEventListener('click', e=>{RemoveThisQuestionToSelection(i)})
             $paper.appendChild(cancelBtn)
         let newP = document.createElement('p')
-          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,30)+'.......<br/><br/>'
+          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,50)+'.......<br/><br/>'
           $paper.appendChild(newP)
     }
  }
