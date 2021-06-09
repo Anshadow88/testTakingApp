@@ -26,9 +26,10 @@ router.post('/questions', async (req, res) => {
 // get one question by id
 router.get('/questions/:id', async (req, res) => {
     try {
-        console.log(req.params)
-        const _id = req.params.id 
-        const question = await Question.findOne({_id})        
+        console.log(req.params.id)
+        const id = req.params.id 
+        const question = await Question.findOne({_id:id})     
+        console.log(question)   
         if(!question){
             return res.status(404).json({})
         }else{

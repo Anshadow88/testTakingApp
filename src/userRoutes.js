@@ -68,17 +68,17 @@ router.post('/users',async (req,res)=>{
 router.post('/addMyStudent/:id',async (req,res)=>{   
     const user = new User(req.body)
     const teacherID = req.params.id
-    console.log(user)
+    //console.log(user)
     //user.teachers.push({'teacherID':teacherID})
     //console.log(user)
     try{ 
         await user.save()
         //sendWelcomeEmail(user.email,user.name)
         user.teachers.push({'teacherID':teacherID})
-        console.log('29')
+       // console.log('29')
         const token = await user.generateAuthToken()
          //console.log(token)
-        console.log('chk40')     
+        //console.log('chk40')     
        res.status(201).send({user,token})
     } catch(err){
     res.status(400).send(err)
@@ -86,15 +86,15 @@ router.post('/addMyStudent/:id',async (req,res)=>{
 })
 
 router.post('/removeMyStudent/:id',async (req,res)=>{   
-    console.log(req.body)
+   // console.log(req.body)
     try{ 
         const user = await User.findOne({name:req.body.name,email:req.body.email})
         const teacherID = req.params.id
-        console.log(user)        
+       /// console.log(user)        
         user.teachers.pop({'teacherID':teacherID})
-        console.log(user)
+       // console.log(user)
         await user.save()
-        console.log('chk40')     
+      //  console.log('chk40')     
        res.status(201).send(user)
     } catch(err){
     res.status(400).send(err)
@@ -106,7 +106,7 @@ router.post('/users/login', async(req,res)=>{
         //console.log("0")
         const user = await User.findByCredentials(req.body.email,req.body.password)        
         const token = await user.generateAuthToken() 
-        console.log(user.students)  
+       // console.log(user.students)  
         res.status(200).send({user,token})
     
     }
@@ -253,7 +253,7 @@ router.patch('/userTestUpdate/:id',async(req,res)=>{
         if(!user){return res.status(404).send()}
         let firstTry=true
         user.result.forEach(result=>{
-            console.log(result.testID+' = '+req.body.testID)
+            //console.log(result.testID+' = '+req.body.testID)
             if(result.testID==req.body.testID)
             firstTry=false
         })
@@ -276,13 +276,13 @@ router.patch('/userTestUpdate/:id',async(req,res)=>{
 //add new question & result to user data
 router.patch('/userQuestionUpdate/:id',async(req,res)=>{
     const updates = Object.keys(req.body)
-    console.log(updates)
+  //  console.log(updates)
     try{
         const user = await User.findOne({_id: req.params.id})
         if(!user){return res.status(404).send()}
         
         updates.forEach((update)=>{
-            console.log(update)
+         //   console.log(update)
             user[update] = req.body[update]
         })
 
