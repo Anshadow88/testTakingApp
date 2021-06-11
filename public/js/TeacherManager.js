@@ -39,7 +39,10 @@ function SwitchSections(count){
 
 
     if(count==1)document.getElementById('teacherProfileSection').style.display= 'block'
-    else if(count==2)document.getElementById('StudyMaterialSection').style.display='block'
+    else if(count==2){
+        document.getElementById('StudyMaterialSection').style.display='block'
+        getAllMyTests()
+    }
     else if(count==3)document.getElementById('myStudentSection').style.display='block'
 }
 

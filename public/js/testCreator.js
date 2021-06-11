@@ -191,8 +191,8 @@ function showCurrentQuestion(){
 
 function getTestInWhichThisQuestionIsPresent(quesID){
     let testsWithQues =''
-    console.log('Finfing match')
-   // console.log(ALLMYTESTS)
+    console.log('Finding match')
+    console.log(ALLMYTESTS)
     ALLMYTESTS.forEach(test=>{
         test.questions.forEach(ques=>{
            // console.log('comparing to:'+ques.questionID+'of Test: '+test.name)

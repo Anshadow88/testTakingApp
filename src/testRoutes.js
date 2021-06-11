@@ -16,7 +16,6 @@ router.get('/allTests', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
-
 //Add New Test
 router.post('/testPaper', async (req, res) => {
     console.log(req.body)
@@ -32,7 +31,6 @@ router.post('/testPaper', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
-
 // get One Test For QUESTION Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {
@@ -81,34 +79,27 @@ router.post('/LoadOldTestPaperForPaperEditing/:id', async (req, res) => {
     }
 })
 
-
 //Get One Test For Student Sovling DO NOT CHANGE THIS
 router.post('/testPaperWithName/:id', async (req, res) => {
     try {
-        //console.log(req.body)
         const student = await User.findOne({_id:req.params.id})
-        //console.log('1')
         const testName = req.body.name 
-        //console.log('2')
         const testPaper = await TestPaper.findOne({name:testName})   
-        //console.log(testPaper)   
         const testtime = testPaper.time
-        //console.log('4')
         let isGiven = false
         const previousAttempt=[]
-        //console.log('5')
         student.result.forEach(result=>{
-            //console.log(result.testID+' == '+testPaper.id)
+            console.log(result.testID+' == '+testPaper.id)
             if(result.testID==testPaper.id)
             {   
-                //console.log('5.5')
                 isGiven = true
-                //console.log('6')
                 result.questions.forEach(q=>{
                     previousAttempt.push(q.status)
                     //console.log(q)
                 })
             }
+            console.log(previousAttempt)
+                
 
         })
 

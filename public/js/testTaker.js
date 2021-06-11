@@ -168,7 +168,6 @@ function makeMyTestTable(myTests)
     }
 }
 
-
 async function loadTest(testName){  
     TESTNAME = testName
     document.getElementById('testApp').style.display ='block'
@@ -204,9 +203,11 @@ async function loadTest(testName){
                                     data.questionsOfChapter[i].type
                                     )
             availableQuestions.push(newQues)
-            if(isGiven)
-            newQues.originalAttempt(data.previousAttempt[i].status)            
-        }              
+            if(isGiven){
+            newQues.originalAttempt(data.previousAttempt[i])        
+            }    
+        }   
+        console.log(availableQuestions)           
         DisplayCurrentQuestion()
         timeParsed = parseInt(data.testtime)
         console.log(data.testtime+' '+timeParsed)
@@ -266,6 +267,7 @@ function DisplayCurrentQuestion()
     else
     $lastQuestionStatus.innerHTML = "NOT Attempted"    
         
+    
     ManageAnswerOptions(availableQuestions[questionCount].getType())
     if(questionCount==availableQuestions.length-1)
     $submitTestButton.style.display='block'
@@ -287,13 +289,20 @@ function DisplayPreviousQuestion()
 function MarkAnswer(markedAnswer,question)
 {
     try{
-        question.markAttemped(markedAnswer)        
-        if(questionCount < availableQuestions.length-1)
+        question.markAttemped(markedAnswer)    
+        if(!isGiven)    
+        {if(questionCount < availableQuestions.length-1)
         $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()  
-        for(i=0;i<availableQuestions.length;i++)
-        {
-            console.log(i+1+"th is Marked: "+availableQuestions[i].getAttempted())
+        
         }
+        
+        else
+        {
+        if(questionCount < availableQuestions.length-1)
+        $lastQuestionStatus.innerHTML = "You Marked: "+question.getAttempted()+". Correct Answer: "+question.getCorrectAnswer()+". Your First Try was: "+question.getSavedAnswer()  
+        }
+
+        
     }
     catch(err){
         //console.log(err)
