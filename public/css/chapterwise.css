@@ -1,0 +1,15 @@
+.icon {
+    float: right;
+    width:  100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+body{
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+.fixed-height{
+    height: 40px;
+}

@@ -243,19 +243,35 @@ router.get('/testTestsOfAdmin', async (req, res) => {
 
 
 
-// AddAllTestToUser('')
+// MakeNewTest('IITJEE2013.pdf','IIT JEE mains 2013','30 Questions in 90 minutes',90)
 
-// async function AddAllTestToUser(userID){
-//     const alltests = await TestPaper.find()
-//     const user = await User.findOne({_id:userID})
-//     alltests.forEach(test=>{
-//         if(test.author==userID)
-//         user.testPaper.push({'testName':test.name,'testID':test.id,'visibility':'0'})
+async function AddQuestionOfFileNameToTest(fileName,ExamName,examDescription,time){
+    
+    const allQuestions = await Questions.findOne({fileName:fileName})
+    const newTest = new TestPaper()
+    newTest.name = ExamName
+    newTest.description = examDescription
+    newTest.time = time
+    allQuestions.forEach(ques=>{
+        newTest.questions.push({'testName':test.name,'testID':test.id,'visibility':'0'})
         
-//     })
-//     await user.save() 
+    })
+    await user.save() 
         
-// }
+}
+
+async function EditAllQuestionsOfAPaper(testName,exam,ExamYear,examDescription,time){
+    
+    const test = await TestPaper.findOne({name:examName})
+    test.description = examDescription
+    test.time = time
+    test.year = ExamYear
+    test.exam = exam
+
+    await test.save() 
+        
+}
+
 
  
 
