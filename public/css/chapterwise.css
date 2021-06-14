@@ -7,9 +7,12 @@
 
 body{
     font-family: 'Times New Roman', Times, serif;
-
+    background-color: black;
 }
 
-.fixed-height{
-    height: 40px;
+a {
+    font-family: 'Franklin Gothic Medium';
+    font-size: large;
+    font-weight: bolder;
 }
+
