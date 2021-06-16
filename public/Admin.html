@@ -11,12 +11,12 @@
   <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 </head>
 <body>
-  <div class= "container">
-    <h3 class="well" >Editing Section </h3>
+  <div class= "container-fluid">
+    <h3 class="well well-sm" >Editing Section </h3>
   </div>
     
-    <div class="container">
-      <div class="well">
+    <div class="container-fluid">
+      <div class="well well-sm">
         Chapter
         <input id ="FindChapterName"><button onclick=setTimeout(function(){MathJax.typeset()},500) id="FindChapterButton">Find</button>
       
@@ -33,8 +33,8 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="well">
+    <div class="container-fluid">
+      <div class="well well-sm">
         <div class = "row">
         <div class = "col-sm-6">
         <!-- Chapter Number:<input id="chapterNumber">(Can be edited)    -->
@@ -68,7 +68,7 @@
             <option value="15">15. Magnetism</option>
             <option value="16">16. EMI & Alternate Current</option>          
             <option value="17">17. Ray Optics</option>
-            <option value="18">18. Wave Optics</option>          
+            <option value="18">18. Wave Optics & EM waves</option>          
             <option value="19">19. Modern Physics</option>
             <option value="20">20. Semiconductors</option>
           </select>
@@ -81,10 +81,9 @@
       </div>
       <div class = "col-sm-6">        
         <!-- <input id="subjectName">(0:none, 1: Physics, 2:Chemistry, 3:Maths)   -->
-        <div class = "well">  
+        <div class = "well well-sm">  
         <button type="button" class="btn btn-danger" id="postQuestionButton">Update Question</button>
-        </div>
-        <div class="well">
+        
           <button type="button" style="width: 30px;" class="btn btn-success" id="previousBigButton" onclick=setTimeout(function(){MathJax.typeset()},500)>&#8678;</button>
           <button type="button" style="width: 80px;" class="btn btn-success" id="previousButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Previous</button>
           <button type="button" style="width: 80px;" class="btn btn-success" id="nextButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Next</button>
@@ -97,35 +96,33 @@
     </div>
 
 
-  <div class = "container">
-    <div class = "well">
+  <div class = "container-fluid">
+    <div class = "well well-sm">
       <div class="row">          
           <div class="col-sm-6">
-          <p id = "questionNumber">Question No. X </p>
-
-          <textarea id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
+          <p id = "questionNumber">Question No. X </p>            
+          <p class= "well well-sm"  id="newQuestionWithMaths">Question With Maths</p>          
           </div>
           <div class="col-sm-6">
-          <p class= "well"  id="newQuestionWithMaths">Question With Maths</p>
+            <textarea id="newQuestionTyped" placeholder ="Question" class="form-control" rows="12"></textarea>
           </div>
           </div> 
-          (can be edit but please be careful)
           <button type="button" class="btn btn-primary" id="showMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button>
         
-      <image class="well" id="image"></image>    
+      <image class="well well-sm" id="image"></image>    
      </div>
 
   </div>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
-        <div class="well">To change Image: 
+        <div class="well well-sm">To change Image: 
            <input type="file" id="imageInput">
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="well">
+        <div class="well well-sm">
           <p>Marked Answer:(Can be edited)</p>
            <form>
             <input id ="correctAnswer">
@@ -140,7 +137,7 @@
 
   </div>
   
-<div class="container">
+<div class="container-fluid">
        
         </div>
 

@@ -18,9 +18,10 @@
    
   /* Base Stuff Ignore */
   body {
-      background: linear-gradient(325deg,#ff0000 7%,#000000 90%);
+      background: linear-gradient(325deg,#000000 7%,#000000 90%);
       padding: 50px 0 100px;
       -webkit-font-smoothing: antialiased;
+      font-family: 'Times New Roman', Times, serif;
   }
   a { transition: all 225ms ease; }
   header {

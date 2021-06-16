@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Question = require('./models/QuestionModel')
 const auth = require('./middleware/auth')
+const findChapter = require('./middleware/tagging')
+
 const multer = require('multer')
 const upload = multer({dest:'./src/uploads/'})
 const {uploadFile,getFileStream} = require('./imageRoute')
@@ -185,14 +187,13 @@ router.delete('/questions/:id', (req, res) => {
 
 })
 
-// ALLAuthorNamesChange('unknown','anshul4275')
-
 // async function ALLAuthorNamesChange(originalName,newName)
 // {
 //     const allQuestion = await Question.find({author:originalName})
 
 //     allQuestion.forEach(ques=>{
 //         OneAuthorNamesChange(ques.id,newName)
+
 
 //     })
 
@@ -206,6 +207,35 @@ router.delete('/questions/:id', (req, res) => {
 
 // }
 
+let tagcount = 0
+async function CheckAllUntaggedQuestions(){
+    const allUntaggedQues = await Question.find({chapter:'0'})
+    allUntaggedQues.forEach(ques=>{
+        CheckQuestionForTags(ques.id)
+    })
+
+}
+
+async function CheckQuestionForTags(id){
+    
+    const question = await Question.findOne({_id:id})
+    //console.log(question.question)
+    let chapter=0
+    if(!question.chapter=='0')
+    {chapter = findChapter(question)+1}
+
+    if(chapter)
+    {
+        console.log('Chapter No : '+chapter)
+        question.chapter = chapter
+        tagcount++
+        console.log(tagcount)
+
+    }
+
+    await question.save()
+
+}
 
 
 // async function ALLQuestionsSubjectChange()

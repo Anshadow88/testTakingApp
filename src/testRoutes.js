@@ -81,29 +81,30 @@ router.post('/LoadOldTestPaperForPaperEditing/:id', async (req, res) => {
 
 //Get One Test For Student Sovling DO NOT CHANGE THIS
 router.post('/testPaperWithName/:id', async (req, res) => {
+    console.log(req)
     try {
         const student = await User.findOne({_id:req.params.id})
         const testName = req.body.name 
         const testPaper = await TestPaper.findOne({name:testName})   
         const testtime = testPaper.time
         let isGiven = false
-        const previousAttempt=[]
-        student.result.forEach(result=>{
-            console.log(result.testID+' == '+testPaper.id)
-            if(result.testID==testPaper.id)
-            {   
-                isGiven = true
-                result.questions.forEach(q=>{
-                    previousAttempt.push(q.status)
-                    //console.log(q)
-                })
-            }
-            console.log(previousAttempt)
-                
+        
+            const previousAttempt=[]
+            student.result.forEach(result=>{
+                console.log(result.testID+' == '+testPaper.id)
+                if(result.testID==testPaper.id)
+                {   
+                    isGiven = true
+                    result.questions.forEach(q=>{
+                        previousAttempt.push(q.status)
+                        //console.log(q)
+                    })
+                }
+                console.log(previousAttempt)                   
 
-        })
+            })
+        
 
-        //console.log('Time: '+testtime)   
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
@@ -120,6 +121,32 @@ router.post('/testPaperWithName/:id', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
+
+router.post('/loadTestForNewUser', async (req, res) => {
+    console.log(req)
+    try {
+        const testName = req.body.name 
+        const testPaper = await TestPaper.findOne({name:testName})   
+        const testtime = testPaper.time
+        let isGiven = false
+        
+        let allQuestionsIDs=[]
+        for(i=0;i<testPaper.questions.length;i++)
+        {
+               allQuestionsIDs.push(testPaper.questions[i].questionID)
+        }
+        let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
+        let testPaperID = testPaper.id
+        if(!testPaper){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json({questionsOfChapter,testPaperID,testtime,isGiven})
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
 
 //Get RESULT Of All Students
 router.post('/testPaperNameResult', async (req, res) => {

@@ -72,5 +72,109 @@
     let PhysicsChapterTopics =[Phy01,Phy02,Phy03,Phy04,Phy05,Phy06,Phy07,Phy08,Phy09,Phy10,
                         Phy11,Phy12,Phy13,Phy14,Phy15,Phy16,Phy17,Phy18,Phy19,Phy20]
 
-
+   let tagsChapter1 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter2 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter3= ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter4= ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter5 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter6 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter7 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter8 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+   let tagsChapter9 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]    
     
+    let tagsChapter10 = ["","","","","","","",
+                        "","","","","","","","","",
+                        "","","","","","","","",""]
+    let tagsChapter11 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter12 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter13 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter14 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter15 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter16 = ["","","","","","","",
+    "","","","","","","","","",
+    "","","","","","","","",""]
+    let tagsChapter17 = ["young","youngs","young's","slit","diffraction","polarization","electromagnetic","single-slit","EM"]
+    
+    let tagsChapter18 = ["ray","lens","mirror","optics","reflect","reflection","prism","telescope","microscope","magnification"]
+
+    let tagsChapter19 = ["photon","photons","alpha","beta","gamma","bombard","bombards",
+    "bombarded","nuclear","nucleus","nuclei","nucleon","hydrogen","eV",
+    "photo","electrons","emitted","cathode","anode","fusion","fission","photoelectric","life","decay",
+    "davisson","de-Broglie","photoelectron","Lyman","Balmer","Paschen"]
+
+    let tagsChapter20 = ["pn","p-n","junction","diode","zener","silicon","germanium","logic","gates","transistor",
+                          "led", "truth-table" , "semi-conductor" , "semiconductor","input","output",
+                        "signal","gate","inputs","outputs","diodes","breakdown","photodiode","band","biased",
+                        "digital","operation","boolean"]
+                          
+    
+    let PhysicsChapterTags =[tagsChapter1,tagsChapter2,tagsChapter3,tagsChapter4,tagsChapter5,
+                                tagsChapter6,tagsChapter7,tagsChapter8,tagsChapter9,tagsChapter10,
+                                tagsChapter11,tagsChapter12,tagsChapter13,tagsChapter14,tagsChapter15,
+                                tagsChapter16,tagsChapter17,tagsChapter18,tagsChapter19,tagsChapter20]
+    
+    
+    function checkQuestionForChapter(words,chapterTags){
+        let count =0
+        words.forEach(word=>{
+            chapterTags.forEach(tag=>{
+                if(tag==word)
+                    count++
+            })
+        })
+
+        return count
+    }
+
+    function findChapter(Ques){        
+        let words = []       
+        words = Ques.question.split(' ')
+        //console.log(words)
+        const tagCounts =[]//array of ints
+        for(i=0;i<PhysicsChapterTags.length;i++){
+        tagCounts.push(checkQuestionForChapter(words,PhysicsChapterTags[i]))
+        }
+        
+        let maxCountIndex = -1
+        let maxCount =0
+        for(j=0;j<tagCounts.length;j++)
+        {
+            if(tagCounts[j]>maxCount)
+            {
+                maxCountIndex = j
+                maxCount = tagCounts[j]            
+            }
+        }
+
+        return maxCountIndex
+    }
+
+    module.exports = findChapter
