@@ -226,6 +226,7 @@ function openInNewTab(url) {
 function CreatePage(chapterNumber){
   document.getElementById('chapterName').innerHTML = chapterData[chapterNumber].name
   const testDiv = document.getElementById('testDiv')
+  document.getElementById('chapterImage').src = "img/Index/Chapterwise/"+(chapterNumber+1)+".png"
   while(testDiv.hasChild){
     testDiv.remove(testDiv.firstChild)
   }
