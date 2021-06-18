@@ -15,6 +15,12 @@
 <body onselectstart="return false">
   <div class= "container-fluid">
      <h2 class="well well-sm" style="text-align: center;" >Test Taking Section </h2>
+     <div id= "loginForm"class ="well well-sm"> 
+      <p>Student Email: <input type="text" id="studentEmail"> <span>Password: <input type="text" id="studentPassword"> <button id="studentLoginButton">Login User</button></p>
+     </div>
+     <div id= "signupForm"class ="well well-sm"> 
+      <p>Student Email: <input type="text"> <span>Password: <input type="text"> <button id="studentSignupButton">Create New User</button></p>
+     </div>
       <div class = "well well-sm" id = "testApp" style="display: block;">          
            <div>   
              <h3 class="well well-sm" style="text-align: center;"> Time Remaining:  <span class id="time">00:00 minutes </span>
@@ -66,6 +72,8 @@
   </div>
 </body>
 
+<script src="/js/AllLoginSignup.js"></script>
 <script src="/js/AllTestTaker.js"></script>
+
 
 </html>

@@ -76,7 +76,7 @@ $StartTestButton= document.getElementById('StartTextButton')
 $StartTestButton.addEventListener('click',e=>{
     let testName = ''
     testName = localStorage.TESTNAME
-    loadTestForNewUser(testName)
+    loadTest(testName)
 })
 
 function CheckOptionA(){
@@ -223,7 +223,7 @@ async function loadTest(testName){
         timeParsed = parseInt(data.testtime)
         console.log(data.testtime+' '+timeParsed)
         startTimer(timeParsed*60,$time)
-        document.getElementById('myTestTableDiv').style.display='none'
+        //document.getElementById('myTestTableDiv').style.display='none'
 }
 
 async function loadTestForNewUser(testName){  

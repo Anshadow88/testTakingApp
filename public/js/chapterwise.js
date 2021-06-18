@@ -1,11 +1,7 @@
-
-
-function SetTestID(testName){
-    localStorage.setItem('TESTNAME',testName)
-    console.log(localStorage.TESTNAME)
-    openInNewTab("/AllTestTaker.html")
-
-    
+function SetChapterNumber(chapterNumber){
+    localStorage.setItem('chapterNumber',chapterNumber)
+    console.log(localStorage.chapterNumber)
+    openInNewTab("/chapter.html")    
 }
 
 function openInNewTab(url) {
