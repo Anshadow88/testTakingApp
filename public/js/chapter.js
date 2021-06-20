@@ -127,7 +127,9 @@ const ch13 = {
   {name: 'Electrostatics 03',count: 15,time:60,level: 'NEET/JEE mains',topics:'Potentiometer, Wheatstone Bridge,Heating Effect'},
   {name: 'Electrostatics 04',count: 15,time:60,level: 'NEET/JEE mains',topics:'Drift Velocity,Power Rating'},
   {name: 'Electrostatics 05',count: 15,time:60,level: 'NEET/JEE mains',topics:'All Topics'}],
-  posts:[{},{},{}]
+  posts:[{name:''},
+    {},
+    {}]
   
 }
 const ch14 = {
@@ -137,7 +139,9 @@ const ch14 = {
   {name: 'Current Electricity 03',count: 15,time:60,level: 'NEET/JEE mains',topics:'Potentiometer, Wheatstone Bridge,Heating Effect'},
   {name: 'Current Electricity 04',count: 15,time:60,level: 'NEET/JEE mains',topics:'Drift Velocity,Power Rating'},
   {name: 'Current Electricity 05',count: 15,time:60,level: 'NEET/JEE mains',topics:'All Topics'}],
-  posts:[{},{},{}]
+  posts:[{},
+    {},
+    {}]
   
 }
 const ch15 = {
@@ -161,7 +165,7 @@ const ch16 = {
   
 }
 
-const ch17 = {
+const ch18 = {
   name: 'Ray Optics',
   tests: [{name: 'Ray Optics 01',count: 15,time:60,level: 'NEET/JEE mains',topics:'Ohms Law, Resistors in Series & Parallel'},
   {name: 'Ray Optics 02',count: 15,time:60,level: 'NEET/JEE mains',topics:'Kirchoffs Law, Internal Resistance of Battery, Ammeter & Voltmeter'},
@@ -172,7 +176,7 @@ const ch17 = {
   
 }
 
-const ch18 = {
+const ch17 = {
   name: 'Wave Optics & EM Waves',
   tests: [{name: 'Wave Optics & EM Waves 01',count: 15,time:60,level: 'NEET/JEE mains',topics:'Ohms Law, Resistors in Series & Parallel'},
   {name: 'Wave Optics & EM Waves 02',count: 15,time:60,level: 'NEET/JEE mains',topics:'Kirchoffs Law, Internal Resistance of Battery, Ammeter & Voltmeter'},

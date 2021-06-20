@@ -191,13 +191,13 @@ function showCurrentQuestion(){
 
 function getTestInWhichThisQuestionIsPresent(quesID){
     let testsWithQues =''
-    console.log('Finding match')
-    console.log(ALLMYTESTS)
+    //console.log('Finding match')
+    //console.log(ALLMYTESTS)
     ALLMYTESTS.forEach(test=>{
         test.questions.forEach(ques=>{
            // console.log('comparing to:'+ques.questionID+'of Test: '+test.name)
             if(ques.questionID==quesID){
-            {console.log('Found A Match')
+            {//console.log('Found A Match')
             testsWithQues+= test.name.toString()+'/'}
         }
         })
@@ -222,9 +222,9 @@ function AddAQuestionToSelection(){
  
 
  function RemoveThisQuestionToSelection(id){     
-    
+    console.log(id)
     SelectedQuestionIDs.pop({'questionID': SelectedQuestionIDs[id]})
-    SelectedQuestions.pop(QuestionsOFChapters[id])
+    SelectedQuestions.pop(SelectedQuestions[id])
     
     
     ShowPaper()
@@ -247,7 +247,8 @@ function AddAQuestionToSelection(){
         
         let cancelBtn = document.createElement('button')
             cancelBtn.innerHTML='&#10060'
-            cancelBtn.addEventListener('click', e=>{RemoveThisQuestionToSelection(i)})
+            cancelBtn.addEventListener('click', e=>{RemoveThisQuestionToSelection(i)
+            console.log(i)})
             $paper.appendChild(cancelBtn)
         let newP = document.createElement('p')
           newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,50)+'.......<br/><br/>'
@@ -365,7 +366,7 @@ async function SetOldTestPaperIntoCurrentValues(oldTest)
 
     //console.log(SelectedQuestions)
 
-    tryShowingPaper()
+    setTimeout(tryShowingPaper,2000)
 }
 
 function tryShowingPaper(){
