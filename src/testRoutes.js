@@ -122,25 +122,30 @@ router.post('/testPaperWithName/:id', async (req, res) => {
     }
 })
 
-router.post('/loadTestForNewUser', async (req, res) => {
-    console.log(req)
+router.post('/getTestForGuest', async (req, res) => {
+    console.log(req.body)
     try {
-        const testName = req.body.name 
+        const temp = req.body.name.replace(/&amp;/,'&')
+        console.log('Trimmed Name: '+temp)
+        const testName = temp
         const testPaper = await TestPaper.findOne({name:testName})   
+        console.log('Found Paper: '+testPaper)
         const testtime = testPaper.time
-        let isGiven = false
+        const testDescription = testPaper.description
+       
         
         let allQuestionsIDs=[]
         for(i=0;i<testPaper.questions.length;i++)
         {
                allQuestionsIDs.push(testPaper.questions[i].questionID)
         }
+
         let questionsOfChapter = await Question.find({ _id:{$in: allQuestionsIDs}}).exec()
         let testPaperID = testPaper.id
         if(!testPaper){
             return res.status(404).json({})
         }else{
-            return res.status(200).json({questionsOfChapter,testPaperID,testtime,isGiven})
+            return res.status(200).json({allQuestionsIDs,questionsOfChapter,testPaperID,testtime,testDescription})
         }
     } catch (error) {
         return res.status(500).json({"error":error})

@@ -209,7 +209,7 @@ function openInNewTab(url) {
 async function CreatePage(chapterNumber){
   document.getElementById('chapterName').innerHTML = chapterData[chapterNumber].name
   const testDiv = document.getElementById('testDiv')
-  document.getElementById('chapterImage').src = "img/Index/Chapterwise/"+(chapterNumber+1)+".png"
+  document.getElementById('chapterImage').src = "/img/Index/Chapterwise/"+(chapterNumber+1)+".png"
   while(testDiv.hasChild){
     testDiv.remove(testDiv.firstChild)
   }
@@ -251,36 +251,36 @@ async function CreatePage(chapterNumber){
           newDiv2.appendChild(newh4)
           newh4.innerHTML = test.testName
 
-
           let p1 = document.createElement('p')
           newDiv2.appendChild(p1)
           p1.innerHTML = test.questionCount + ' Questions'
-
           
           let p2 = document.createElement('p')
           newDiv2.appendChild(p2)
           p2.innerHTML = 'Time: '+test.testTime + ' Minutes'
-
           
           let p3 = document.createElement('p')
           newDiv2.appendChild(p3)
           p3.innerHTML = 'Details: '+test.testDescription 
 
-          
-          
-
-          
           let startButton = document.createElement('button')
           newDiv2.appendChild(startButton)
           startButton.innerHTML = 'Start Test'
           startButton.className="btn btn-danger"
           startButton.addEventListener('click',e=>{
-            SetTestName(test.testName)
+            SetTestName(test.testName)         
           })
+
+          let linkToDPP = document.createElement('a')
+          var link = document.createTextNode("Open As DPP");
+          linkToDPP.appendChild(link); 
+          newDiv2.appendChild(linkToDPP)
+          linkToDPP.href='/test/'+test.testName
+          console.log(linkToDPP)
         
           
         
-          })
+       })
   }
 }
 
@@ -291,7 +291,7 @@ async function getAllTestData(chapterNumber)
 
   })
 
-  setTimeout("CreatePage(localStorage.chapterNumber-1)",3000)
+  setTimeout("CreatePage(chapterNumber-1)",3000)
 
 }
 
@@ -315,7 +315,11 @@ async function getOneTestDetails(testName){
 
 }
 
-getAllTestData(localStorage.chapterNumber-1)
+//getAllTestData(localStorage.chapterNumber-1)
+
+console.log(parseInt(document.getElementById('chapterNumber').innerHTML))
+const chapterNumber = parseInt(document.getElementById('chapterNumber').innerHTML)
+getAllTestData(parseInt(chapterNumber-1))
 
 
 

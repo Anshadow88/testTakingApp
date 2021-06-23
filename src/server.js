@@ -32,6 +32,19 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('database connected'))
 
+
+app.get('/chapter/:number',(req,res)=>{
+    return res.render('chapter',{
+        chapterNumber: req.params.number
+})
+})
+
+app.get('/test/:name',(req,res)=>{
+    return res.render('test',{
+        testName: req.params.name
+})
+})
+
 app.listen(port,()=>{
     console.log(`Server is listening at port ${port}`)
 })
