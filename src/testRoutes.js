@@ -147,6 +147,27 @@ router.post('/loadTestForNewUser', async (req, res) => {
     }
 })
 
+//GET Test Paper Details
+router.post('/testPaperDetails', async (req, res) => {
+    console.log(req.body)
+    try {
+        const testName = req.body.name 
+        const testPaper = await TestPaper.findOne({name:testName})   
+        const testTime = testPaper.time
+        const testDescription = testPaper.description
+        const questionCount = testPaper.questions.length
+        
+        let testPaperID = testPaper.id
+        if(!testPaper){
+            return res.status(404).json({})
+        }else{
+            return res.status(200).json({testName,testPaperID,testTime,testDescription,questionCount})
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }
+})
+
 
 //Get RESULT Of All Students
 router.post('/testPaperNameResult', async (req, res) => {

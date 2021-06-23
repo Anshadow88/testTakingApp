@@ -10,8 +10,27 @@ const {uploadFile,getFileStream} = require('./imageRoute')
  
 var fs = require('fs');
 
+//SERVING PAGE OF QUESTION
 
-
+router.get('/question/:id',async(req,res)=>{
+    try {
+        console.log(req.params.id)
+        const id = req.params.id 
+        const question = await Question.findOne({_id:id})     
+        console.log(question)   
+        if(!question){
+            return res.status(404).json({})
+        }else{
+            return res.render('question',{
+                questionNumber:question.id,
+                questionText:question.question,
+                imageSrc:'/uploads/'+question.image
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({"error":error})
+    }  
+})
 // create one quiz question
 router.post('/questions', async (req, res) => {
     try {

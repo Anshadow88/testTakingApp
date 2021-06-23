@@ -12,6 +12,7 @@ require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.set('view engine','hbs')
 
 
 const uploadsDirectoryPath = path.join(__dirname,'/uploads')
@@ -26,7 +27,6 @@ app.use(quesRoutes)
 app.use(userRoutes)
 app.use(testRoutes)
 
-//mongoose.connect("mongodb+srv://Anshul:shrijibaba@cluster0.nebpp.mongodb.net/PhysicsClass11&12?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology:true})
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology:true})
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
