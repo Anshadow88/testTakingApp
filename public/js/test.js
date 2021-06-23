@@ -36,9 +36,9 @@ let TestForGuest
             newDiv2.className ="well well-sm"
             colsm3.appendChild(newDiv2)
   
-            let newh4 = document.createElement('h4')
+            let newh4 = document.createElement('p')
             newDiv2.appendChild(newh4)
-            newh4.innerHTML = 'Q.'+count+' '+ques.question.substring(0,50)
+            newh4.innerHTML = 'Q.'+(count+1)+' '+ques.question.substring(0,50)
           
                        
             let linkToQuestion = document.createElement('a')
@@ -47,6 +47,7 @@ let TestForGuest
             newDiv2.appendChild(linkToQuestion)
             
             linkToQuestion.href='/question/'+TestForGuest.allQuestionsIDs[count]
+            linkToQuestion.target='_blank'
             console.log(linkToQuestion)
           
             

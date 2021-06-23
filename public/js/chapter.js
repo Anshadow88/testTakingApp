@@ -276,6 +276,7 @@ async function CreatePage(chapterNumber){
           linkToDPP.appendChild(link); 
           newDiv2.appendChild(linkToDPP)
           linkToDPP.href='/test/'+test.testName
+          linkToDPP.target='_blank'
           console.log(linkToDPP)
         
           
