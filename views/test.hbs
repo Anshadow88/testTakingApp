@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <link rel="stylesheet" href="../css/eachChapter.css">
 </head>
 <body>
@@ -30,12 +31,22 @@
       <div class="container-fluid" id="quesDiv">
         <div class= "well well-sm" id="chapterHeading">
           <h3 id= "testName">{{testName}}</h3>
-          <div id="testDiv">
+          
+          <div class = "well well-sm" id="quesDiv">
+            <p id="questionText">What is your name?</p>
+            <img id="questionImage">
+            <p id="questionAnswer"><button id="showAnswer">Show Answer</button>Answer: Anshul</p>     
+            <div class="well well-sm">
+            <button id="nextQuestion">Next</button>
+            <button id="previousQuestion">Previous</button>   
+            </div>    
+          </div>
+          <div class = "well well-sm" id="testDiv">
 
           </div>
-          
-        </div>
-       </div>
+      </div>    
+    </div>
+       
       
 
      
@@ -47,7 +58,7 @@
 
 
     <script src="/js/test.js"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
 </body>
 
 

@@ -263,24 +263,31 @@ async function CreatePage(chapterNumber){
           newDiv2.appendChild(p3)
           p3.innerHTML = 'Details: '+test.testDescription 
 
+          let btnDiv = document.createElement('div')
+          btnDiv.className="well"
+          newDiv2.appendChild(btnDiv)
+
           let startButton = document.createElement('button')
-          newDiv2.appendChild(startButton)
           startButton.innerHTML = 'Start Test'
-          startButton.className="btn btn-danger"
+          startButton.className="btn btn-danger centerFull"
+          btnDiv.appendChild(startButton)
           startButton.addEventListener('click',e=>{
             SetTestName(test.testName)         
           })
 
+          let tempP = document.createElement('p')
+          tempP.innerHTML = ' OR<br/>'
+          btnDiv.appendChild(tempP)
+          tempP.style ="text-align:center"
+
           let linkToDPP = document.createElement('a')
           var link = document.createTextNode("Open As DPP");
           linkToDPP.appendChild(link); 
-          newDiv2.appendChild(linkToDPP)
+          linkToDPP.style ="text-align:center;background-color:yellow;padding:5px"
+          tempP.appendChild(linkToDPP)
           linkToDPP.href='/test/'+test.testName
           linkToDPP.target='_blank'
           console.log(linkToDPP)
-        
-          
-        
        })
   }
 }

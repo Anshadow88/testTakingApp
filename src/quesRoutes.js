@@ -24,7 +24,8 @@ router.get('/question/:id',async(req,res)=>{
             return res.render('question',{
                 questionNumber:question.id,
                 questionText:question.question,
-                imageSrc:'/uploads/'+question.image
+                imageSrc:'/uploads/'+question.image,
+                questionAnswer: question.answer
             })
         }
     } catch (error) {

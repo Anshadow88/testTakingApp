@@ -1,62 +1,45 @@
 let TestForGuest 
-  
+let quesCount = 0
 
-  async function CreatePage(){
+ 
+console.log(document.getElementById('testName').innerHTML)
+const testName = document.getElementById('testName').innerHTML
+getTestForGuest(testName)
+
+async function CreateAnswerKey(){
 
     const testDiv = document.getElementById('testDiv')
     while(testDiv.hasChild){
       testDiv.remove(testDiv.firstChild)
     }
-    //Create Test Div
+    //Create Answer Key
      {
       
   
       let newDiv = document.createElement('div')
       newDiv.className = "well well-sm test"
-      testDiv.appendChild(newDiv)
-  
-       
-      let row = document.createElement('div')
-      row.className ="row"
-      newDiv.appendChild(row)
-  
+      testDiv.appendChild(newDiv)   
+      
+      let newP = document.createElement('h4')
+      newDiv.className = "well well-sm"
+      newP.appendChild(document.createTextNode('AnswerKey'))
+      newDiv.appendChild(newP)   
+      
       let count = -1
         TestForGuest.questionsOfChapter.forEach(ques=>{            
-            count++
-            if(count%4==0)
-            {row = document.createElement('div')
-            row.className ="row"
-            newDiv.appendChild(row)}
-  
-            let colsm3 = document.createElement('div')
-            colsm3.className ="col-sm-3"
-            row.appendChild(colsm3)
-            
-            let newDiv2 = document.createElement('div')
-            newDiv2.className ="well well-sm"
-            colsm3.appendChild(newDiv2)
-  
-            let newh4 = document.createElement('p')
-            newDiv2.appendChild(newh4)
-            newh4.innerHTML = 'Q.'+(count+1)+' '+ques.question.substring(0,50)
-          
-                       
+            count++    
             let linkToQuestion = document.createElement('a')
-            var link = document.createTextNode("Show Full");
+            var link = document.createTextNode(' Q.'+(count+1)+' '+' , '+' ');
             linkToQuestion.appendChild(link); 
-            newDiv2.appendChild(linkToQuestion)
-            
+            newDiv.appendChild(linkToQuestion)            
             linkToQuestion.href='/question/'+TestForGuest.allQuestionsIDs[count]
             linkToQuestion.target='_blank'
             console.log(linkToQuestion)
-          
-            
-          
          })
     }
-  }
+}
   
-  async function getTestForGuest(testName){
+async function getTestForGuest(testName){
     const response  = await fetch("/getTestForGuest", {   
     method: "POST",          
     header: {
@@ -73,31 +56,59 @@ let TestForGuest
     var data = await response.json()   
     console.log(data)
     TestForGuest=(data)
-    CreatePage()
+    CreateAnswerKey()
+    quesCount = 0
+    ShowCurrentQuestion(quesCount)
   
-  }
+}
   
   //getAllTestData(localStorage.chapterNumber-1)
-  
-  console.log(document.getElementById('testName').innerHTML)
-  const testName = document.getElementById('testName').innerHTML
-  getTestForGuest(testName)
-  
+ 
+
+
   
   
+  document.getElementById('showAnswer').addEventListener('click',e=>{
+    document.getElementById('questionAnswer').innerHTML = TestForGuest.questionsOfChapter[quesCount].answer
+  })
   
+
+function ShowCurrentQuestion(){
+  console.log(TestForGuest.questionsOfChapter[quesCount].image)
+  document.getElementById('questionAnswer').innerHTML = ''
+  document.getElementById('questionText').innerHTML = TestForGuest.questionsOfChapter[quesCount].question
+  if(TestForGuest.questionsOfChapter[quesCount].image!=''||!TestForGuest.questionsOfChapter[quesCount].image)
+    { 
+      document.getElementById('questionImage').src = ''
+      document.getElementById('questionImage').style.display = 'none'
+    }  
+  else
+    {
+      document.getElementById('questionImage').src = '/uploads/'+TestForGuest.questionsOfChapter[quesCount].image
+      document.getElementById('questionImage').style.display = 'block'
+    }
   
+     MathJax.typeset()
+
+}
+
+document.getElementById('nextQuestion').addEventListener('click',e=>{
+  ShowNextQuestion()
+})
+function ShowNextQuestion(){
+  if(quesCount<TestForGuest.questionsOfChapter.length)
+  {quesCount++
+  ShowCurrentQuestion(quesCount)}
+}
+
+document.getElementById('previousQuestion').addEventListener('click',e=>{
+  ShowNextQuestion()
+})
+function ShowPreviousQuestion(){
+  if(quesCount>0){
+  quesCount++
+  ShowCurrentQuestion(quesCount)}
+}
   
-  
-  
-  
-  
-  
-  //
-  
-  
-  
-  
-  
-  
-  
+  ///////////////////////////////TEST APP
+
