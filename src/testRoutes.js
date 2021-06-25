@@ -298,33 +298,64 @@ router.get('/testTestsOfAdmin', async (req, res) => {
 
 // MakeNewTest('IITJEE2013.pdf','IIT JEE mains 2013','30 Questions in 90 minutes',90)
 
-async function AddQuestionOfFileNameToTest(fileName,ExamName,examDescription,time){
-    
-    const allQuestions = await Questions.findOne({fileName:fileName})
-    const newTest = new TestPaper()
-    newTest.name = ExamName
-    newTest.description = examDescription
-    newTest.time = time
-    allQuestions.forEach(ques=>{
-        newTest.questions.push({'testName':test.name,'testID':test.id,'visibility':'0'})
-        
+
+async function AddExamNameandYearToQuestion(){
+    const allTests = await TestPaper.find()
+    let examName //1or 2 or 3
+    let examYear //2001-21
+    allTests.forEach(test=>{
+        if(test.name.includes('Main')){examName = '2',parseInt(examYear=(test.name.substr(8,4)))}
+
+        else if(test.name.includes('NEET')){examName = '1',parseInt(examYear=(test.name.substr(4,4)))}
+        else if(test.name.includes('Advance')){examName = '3',parseInt(examYear=(test.name.substr(11,4)))}
+        //else console.log(test.name+' NOT IDENTIFIED')
+        console.log(test.name+' '+examYear)
+        EditAllTests(test.name,examName,examYear)
     })
-    await user.save() 
+    
+    
         
 }
 
-async function EditAllQuestionsOfAPaper(testName,exam,ExamYear,examDescription,time){
+async function EditAllTests(testName,exam,examYear,examDescription,time){
     
-    const test = await TestPaper.findOne({name:examName})
+    const test = await TestPaper.findOne({name:testName})
     test.description = examDescription
     test.time = time
-    test.year = ExamYear
     test.exam = exam
+    test.year = examYear
 
     await test.save() 
         
 }
+EditAllQuestionsOfATest()
+async function EditAllQuestionsOfATest(){
+    
+    const allTests = await TestPaper.find({author:'60b3cba514a1d30015a8d0de'})
+    allTests.forEach(test=>{
+        test.questions.forEach(ques=>{
+            EditOneQuestion(ques.questionID,test.name,test.year)
+        })
+    })
 
+    
+        
+}
+
+async function EditOneQuestion(questionID,exam,year){
+    
+    const ques = await Question.findOne({_id:questionID})
+    if(ques){
+    ques.exam = exam
+    ques.year = year
+    console.log('1')
+    await ques.save()
+    }
+    
+
+    
+        
+}
 
  
 

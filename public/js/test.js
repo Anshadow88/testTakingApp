@@ -76,7 +76,8 @@ async function getTestForGuest(testName){
 function ShowCurrentQuestion(){
   console.log(TestForGuest.questionsOfChapter[quesCount].image)
   document.getElementById('questionAnswer').innerHTML = ''
-  document.getElementById('questionText').innerHTML = TestForGuest.questionsOfChapter[quesCount].question
+  document.getElementById('questionText').innerHTML = getExamName(TestForGuest.questionsOfChapter[quesCount].exam) +' '+TestForGuest.questionsOfChapter[quesCount].year+'<br>'
+  document.getElementById('questionText').innerHTML += 'Q'+(quesCount+1)+': '+TestForGuest.questionsOfChapter[quesCount].question
   if(TestForGuest.questionsOfChapter[quesCount].image!=''||!TestForGuest.questionsOfChapter[quesCount].image)
     { 
       document.getElementById('questionImage').src = ''
@@ -110,5 +111,13 @@ function ShowPreviousQuestion(){
   ShowCurrentQuestion(quesCount)}
 }
   
+
+function getExamName(count){
+  if(count=='1')return ('NEET')
+  else if(count=='2')return('JEE Mains')
+  else if(count=='3')return('JEE Advanced')
+  else return count
+
+}
   ///////////////////////////////TEST APP
 

@@ -24,6 +24,9 @@ const TestPaper= new mongoose.Schema({
     description:{
         type:String, //0. TeacherMade //1. Pastyearpaper 2.chapterwiseJEE 3. chapterwiseNEET 4.
     },
+    exam:{type:String},
+    year:{type:Number},
+
     author:{
         type:String,
         default:'unknown'

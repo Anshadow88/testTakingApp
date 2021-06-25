@@ -9,18 +9,53 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-  <link rel="stylesheet" href="css\studentlogin.css">
+  <link rel="stylesheet" href="css\eachChapter.css">
 
 </head>
 <body onselectstart="return false">
+  <div class="container-fluid">
+    <div class="well">
+       <div class = "row">
+        <div class = "col-sm-3">
+         <img class ="img-responsive" src="/img/physicstree.png">     
+        </div>  
+        <div class = "col-sm-9">   
+          <h1 >The Physics Tree</h1>
+          <h4 id= "tagLines">Best IIT-JEE & NEET Coaching in Delhi(Janakpuri)</h4>
+          <h4>Providing the best study material with 5000+ Questions on this website</h4>
+          <h4>Free Chapter wise & Topic wise study material, videos & Online test series for every one </h4> 
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class= "container-fluid">
-     <h2 class="well well-sm" style="text-align: center;" >Test Taking Section </h2>
-     <div id= "loginForm"class ="well well-sm"> 
-      <p>Student Email: <input type="text" id="studentEmail"> <span>Password: <input type="text" id="studentPassword"> <button id="studentLoginButton">Login User</button></p>
-     </div>
-     <div id= "signupForm"class ="well well-sm"> 
-      <p>Student Email: <input type="text"> <span>Password: <input type="text"> <button id="studentSignupButton">Create New User</button></p>
-     </div>
+    
+        <h2 class="well well-sm" style="text-align: center;" ><img class="icon" src="/img/test.png">Test Taking Section </h2>
+      
+        <div id= "loginForm"class ="well well-sm"> 
+            <p>Student Email: <input type="text" id="studentEmail">
+            <span>Password: <input type="text" id="studentPassword"></span></p>
+            <p> <button class="btn btn-primary" id="studentLoginButton">Login User</button>
+              OR
+              <button class="btn btn-success"id="getSignUpForm" onclick="document.getElementById('signupForm').style.display='block'">Create New User</button>
+              OR
+              <button class="btn btn-danger"id="getSignUpForm" onclick="document.getElementById('passwordRecoverForm').style.display='block'">Forgot Password</button></p>
+              
+            </p>
+
+            </div>
+       <div id= "signupForm"class ="well well-sm" style="display: none;"> 
+            <p>Student Email: <input type="text"> <span>Password: <input type="text">
+            <button class="btn btn-primary" id="studentSignupButton">Sign Up</button></p>
+       </div>
+       <div id= "signupForm"class ="well well-sm" style="display: none;"> 
+        <p>Student Email: <input type="text"></p>
+        <button class="btn btn-primary" id="passwordRecover">Sign Up</button></p>
+       </div>
+    
+    
+
       <div class = "well well-sm" id = "testApp" style="display: block;">          
            <div>   
              <h3 class="well well-sm" style="text-align: center;"> Time Remaining:  <span class id="time">00:00 minutes </span>
