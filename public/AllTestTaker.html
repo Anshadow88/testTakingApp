@@ -39,14 +39,14 @@
             <p> <button class="btn btn-primary" id="studentLoginButton">Login User</button>
               OR
               <button class="btn btn-success"id="getSignUpForm" onclick="document.getElementById('signupForm').style.display='block'">Create New User</button>
-              OR
-              <button class="btn btn-danger"id="getSignUpForm" onclick="document.getElementById('passwordRecoverForm').style.display='block'">Forgot Password</button></p>
+              <!-- OR
+              <button class="btn btn-danger"id="getSignUpForm" onclick="document.getElementById('passwordRecoverForm').style.display='block'">Forgot Password</button></p> -->
               
             </p>
 
             </div>
        <div id= "signupForm"class ="well well-sm" style="display: none;"> 
-            <p>Student Email: <input type="text"> <span>Password: <input type="text">
+            <p>Student Email: <input type="text" id="studentSignUpEmail"> <span>Password: <input type="text"id="studentSignUpPassword">
             <button class="btn btn-primary" id="studentSignupButton">Sign Up</button></p>
        </div>
        <div id= "signupForm"class ="well well-sm" style="display: none;"> 

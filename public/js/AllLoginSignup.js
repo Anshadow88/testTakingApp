@@ -54,6 +54,50 @@ async function loginUser(email,password,userRole){
     }
 }
 
+//
+const $studentSignUpButton = document.querySelector('#studentSignupButton')
+$studentLoginButton.addEventListener('click',(e)=>{
+    const $Email = document.querySelector('#studentSignUpEmail')
+    const $Password = document.querySelector('#studentSignUpPassword')
+    const role = 'student'
+    signUpUser($Email.value, $Password.value, role)   
+})
+
+async function signUpUser(email,password,userRole){   
+   var response = await fetch("/users", {      
+    method: "POST",
+      
+    body: JSON.stringify({
+        email: email,
+        password: password,
+        role: userRole
+    }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+    })
+    .then(
+    ).then()
+    if(response.status==200)
+    {
+        var data = await response.json()
+       // console.log(data.user.testsTaken[0].testID+' marks '+data.user.testsTaken[0].marks + ' out of '+data.user.testsTaken[0].maxMarks)
+        USERID = data.user._id
+        TOKEN = data.token
+        USERNAME = data.user.name
+        console.log('User :'+USERID+' is a '+data.user.role)
+
+
+        data.user.result.forEach(testdata => {
+            TESTSTAKEN.push(testdata)
+
+        });
+        RemoveSignUpForm()
+        
+
+    }
+}
+
 function showStudentSection(){
     const $loginForm = document.querySelector('#loginForm')
     const $intro = document.querySelector('#intro')
