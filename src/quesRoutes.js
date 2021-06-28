@@ -18,10 +18,12 @@ router.get('/question/:id',async(req,res)=>{
         const id = req.params.id 
         const question = await Question.findOne({_id:id})     
         console.log(question)   
+        let title = question.question.substring(0,50)
         if(!question){
             return res.status(404).json({})
         }else{
             return res.render('question',{
+                title:title,
                 questionNumber:question.id,
                 questionText:question.question,
                 imageSrc:'/uploads/'+question.image,
