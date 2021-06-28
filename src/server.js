@@ -1,15 +1,18 @@
 path = require('path')
 const express = require('express')
+
 const mongoose = require('mongoose')
 const quesRoutes = require('./quesRoutes')
 const userRoutes = require('./userRoutes')
 const testRoutes = require('./testRoutes')
 const cors = require('cors')
+let sslRedirect = require('heroku-ssl-redirect')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
 
 require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
+app.use(sslRedirect())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.set('view engine','hbs')
