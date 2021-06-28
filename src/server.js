@@ -19,7 +19,8 @@ var forceSsl = function (req, res, next) {
     return next();
  };
 
-app.use(forceSsl)
+
+//app.use(forceSsl)
    
 
 app.use(express.urlencoded({extended:true}))
