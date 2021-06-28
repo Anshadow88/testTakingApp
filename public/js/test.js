@@ -81,8 +81,13 @@ function ShowCurrentQuestion(){
   
   console.log('/uploads/'+TestForGuest.questionsOfChapter[quesCount].image)
 
-  document.getElementById('questionImage').src = '/uploads/'+TestForGuest.questionsOfChapter[quesCount].image
-  document.getElementById('questionImage').style.display = 'block'
+  if(TestForGuest.questionsOfChapter[quesCount].image)
+  {document.getElementById('questionImage').src = '/uploads/'+TestForGuest.questionsOfChapter[quesCount].image
+  document.getElementById('questionImage').style.display = 'block'}
+  else
+  {
+    document.getElementById('questionImage').style.display = 'none'
+  }
     
   
      MathJax.typeset()
