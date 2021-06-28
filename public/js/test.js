@@ -78,7 +78,7 @@ function ShowCurrentQuestion(){
   document.getElementById('questionAnswer').innerHTML = ''
   document.getElementById('questionText').innerHTML = getExamName(TestForGuest.questionsOfChapter[quesCount].exam) +' '+TestForGuest.questionsOfChapter[quesCount].year+'<br>'
   document.getElementById('questionText').innerHTML += 'Q'+(quesCount+1)+': '+TestForGuest.questionsOfChapter[quesCount].question
-  if(TestForGuest.questionsOfChapter[quesCount].image!=''||!TestForGuest.questionsOfChapter[quesCount].image)
+  if(TestForGuest.questionsOfChapter[quesCount].image=''||!TestForGuest.questionsOfChapter[quesCount].image)
     { 
       document.getElementById('questionImage').src = ''
       document.getElementById('questionImage').style.display = 'none'
