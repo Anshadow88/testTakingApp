@@ -19,11 +19,8 @@ var forceSsl = function (req, res, next) {
     return next();
  };
 
- app.use(function () {      
-    if (env === 'production') {
-        app.use(forceSsl);
-    }
-})
+app.use(forceSsl)
+   
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
