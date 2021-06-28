@@ -21,12 +21,21 @@ router.get('/question/:id',async(req,res)=>{
         let title = question.question.substring(0,50)
         if(!question){
             return res.status(404).json({})
-        }else{
+        }else if(question.image){
             return res.render('question',{
                 title:title,
                 questionNumber:question.id,
                 questionText:question.question,
                 imageSrc:'/uploads/'+question.image,
+                questionAnswer: question.answer
+            })
+        }
+        else if(!question.image){
+            return res.render('question',{
+                title:title,
+                questionNumber:question.id,
+                questionText:question.question,
+                imageSrc:'',
                 questionAnswer: question.answer
             })
         }
