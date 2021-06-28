@@ -328,7 +328,7 @@ async function EditAllTests(testName,exam,examYear,examDescription,time){
     await test.save() 
         
 }
-EditAllQuestionsOfATest()
+
 async function EditAllQuestionsOfATest(){
     
     const allTests = await TestPaper.find({author:'60b3cba514a1d30015a8d0de'})

@@ -6,13 +6,25 @@ const quesRoutes = require('./quesRoutes')
 const userRoutes = require('./userRoutes')
 const testRoutes = require('./testRoutes')
 const cors = require('cors')
-let sslRedirect = require('heroku-ssl-redirect')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
 
 require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
-app.use(sslRedirect())
+
+var forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    return next();
+ };
+
+ app.use(function () {      
+    if (env === 'production') {
+        app.use(forceSsl);
+    }
+})
+
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.set('view engine','hbs')
