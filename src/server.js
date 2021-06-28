@@ -13,14 +13,14 @@ require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
 
 var forceSsl = function (req, res, next) {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
+    if (req.headers['x-forwarded-proto'] == 'http') {
         return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
     return next();
  };
 
 
-//app.use(forceSsl)
+app.use(forceSsl)
    
 
 app.use(express.urlencoded({extended:true}))

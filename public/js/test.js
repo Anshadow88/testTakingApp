@@ -80,6 +80,7 @@ function ShowCurrentQuestion(){
   document.getElementById('questionText').innerHTML += 'Q'+(quesCount+1)+': '+TestForGuest.questionsOfChapter[quesCount].question
   
   console.log('/uploads/'+TestForGuest.questionsOfChapter[quesCount].image)
+
   document.getElementById('questionImage').src = '/uploads/'+TestForGuest.questionsOfChapter[quesCount].image
   document.getElementById('questionImage').style.display = 'block'
     
@@ -102,7 +103,7 @@ document.getElementById('previousQuestion').addEventListener('click',e=>{
 })
 function ShowPreviousQuestion(){
   if(quesCount>0){
-  quesCount++
+  quesCount--
   ShowCurrentQuestion(quesCount)}
 }
   
