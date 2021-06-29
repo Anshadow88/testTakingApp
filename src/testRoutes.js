@@ -256,6 +256,29 @@ router.patch('/testPaper/:id',async(req,res)=>{
 
 })
 
+//Update A Test Paper
+router.patch('/EditOldNewTestPaper',async(req,res)=>{
+    const updates = Object.keys(req.body)
+    console.log("101"+updates)
+    try{
+        const test = await TestPaper.findOne({name: req.body.name})
+        console.log('102'+test.name)
+        updates.forEach((update)=> {
+            test[update] = req.body[update]
+            console.log(update)  
+        })
+        console.log('103')
+        await test.save()     
+        res.status(200).send(test)
+
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+
+})
+
 //Get All Test of One Teacher Sovling
 router.get('/testTestsOfTeacher/:id', async (req, res) => {
     ////console.log('1')

@@ -40,7 +40,7 @@ const ch4 = {
 const ch5 = {
   name: 'Centre Of Mass & Collision',
   tests: [{name: 'Centre of Mass & Collision 01'},
-  {name: 'Centre Of Mass & Collision 02'}],
+  {name: 'Centre of Mass & Collision 02'}],
   posts:[{},{},{}]
   
 }

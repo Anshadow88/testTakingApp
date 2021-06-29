@@ -32,6 +32,18 @@ $NewTestButton.addEventListener('click',(e)=>{
  //subject,testName,visibility,description,time
 })
 
+document.getElementById('EditTestButton').addEventListener('click',(e)=>{
+    let $TestTime = document.querySelector('#TestTime')
+    let $TestDescription = document.querySelector('#TestDescription')
+    let TestSubject = document.querySelector('#TestSubject')
+    let $NewTestName = document.querySelector('#NewTestName')
+    if(!$NewTestName.value||!TestSubject.value||!$TestDescription.value||!$TestTime.value)
+    alert('Fill All Fields about Old Test')    
+    else
+    EditOldTestPaper(TestSubject.value,$NewTestName.value,$TestDescription.value,$TestTime.value)
+ //subject,testName,visibility,description,time
+})
+
 const $FindQuestionByIDButton = document.getElementById('FindQuestionByIDButton')
 
 
@@ -247,7 +259,7 @@ function AddAQuestionToSelection(){
             console.log(i)})
             $paper.appendChild(cancelBtn)
         let newP = document.createElement('p')
-          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,50)+'.......<br/><br/>'
+          newP.innerHTML = 'Q.'+ (i+1) +'&nbsp'+ SelectedQuestions[i].question.substring(0,100)+'.......<br/><br/>'
           $paper.appendChild(newP)
     }
  }
@@ -349,6 +361,8 @@ document.querySelector('#NewTestName').value = testdata.name
 
 async function SetOldTestPaperIntoCurrentValues(oldTest)
 {
+    SelectedQuestionIDs = []
+    SelectedQuestions = []
     
     oldTest.questions.forEach(question=>{
         SelectedQuestionIDs.push({'questionID':question.questionID})
@@ -396,15 +410,13 @@ var quesdata = await response.json()
 
 }
 
-
-async function EditOldNewTestPaper(subject,testName,description,time){
-    const response = await fetch("/EditOldNewTestPaper/"+USERID, {      
+async function EditOldTestPaper(subject,testName,description,time){
+    const response = await fetch("/EditOldNewTestPaper", {      
     // Adding method type
     method: "PATCH",      
     // Adding body or contents to send
     body: JSON.stringify({
         name: testName,
-        author: USERID,
         questions: SelectedQuestionIDs,
         visibility: '1',
         subject: subject,
@@ -419,7 +431,7 @@ async function EditOldNewTestPaper(subject,testName,description,time){
 .then().then()
 
 var data = await response.json()
-//console.log(data)
+console.log(data)
 //location.reload()
 }
 
