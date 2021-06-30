@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const quesRoutes = require('./quesRoutes')
 const userRoutes = require('./userRoutes')
 const testRoutes = require('./testRoutes')
+const chapterRoutes = require('./chapterRoutes')
 const cors = require('cors')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
@@ -39,6 +40,7 @@ app.use('/uploads',express.static(uploadsDirectoryPath))
 app.use(quesRoutes)
 app.use(userRoutes)
 app.use(testRoutes)
+app.use(chapterRoutes)
 
 mongoose.connect(process.env.MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology:true})
 const db = mongoose.connection
@@ -46,11 +48,7 @@ db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('database connected'))
 
 
-app.get('/chapter/:number',(req,res)=>{
-    return res.render('chapter',{
-        chapterNumber: req.params.number
-})
-})
+
 
 app.get('/test/:name',(req,res)=>{
     return res.render('test',{

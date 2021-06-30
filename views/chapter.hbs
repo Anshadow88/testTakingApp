@@ -30,15 +30,31 @@
   
       <div class="container-fluid" id="testDiv">
         <div class= "well well-sm" id="chapterHeading">
-          <h1 id="chapterNumber" value=1>{{{chapterNumber}}}
-          <span id = "chapterName"> .............</span></h1>
-          <img id = "chapterImage" class="center" src= "/img/Index/Chapterwise/20.png">   </img>
+          <h1 id="chapterNumber">{{{chapterNumber}}}.
+          <span id = "chapterName"> {{{chapterData.name}}}</span></h1>
+          <img id = "chapterImage" class="center" >   </img>
           
         </div>
+      </div>
 
-
-
-        </div>
+      <div class="well well-sm" id="testDiv">
+        <h2>Tests Section</h2>
+          {{#if chapterTests}}
+                    <ul class="list-group">
+                        {{#each chapterTests}}
+                        <li class="list-group-item">
+                          <p>{{this.name}}</p>
+                          <button onclick="SetTestName('{{this.name}}')">Take Test</button>
+                          <p>OR</p>
+                          <a href="/test/{{this.name}}">Open As DPP</a></li>
+                        {{/each}}
+                    </ul>
+                    {{else}}
+                    <ul class="list-group">
+                        <li class="list-group-item">There are no tests on this chapter yet</li>
+                    </ul>
+                    {{/if}}
+      </div>
       
 
      
