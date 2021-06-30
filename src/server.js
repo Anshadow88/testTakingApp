@@ -50,11 +50,7 @@ db.once('open', () => console.log('database connected'))
 
 
 
-app.get('/test/:name',(req,res)=>{
-    return res.render('test',{
-        testName: req.params.name
-})
-})
+
 
 app.listen(port,()=>{
     console.log(`Server is listening at port ${port}`)

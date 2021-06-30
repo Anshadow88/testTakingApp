@@ -31,6 +31,21 @@ router.post('/testPaper', async (req, res) => {
         return res.status(500).json({"error":error})
     }
 })
+
+//get Test for DPP MAking
+router.get('/test/:name',async (req,res)=>{
+    try{
+    const test = await TestPaper.findOne({name:req.params.name})
+  //  console.log(test)
+
+    return res.render('test',{
+        testName: req.params.name,
+        testQuesIDs : test.questions
+
+        })
+    }
+    catch{}
+})
 // get One Test For QUESTION Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {

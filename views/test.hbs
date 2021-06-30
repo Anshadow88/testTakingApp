@@ -42,7 +42,22 @@
             </div>    
           </div>
           <div class = "well well-sm" id="testDiv">
+            
 
+          </div>
+          <div>
+            {{#if testQuesIDs}}
+                    <ul class="list-group">
+                        {{#each testQuesIDs}}
+                        <li class="list-group-item">
+                          <a href="/question/{{this.questionID}}">{{this.questionID}}</a></li>
+                        {{/each}}
+                    </ul>
+                    {{else}}
+                    <ul class="list-group">
+                        <li class="list-group-item">There are no tests on this chapter yet</li>
+                    </ul>
+                    {{/if}}
           </div>
       </div>    
     </div>

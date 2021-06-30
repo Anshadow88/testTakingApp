@@ -62,10 +62,6 @@ async function getTestForGuest(testName){
   
 }
   
-  //getAllTestData(localStorage.chapterNumber-1)
- 
-
-
   
   
   document.getElementById('showAnswer').addEventListener('click',e=>{
