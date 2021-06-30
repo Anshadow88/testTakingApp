@@ -291,5 +291,30 @@ async function CheckQuestionForTags(id){
 
 // }
 
+let content =''
+
+
+async function writeSitemap(){
+try {
+  allQuestions = await Question.find()
+  console.log(allQuestions.length)
+  allQuestions.forEach(ques=>{
+  let newContent = '<url>'+
+  '<loc>https://www.thephysicstree.com/question/'+ques.id+'</loc>'+
+  '<lastmod>2021-06-30T18:55:53+00:00</lastmod>'+
+  '<priority>0.51</priority>'+
+ '</url>'
+  content+=newContent
+  })
+  const data = fs.writeFileSync('test.txt', content)
+  console.log('file written successfully')
+} catch (err) {
+  console.error(err)
+}
+}
+
+
+//writeSitemap()
+
 
 module.exports = router

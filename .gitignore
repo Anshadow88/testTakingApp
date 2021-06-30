@@ -5,3 +5,5 @@ config
 # uploads
 # uploads\
 # src/uploads/
+test.txt
+sitemap.js
