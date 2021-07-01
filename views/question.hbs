@@ -19,24 +19,35 @@
           </div>  
           <div class = "col-sm-9">   
             <h1 >The Physics Tree</h1>
-            <h4 id= "tagLines">Best IIT-JEE & NEET Coaching in Delhi(Janakpuri)</h4>
+            <h4 id= "tagLines">Best IIT-JEE & NEET Coaching in Delhi (Janakpuri)</h4>
             <h4>Providing the best study material with 5000+ Questions on this website</h4>
-            <h4>Free Chapter wise & Topic wise study material, videos & Online test series for every one </h4> 
+            <h4>Free Chapter wise & Topic wise study material, videos & Online test series for every student </h4> 
+            <h5>For Offline or Online Classes Contact 9560883848</h5>
         </div>
       </div>
     </div>
+     <div class="well well-sm" style="text-align: center;"><a href="/index.html">Home</a></div>
   </div>
 
-  <div class="well well-sm" style="text-align: center;"><a href="/index.html">Home</a></div>
+ 
   
       <div class="container-fluid" id="quesDiv">
         <div class= "well well-sm" id="chapterHeading">
-          <h1>Question id. {{questionNumber}}</h1>
+          <h1>Exam: {{examName}} & Year: {{examYear}}</h1>
           <p class = "well well-sm">{{{questionText}}}</p>
           <img class = "well well-sm" src="{{{imageSrc}}}">
           <p class="well well-sm">Answer: {{questionAnswer}}</p>          
         </div>
        </div>
+
+       <div class="well well-sm">
+         <h4>This question is from Chapter no.{{chapterNumber}} & name: {{chapterName}}</h3>
+         <h4>To find all IIT-JEE & NEET Questions of this chapter. You can
+           go to our <a href="/chapter/{{chapterNumber}}">{{chapterName}}<a></a> Page.
+         </h4>
+       </div>
+
+
       
 
      

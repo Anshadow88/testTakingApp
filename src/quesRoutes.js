@@ -19,6 +19,8 @@ router.get('/question/:id',async(req,res)=>{
         const question = await Question.findOne({_id:id})     
         console.log(question)   
         let title = question.question.substring(0,50)
+        let chapterNameee = getChapterName(parseInt(question.chapter))
+        
         if(!question){
             return res.status(404).json({})
         }else if(question.image){
@@ -27,7 +29,11 @@ router.get('/question/:id',async(req,res)=>{
                 questionNumber:question.id,
                 questionText:question.question,
                 imageSrc:'/uploads/'+question.image,
-                questionAnswer: question.answer
+                questionAnswer: question.answer,
+                chapterNumber: question.chapter,
+                chapterName: chapterNameee,
+                examName: question.exam,
+                examYear: question.year
             })
         }
         else if(!question.image){
@@ -36,13 +42,42 @@ router.get('/question/:id',async(req,res)=>{
                 questionNumber:question.id,
                 questionText:question.question,
                 imageSrc:'',
-                questionAnswer: question.answer
+                questionAnswer: question.answer,                
+                chapterNumber: question.chapter,
+                chapterName: chapterNameee,
+                examName: question.exam,
+                examYear: question.year
             })
         }
     } catch (error) {
         return res.status(500).json({"error":error})
     }  
 })
+
+function getChapterName(number){
+    if(number==0)return ''    
+    if(number==1)return 'Vectors, Errors & Measurements'
+    else if(number==2)return 'Kinematics'
+    else if(number==3)return 'Newtons Laws'
+    else if(number==4)return 'Work, Power & Energy'
+    else if(number==5)return 'Conservation of Momentum'
+    else if(number==6)return 'Rotational Motion'
+    else if(number==7)return 'Properties of Matter'
+    else if(number==8)return 'Gravitation '
+    else if(number==9)return 'Fluid Mechanics'
+    else if(number==10)return 'Thermodynamics'
+    else if(number==11)return 'Oscillation (SHM)'
+    else if(number==12)return 'Waves'
+    else if(number==13)return 'Electrostatics'
+    else if(number==14)return 'Current Electricity'
+    else if(number==15)return 'Magnetism'
+    else if(number==16)return 'EMI & AC'   
+    else if(number==17)return 'Ray Optics'
+    else if(number==18)return 'Wave Optics & EM Waves'
+    else if(number==19)return 'Modern Physics'  
+    else if(number==20)return 'Semiconductors'
+
+}
 // create one quiz question
 router.post('/questions', async (req, res) => {
     try {
@@ -71,8 +106,7 @@ router.get('/questions/:id', async (req, res) => {
     } catch (error) {
         return res.status(500).json({"error":error})
     }
-})
-
+})  
 
 router.post('/questions/:id/image',upload.single('avatar'),async (req,res)=>{
         const file = req.file
@@ -186,7 +220,6 @@ router.post('/findQuestions',async (req, res) => {
     }
 })
 
-
 //update a question 
 router.patch('/questionUpdate/:id',async(req,res)=>{
     
@@ -291,7 +324,7 @@ async function CheckQuestionForTags(id){
 
 // }
 
-let content =''
+//let content =''
 
 
 async function writeSitemap(){
