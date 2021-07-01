@@ -52,14 +52,14 @@ router.get('/getStudentsOfTeacher/:id',async (req,res)=>{
 
 //Create a User
 router.post('/users',async (req,res)=>{   
-    const user = new User(req.body)
+    console.log(req.body)
     try{ 
+        const user = new User(req.body)
         await user.save()
+        console.log(user)
         //sendWelcomeEmail(user.email,user.name)
-        const token = await user.generateAuthToken()
-         //console.log(token)
-        // console.log('chk40')     
-       res.status(201).send({user,token})
+       // const token = await user.generateAuthToken()
+       res.status(201).send(user)
     } catch(err){
     res.status(400).send(err)
     }

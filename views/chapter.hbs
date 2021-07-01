@@ -38,21 +38,20 @@
       </div>
 
       <div class="well well-sm" id="testDiv">
-        <h2>Tests Section</h2>
+        <h3>Tests Section</h3>
           {{#if chapterTests}}
-                    <ul class="list-group">
+                    <div class="row">
                         {{#each chapterTests}}
-                        <li class="list-group-item">
-                          <p>{{this.name}}</p>
+                        <div class="col-sm-3">
+                          <div class="well well-sm">
+                          <h4 class="centerFull">{{this.name}}</h4>
                           <button onclick="SetTestName('{{this.name}}')">Take Test</button>
                           <p>OR</p>
                           <a href="/test/{{this.name}}">Open As DPP</a></li>
+                          </div>
+                        </div>
                         {{/each}}
-                    </ul>
-                    {{else}}
-                    <ul class="list-group">
-                        <li class="list-group-item">There are no tests on this chapter yet</li>
-                    </ul>
+                    </div>
                     {{/if}}
       </div>
       
