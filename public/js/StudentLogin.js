@@ -37,13 +37,13 @@ async function loginUser(email,password,userRole){
     {
         var data = await response.json()
        // console.log(user.testsTaken[0].testID+' marks '+user.testsTaken[0].marks + ' out of '+user.testsTaken[0].maxMarks)
-        USERID = user._id
+        USERID = data.user._id
         //TOKEN = data.token
-        USERNAME = user.name
-        console.log('User :'+USERID+' is a '+user.role)
+        USERNAME = data.user.name
+        console.log('User :'+USERID+' is a '+data.user.role)
 
 
-        user.result.forEach(testdata => {
+        data.user.result.forEach(testdata => {
             TESTSTAKEN.push(testdata)
 
         });
