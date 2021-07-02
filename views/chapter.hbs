@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Best Physics Classes & NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri </title>
+  <title>{{chapterName}} by best NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri Uttamnagar </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -30,24 +30,31 @@
   
       <div class="container-fluid" id="testDiv">
         <div class= "well well-sm" id="chapterHeading">
-          <h1 id="chapterNumber">{{{chapterNumber}}}.
-          <span id = "chapterName"> {{{chapterData.name}}}</span></h1>
-          <img id = "chapterImage" class="center" >   </img>
+          <div class="text-center">
+            <h1 id="chapterNumber">{{{chapterNumber}}}.
+            <span id = "chapterName"> {{{chapterData.name}}}</span></h1>
+            <img id = "chapterImage" class="center" src="/img/Index/Chapterwise/{{{chapterNumber}}}.png">   </img>
+          </div>
           
         </div>
       </div>
 
       <div class="well well-sm" id="testDiv">
+        <div class="text-center">
         <h3>Tests Section</h3>
+        </div>
           {{#if chapterTests}}
                     <div class="row">
                         {{#each chapterTests}}
                         <div class="col-sm-3">
-                          <div class="well well-sm">
-                          <h4 class="centerFull">{{this.name}}</h4>
-                          <button onclick="SetTestName('{{this.name}}')">Take Test</button>
-                          <p>OR</p>
-                          <a href="/test/{{this.name}}">Open As DPP</a></li>
+                          <div class="well well-sm" style="background-color:rgb(253, 235, 253)">
+                            <div class ="text-center">
+                              <h4 >{{this.name}}</h4>
+                              <p >{{this.description}}</p>
+                              <button class="btn btn-primary" onclick="SetTestName('{{this.name}}')">Take Test</button>
+                              <p>OR</p>
+                              <a class="centreFull" href="/test/{{this.name}}">Open As DPP</a></li>
+                            </div>
                           </div>
                         </div>
                         {{/each}}

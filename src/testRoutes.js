@@ -367,12 +367,13 @@ async function EditAllTests(testName,exam,examYear,examDescription,time){
         
 }
 
+EditAllQuestionsOfATest()
 async function EditAllQuestionsOfATest(){
     
     const allTests = await TestPaper.find({author:'60b3cba514a1d30015a8d0de'})
     allTests.forEach(test=>{
         test.questions.forEach(ques=>{
-            EditOneQuestion(ques.questionID,test.name,test.year)
+            EditOneQuestion(ques.questionID,test.exam,test.year)
         })
     })
 
@@ -386,7 +387,7 @@ async function EditOneQuestion(questionID,exam,year){
     if(ques){
     ques.exam = exam
     ques.year = year
-    console.log('1')
+    console.log(ques.exam)
     await ques.save()
     }
     

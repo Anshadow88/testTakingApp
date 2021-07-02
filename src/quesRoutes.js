@@ -302,27 +302,27 @@ async function CheckQuestionForTags(id){
 }
 
 
-// async function ALLQuestionsSubjectChange()
-// {
-//     const allQuestion = await Question.find()
-//     let count=0
-//     allQuestion.forEach(ques=>{
-//         OneQuestionsSubjectChange(ques.id)
-//         count++
-//         console.log(count)
+async function ALLQuestionsSubjectChange()
+{
+    const allQuestion = await Question.find()
+    let count=0
+    allQuestion.forEach(ques=>{
+        OneQuestionsSubjectChange(ques.id)
+        count++
+        console.log(count)
 
-//     })
+    })
 
-// }
-// async function OneQuestionsSubjectChange(id)
-// {
-//     let question = await Question.findOne({_id:id})   
-//     if(question.subject=='')
-//     question.subject = 'Physics'
+}
+async function OneQuestionsSubjectChange(id)
+{
+    let question = await Question.findOne({_id:id})   
+    if(question.subject=='')
+    question.subject = 'Physics'
 
-//     await question.save()   
+    await question.save()   
 
-// }
+}
 
 //let content =''
 
