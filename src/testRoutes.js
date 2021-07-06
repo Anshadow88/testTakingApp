@@ -32,13 +32,15 @@ router.post('/testPaper', async (req, res) => {
     }
 })
 
-//get Test for DPP MAking
-router.get('/test/:name',async (req,res)=>{
+
+
+//get Test as DPP 
+router.get('/testAsDPP/:name',async (req,res)=>{
     try{
     const test = await TestPaper.findOne({name:req.params.name})
   //  console.log(test)
 
-    return res.render('test',{
+    return res.render('testAsDpp',{
         testName: req.params.name,
         testQuesIDs : test.questions
 
@@ -46,6 +48,22 @@ router.get('/test/:name',async (req,res)=>{
     }
     catch{}
 })
+
+//get Test as TEST
+router.get('/testAsTest/:name',async (req,res)=>{
+    try{
+    const test = await TestPaper.findOne({name:req.params.name})
+  //  console.log(test)
+
+    return res.render('testAsTest',{
+        testName: req.params.name,
+        testQuesIDs : test.questions
+
+        })
+    }
+    catch{}
+})
+
 // get One Test For QUESTION Editing
 router.post('/testPaperWithNameForEditing', async (req, res) => {
     try {

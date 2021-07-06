@@ -19,7 +19,9 @@ router.get('/question/:id',async(req,res)=>{
         const question = await Question.findOne({_id:id})     
         console.log(question)   
         let title = question.question.substring(0,50)
-        let chapterNameee = getChapterName(parseInt(question.chapter))
+        let chapterName = getChapterName(parseInt(question.chapter))
+        let examName = getExamName(question.exam)
+        console.log(examName)
         
         if(!question){
             return res.status(404).json({})
@@ -31,8 +33,8 @@ router.get('/question/:id',async(req,res)=>{
                 imageSrc:'/uploads/'+question.image,
                 questionAnswer: question.answer,
                 chapterNumber: question.chapter,
-                chapterName: chapterNameee,
-                examName: question.exam,
+                chapterName: chapterName,
+                examName: examName,
                 examYear: question.year
             })
         }
@@ -44,8 +46,8 @@ router.get('/question/:id',async(req,res)=>{
                 imageSrc:'',
                 questionAnswer: question.answer,                
                 chapterNumber: question.chapter,
-                chapterName: chapterNameee,
-                examName: question.exam,
+                chapterName: chapterName,
+                examName: examName,
                 examYear: question.year
             })
         }
@@ -76,6 +78,14 @@ function getChapterName(number){
     else if(number==18)return 'Wave Optics & EM Waves'
     else if(number==19)return 'Modern Physics'  
     else if(number==20)return 'Semiconductors'
+
+}
+
+function getExamName(number){
+    if(number=='0')return ''    
+    if(number=='1')return 'NEET'
+    else if(number=='2')return 'IIT JEE-Mains'
+    else if(number=='3')return 'IIT Jee-Advanced'
 
 }
 // create one quiz question

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{testName}} by Best Physics Classes & NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri </title>
+  <title>{{test}} Free Test Series by Best Physics Classes & NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,16 +13,16 @@
 <body>
 
     <div class="container-fluid">
-      <div class="well">
-         <div class = "row">
+      <div class="well well-sm">
+        <div class = "row">
           <div class = "col-sm-3">
            <img class ="img-responsive" src="/img/physicstree.png">     
           </div>  
           <div class = "col-sm-9">   
-            <h1 >The Physics Tree</h1>
-            <h4 id= "tagLines">Best IIT-JEE & NEET Coaching in Delhi(Janakpuri)</h4>
-            <h4>Providing the best study material with 5000+ Questions on this website</h4>
-            <h4>Free Chapter wise & Topic wise study material, videos & Online test series for every one </h4> 
+            <h1>The Physics Tree</h1>
+            <h3>Best IIT JEE & NEET Coaching in Delhi (Janakpuri & Vikaspuri)</h2>
+            <h3>Providing 5000+ topic-wise Physics Questions with solutions for all students </h3>        
+            <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
         </div>
       </div>
     </div>
@@ -45,12 +45,13 @@
             
 
           </div>
-          <div>
+          <div class="well well-sm">
             {{#if testQuesIDs}}
-                    <ul class="list-group">
+                    <ul class="list-group list-group-horizontal">
+                      <h3>ANSWER KEY (Hint: 1+3=4 )</h3>
                         {{#each testQuesIDs}}
                         <li class="list-group-item">
-                          <a href="/question/{{this.questionID}}">{{this.questionID}}</a></li>
+                          <a href="/question/{{this.questionID}}">Q.No. {{@index}}+1</a></li>
                         {{/each}}
                     </ul>
                     {{else}}

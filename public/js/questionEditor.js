@@ -228,19 +228,13 @@ async function showCurrentQuestion(){
     inputImage.value=''    
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
-    $questionNumber.innerHTML = 'No.&nbsp'+(QuestionCount+1)+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
+    $questionNumber.innerHTML = 'Question No.&nbsp'+(QuestionCount+1)+'/'+QuestionsOFChapters.length+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
     $newQuestionText.value = (QuestionsOFChapters[QuestionCount].question);
     $correctAnswer.value= (QuestionsOFChapters[QuestionCount].answer);
-    $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);
-   // console.log(QuestionsOFChapters[QuestionCount].subject+ ' should be set to '+$subjectName.value)
+    $chapterNumber.value = (QuestionsOFChapters[QuestionCount].chapter);  
     $subjectName.value=(QuestionsOFChapters[QuestionCount].subject)
-
-    //CreateTopicNameDiv('Physics',chapterNumber.value)
-
     $questionType.value = QuestionsOFChapters[QuestionCount].type;
-
     $image.style.display='none'
-    console.log(QuestionsOFChapters[QuestionCount].image)
     if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
     {
      console.log('ARE WE LOOKING FOR AWS')

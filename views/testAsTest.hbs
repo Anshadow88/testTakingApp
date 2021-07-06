@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{testName}} by Best Physics Classes & NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <link rel="stylesheet" href="../css/eachChapter.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+      <div class="well well-sm">
+        <div class = "row">
+          <div class = "col-sm-3">
+           <img class ="img-responsive" src="/img/physicstree.png">     
+          </div>  
+          <div class = "col-sm-9">   
+            <h1>The Physics Tree</h1>
+            <h3>Best IIT JEE & NEET Coaching in Delhi (Janakpuri & Vikaspuri)</h2>
+            <h3>Providing 5000+ topic-wise Physics Questions with solutions for all students </h3>        
+            <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      <div class="container-fluid" id="quesDiv">
+        <div class= "well well-sm" id="chapterHeading">
+          <h3 id= "testName">{{testName}}</h3>
+          
+          <div class = "well well-sm" id="quesDiv">
+            <p id="questionText">What is your name?</p>
+            <img id="questionImage">
+            <p id="questionAnswer"><button id="showAnswer">Show Answer</button>Answer: Anshul</p>     
+            <div class="well well-sm">            
+            <button class = "btn btn-primary" id="previousQuestion">Previous</button>   
+            <button class ="btn btn-primary" id="nextQuestion">Next</button>
+            </div>    
+          </div>
+          <div class = "well well-sm" id="testDiv">
+            
+
+          </div>
+          <div>
+            {{#if testQuesIDs}}
+                    <ul class="list-group">
+                        {{#each testQuesIDs}}
+                        <li class="list-group-item">
+                          <a href="/question/{{this.questionID}}">{{this.questionID}}</a></li>
+                        {{/each}}
+                    </ul>
+                    {{else}}
+                    <ul class="list-group">
+                        <li class="list-group-item">There are no tests on this chapter yet</li>
+                    </ul>
+                    {{/if}}
+          </div>
+      </div>    
+    </div>
+       
+      
+
+     
+
+      
+
+        
+
+
+
+    <script src="/js/test.js"></script>
+    
+</body>
+
+

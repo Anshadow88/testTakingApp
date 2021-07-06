@@ -9,9 +9,11 @@ const chapterRoutes = require('./chapterRoutes')
 const cors = require('cors')
 const abs =""
 const publicDirectoryPath = path.join(__dirname,'../public')
+const hbs = require('hbs')
 
 require('dotenv').config({path: __dirname + '/.env'})
 const app = express()
+
 
 var forceSsl = function (req, res, next) {
     if (req.headers['x-forwarded-proto'] == 'http') {
@@ -55,5 +57,7 @@ db.once('open', () => console.log('database connected'))
 app.listen(port,()=>{
     console.log(`Server is listening at port ${port}`)
 })
+
+
 
 
