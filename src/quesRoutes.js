@@ -18,7 +18,7 @@ router.get('/question/:id',async(req,res)=>{
         const id = req.params.id 
         const question = await Question.findOne({_id:id})     
         console.log(question)   
-        let title = question.question.substring(0,50)
+        let title = question.question.substring(0,100)
         let chapterName = getChapterName(parseInt(question.chapter))
         let examName = getExamName(question.exam)
         console.log(examName)
