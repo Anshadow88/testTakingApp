@@ -24,27 +24,46 @@
             <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
         </div>
       </div>
-    </div>
+      </div>
   </div>
-     <div class="well well-sm" style="text-align: center;"><a href="/index.html">Home</a></div>
-  </div>
-
- 
+     
+  
+    <div class="container-fluid">
+      <div class="well well-sm">
+         <h4 class="centre">This question is from Chapter no.{{chapterNumber}} & name: {{chapterName}}</h3>
+         <h4 class="centre">To find all IIT-JEE & NEET Questions of this chapter. You can
+           go to our <a href="/chapter/{{chapterNumber}}">{{chapterName}}<a></a> Page.
+         </h4>
+       </div>
+      </div>
   
       <div class="container-fluid" id="quesDiv">
         <div class= "well well-sm" id="chapterHeading">
-          <h1>Exam: {{examName}} & Year: {{examYear}}</h1>
+          <h2 class="centre">Exam: {{examName}} & Year: {{examYear}}</h2>
           <p class = "well well-sm">{{{questionText}}}</p>
           <img class = "well well-sm" src="{{{imageSrc}}}">
           <p class="well well-sm">Answer: {{questionAnswer}}</p>          
         </div>
        </div>
 
-       <div class="well well-sm">
-         <h4>This question is from Chapter no.{{chapterNumber}} & name: {{chapterName}}</h3>
-         <h4>To find all IIT-JEE & NEET Questions of this chapter. You can
-           go to our <a href="/chapter/{{chapterNumber}}">{{chapterName}}<a></a> Page.
-         </h4>
+       
+
+       <div class="container-fluid">
+         <div class="well">
+         <h2>Solution</h2>
+           <div class="video_wrapper">
+           <iframe class="iframe" src="https://www.bing.com/search?q={{{title}}}"></iframe>
+         </div>
+        </div>
+       </div>
+
+        <div class="container-fluid">
+         <div class="well">
+         <h2>Solution</h2>
+           <div class="video_wrapper">
+           <iframe class="iframe" src="https://www.youtube.com/results?search_query={{title}}"></iframe>
+         </div>
+        </div>
        </div>
 
 
