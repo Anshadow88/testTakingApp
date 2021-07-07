@@ -1,4 +1,3 @@
-
 const $testName = document.querySelector('#testName')
 const $messageReview = document.querySelector('#messageReview')
 const $time = document.querySelector('#time')
@@ -32,11 +31,10 @@ let marksFinal =0
 let maxMarks = 60
 let questionwiseResut = []
 let isGiven = false
+let timeOfTest = 60
 
 window.TESTID =""
 window.TESTNAME=""
-// confirmationMenu.style.display ='none'
-// submitTestButton.style.display = 'none'
 
 $OptionAButton.addEventListener('click',CheckOptionA)
 $OptionBButton.addEventListener('click',CheckOptionB)
@@ -47,13 +45,6 @@ $integerButton.addEventListener('click',CheckIntegerType)
 $nextQuestionButton.addEventListener('click',(e)=>{
     DisplayNextQuestion()
 })
-
-
-// const $openTestAppButton2 = document.getElementById('openTestAppButton')
-// $openTestAppButton2.addEventListener('click',()=>{
-//     console.log('TestApp')
-//     loadAvailableTests()
-// })
 
 $previousQuestionButton.addEventListener('click',(e)=>{
     DisplayPreviousQuestion()
@@ -72,24 +63,42 @@ $cancelSubmitButton.addEventListener('click',(e)=>{
     $confirmationMenu.style.display='none'
 })
 
-$StartTestButton= document.getElementById('StartTextButton')
-$StartTestButton.addEventListener('click',e=>{
-    let testName = ''
-    testName = localStorage.TESTNAME
+function LoadTestAtStart(){
+    var url = window.location.pathname;
+    var testNameFromURL = url.substring(url.lastIndexOf('/') + 1)
+    let testName = testNameFromURL.replaceAll("%20"," " )
     loadTest(testName)
+    document.getElementById('testArea').style.display='block'    
+    document.getElementById('LoadTestButton').style.display = 'none'
+    document.getElementById('StartTestButton').style.display = 'block'
+}
+
+
+
+$StartTestButton= document.getElementById('LoadTestButton')
+$StartTestButton.addEventListener('click',e=>{
+    LoadTestAtStart()
+    
+    
+})
+
+$StartTestButton= document.getElementById('StartTestButton')
+$StartTestButton.addEventListener('click',e=>{
+    StartTestNow()    
 })
 
 function CheckOptionA(){
-    //console.log("A")
     MarkAnswer('A',availableQuestions[questionCount])
 }
 function CheckOptionB(){
     //console.log("B")
     MarkAnswer('B',availableQuestions[questionCount])
-}function CheckOptionC(){
+}
+function CheckOptionC(){
     //console.log("C")
     MarkAnswer('C',availableQuestions[questionCount])
-}function CheckOptionD(){
+}
+function CheckOptionD(){
     //console.log("D")
     MarkAnswer('D',availableQuestions[questionCount])
 }
@@ -97,8 +106,6 @@ function CheckIntegerType(){
     integerAnswer = document.getElementById('integerAnswer')
     MarkAnswer(integerAnswer.value,availableQuestions[questionCount])
 }
-
-
 
 ///VERY IMPORTANT
 async function loadAvailableTests(){   
@@ -178,7 +185,6 @@ function makeMyTestTable(myTests)
     }
 }
 
-
 async function loadTest(testName){  
     TESTNAME = testName
     document.getElementById('testApp').style.display ='block'
@@ -219,11 +225,16 @@ async function loadTest(testName){
             }    
         }   
         console.log(availableQuestions)           
-        DisplayCurrentQuestion()
-        timeParsed = parseInt(data.testtime)
-        console.log(data.testtime+' '+timeParsed)
-        startTimer(timeParsed*60,$time)
-        //document.getElementById('myTestTableDiv').style.display='none'
+       
+        timeOfTest = parseInt(data.testtime)*60
+                
+
+}
+
+function StartTestNow(){
+    startTimer(timeOfTest,$time)
+    DisplayCurrentQuestion()       
+    document.getElementById('StartTestButton').style.display = 'none'    
 }
 
 async function loadTestForNewUser(testName){  
@@ -404,6 +415,7 @@ function CalculateFinalScore()
 }
 
 function startTimer(duration, display) {
+
     $time.style.display = ''
     var timer = duration, minutes, seconds;
     setInterval(function () {

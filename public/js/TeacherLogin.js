@@ -42,10 +42,13 @@ async function loginUser(email,password,userRole){
         console.log('User :'+USERID+' is a '+data.user.role)
 
         MYSTUDENTS = data.user.students
-        data.user.testsTaken.forEach(testdata => {
-            TESTSTAKEN.push(testdata)
+        if(data.user.length>0){
+            data.user.testsTaken.forEach(testdata => {
 
-        });
+                TESTSTAKEN.push(testdata)
+
+            })
+        }
         if(data.user.role=='teacher')   
         showTeacherSection()     
     }

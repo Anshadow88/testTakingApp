@@ -2,43 +2,12 @@ let TestForGuest
 let quesCount = 0
 
  
-console.log(document.getElementById('testName').innerHTML)
-const testName = document.getElementById('testName').innerHTML
+var url = window.location.pathname;
+    var testNameFromURL = url.substring(url.lastIndexOf('/') + 1)
+    let testName = testNameFromURL.replaceAll("%20"," " )
+    
 getTestForGuest(testName)
 
-async function CreateAnswerKey(){
-
-    const testDiv = document.getElementById('testDiv')
-    while(testDiv.hasChild){
-      testDiv.remove(testDiv.firstChild)
-    }
-    //Create Answer Key
-     {
-      
-  
-      let newDiv = document.createElement('div')
-      newDiv.className = "well well-sm test"
-      testDiv.appendChild(newDiv)   
-      
-      let newP = document.createElement('h4')
-      newDiv.className = "well well-sm"
-      newP.appendChild(document.createTextNode('AnswerKey'))
-      newDiv.appendChild(newP)   
-      
-      let count = -1
-        TestForGuest.questionsOfChapter.forEach(ques=>{            
-            count++    
-            let linkToQuestion = document.createElement('a')
-            var link = document.createTextNode(' Q.'+(count+1)+' '+' , '+' ');
-            linkToQuestion.appendChild(link); 
-            newDiv.appendChild(linkToQuestion)            
-            linkToQuestion.href='/question/'+TestForGuest.allQuestionsIDs[count]
-            linkToQuestion.target='_blank'
-            console.log(linkToQuestion)
-         })
-    }
-}
-  
 async function getTestForGuest(testName){
     const response  = await fetch("/getTestForGuest", {   
     method: "POST",          
@@ -56,7 +25,6 @@ async function getTestForGuest(testName){
     var data = await response.json()   
     console.log(data)
     TestForGuest=(data)
-    CreateAnswerKey()
     quesCount = 0
     ShowCurrentQuestion(quesCount)
   
@@ -64,15 +32,15 @@ async function getTestForGuest(testName){
   
   
   
-  document.getElementById('showAnswer').addEventListener('click',e=>{
-    document.getElementById('questionAnswer').innerHTML = TestForGuest.questionsOfChapter[quesCount].answer
-  })
+document.getElementById('showAnswerButton').addEventListener('click',e=>{
+    document.getElementById('questionAnswer').innerHTML = 'Answer: '+TestForGuest.questionsOfChapter[quesCount].answer
+})
   
 
 function ShowCurrentQuestion(){
   console.log(TestForGuest.questionsOfChapter[quesCount].image)
   document.getElementById('questionAnswer').innerHTML = ''
-  document.getElementById('questionText').innerHTML = getExamName(TestForGuest.questionsOfChapter[quesCount].exam) +' '+TestForGuest.questionsOfChapter[quesCount].year+'<br>'
+  document.getElementById('questionText').innerHTML = getExamName(TestForGuest.questionsOfChapter[quesCount].exam) +' '+TestForGuest.questionsOfChapter[quesCount].year+'<br><br>'
   document.getElementById('questionText').innerHTML += 'Q'+(quesCount+1)+': '+TestForGuest.questionsOfChapter[quesCount].question
   
   console.log('/uploads/'+TestForGuest.questionsOfChapter[quesCount].image)
@@ -107,6 +75,9 @@ function ShowPreviousQuestion(){
   quesCount--
   ShowCurrentQuestion(quesCount)}
 }
+  
+
+
   
 
 function getExamName(count){

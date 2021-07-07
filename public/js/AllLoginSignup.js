@@ -1,4 +1,3 @@
-
 const $testApp = document.querySelector('#testApp')
 
 window.USERID= ""
@@ -45,18 +44,27 @@ async function loginUser(email,password,userRole){
         data.user.result.forEach(testdata => {
             TESTSTAKEN.push(testdata)
 
-        });
-        if(data.user.role=='student')
-        RemoveLoginForm() 
-        else
-        PresentSignUpSection()
 
+        });
+        RemoveLoginForm() 
+
+        
+        if(document.getElementById('LoadTestButton'))
+        {
+            document.getElementById('LoadTestButton').disabled = false
+        }
+
+
+    }
+    else
+    {
+        PresentSignUpForm()
     }
 }
 
 //
 const $studentSignUpButton = document.querySelector('#studentSignupButton')
-$studentLoginButton.addEventListener('click',(e)=>{
+$studentSignUpButton.addEventListener('click',(e)=>{
     const $Email = document.querySelector('#studentSignUpEmail')
     const $Password = document.querySelector('#studentSignUpPassword')
     const role = 'student'
@@ -93,6 +101,10 @@ async function signUpUser(email,password,userRole){
 
         });
         RemoveSignUpForm()
+        if(document.getElementById('LoadTestButton'))
+        {
+            document.getElementById('LoadTestButton').disabled = false
+        }
         
 
     }

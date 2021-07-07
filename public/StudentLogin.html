@@ -9,11 +9,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-  <link rel="stylesheet" href="css\studentlogin.css">
+  <link rel="stylesheet" href="css/eachChapter.css">
 
 </head>
 <body onselectstart="return false">
-  <div class="container-fluid">
+  <<div class="container-fluid">
     <div class="well well-sm">
       <div class = "row">
         <div class = "col-sm-3">
@@ -29,7 +29,7 @@
   </div>
 </div>
       <div class= "container-fluid">
-        <h3 class="well" >Student Section </h3>
+        <div class="well well-sm"><h1 style="text-align:center">Student Section </h1></div>
       </div>
 
       <div class="container-fluid" id = "loginForm">
@@ -77,13 +77,13 @@
           <button class = "btn btn-primary" id="openTestAppButton">Get Test</button>
           <button class = "btn btn-primary" id="openResultButton">My Results</button>
           <button class = "btn btn-primary" id="openChapterWise">Chapterwise</button>
-            
+        </div>   
 
 
                 <div class="container-fluid" id = "profileSection" style="display: none;" >
                   <div class = "well well-sm">    
                     <div id="profile">   
-                      <table class="table-responsive table-responsive-hover">
+                      <table class="table-responsive">
                         <thead>
                           <tr>
                             <th scope="col">1.</th>
@@ -191,6 +191,7 @@
 
              
                   <div id="chapterWise" class="container-fluid" style="display:block">
+                    <div class="well well-sm">
                     <div class = "row">
                      <div class="col-sm-3">
                        <div class = "well">    
@@ -487,7 +488,8 @@
                        </div>
                      
                      </div>
-                     </div>
+                    </div>
+                  </div>
        
 
         </div>

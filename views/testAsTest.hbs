@@ -1,79 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{testName}} by Best Physics Classes & NEET IIT-JEE Coaching in Delhi Vikaspuri Janakpuri </title>
+  <title>Test Series Best IIT JEE NEET Testing Platform</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
   <link rel="stylesheet" href="../css/eachChapter.css">
-</head>
-<body>
 
-    <div class="container-fluid">
-      <div class="well well-sm">
-        <div class = "row">
-          <div class = "col-sm-3">
-           <img class ="img-responsive" src="/img/physicstree.png">     
-          </div>  
-          <div class = "col-sm-9">   
-            <h1>The Physics Tree</h1>
-            <h3>Best IIT JEE & NEET Coaching in Delhi (Janakpuri & Vikaspuri)</h2>
-            <h3>Providing 5000+ topic-wise Physics Questions with solutions for all students </h3>        
-            <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
-        </div>
+</head>
+<body onselectstart="return false">
+  <div class="container-fluid">
+    <div class="well">
+       <div class = "row">
+        <div class = "col-sm-3">
+         <img class ="img-responsive" src="/img/physicstree.png">     
+        </div>  
+        <div class = "col-sm-9">   
+          <h1 >The Physics Tree</h1>
+          <h4 id= "tagLines">Best IIT-JEE & NEET Coaching in Delhi(Janakpuri)</h4>
+          <h4>Providing the best study material with 5000+ Questions on this website</h4>
+          <h4>Free Chapter wise & Topic wise study material, videos & Online test series for every one </h4> 
       </div>
     </div>
   </div>
-  
-      <div class="container-fluid" id="quesDiv">
-        <div class= "well well-sm" id="chapterHeading">
-          <h3 id= "testName">{{testName}}</h3>
-          
-          <div class = "well well-sm" id="quesDiv">
-            <p id="questionText">What is your name?</p>
-            <img id="questionImage">
-            <p id="questionAnswer"><button id="showAnswer">Show Answer</button>Answer: Anshul</p>     
-            <div class="well well-sm">            
-            <button class = "btn btn-primary" id="previousQuestion">Previous</button>   
-            <button class ="btn btn-primary" id="nextQuestion">Next</button>
-            </div>    
-          </div>
-          <div class = "well well-sm" id="testDiv">
-            
+</div>
 
-          </div>
-          <div>
-            {{#if testQuesIDs}}
-                    <ul class="list-group">
-                        {{#each testQuesIDs}}
-                        <li class="list-group-item">
-                          <a href="/question/{{this.questionID}}">{{this.questionID}}</a></li>
-                        {{/each}}
-                    </ul>
-                    {{else}}
-                    <ul class="list-group">
-                        <li class="list-group-item">There are no tests on this chapter yet</li>
-                    </ul>
-                    {{/if}}
-          </div>
-      </div>    
-    </div>
-       
-      
-
-     
-
-      
-
-        
-
-
-
-    <script src="/js/test.js"></script>
+  <div class= "container-fluid">
     
+        <h2 class="well well-sm" style="text-align: center;" ><img class="icon" src="/img/test.png">Test Taking Section </h2>
+      
+        <div id= "loginForm" style="text-align:center"class ="well well-sm"> 
+            <p>Student Email: <input type="text" id="studentEmail">
+            <span>Password: <input type="text" id="studentPassword"></span></p>
+            <p> <button class="btn btn-primary" id="studentLoginButton">Login User</button>
+              OR
+              <button class="btn btn-success"id="getSignUpForm" onclick="document.getElementById('signupForm').style.display='block'">Create New User</button>
+              <!-- OR
+              <button class="btn btn-danger"id="getSignUpForm" onclick="document.getElementById('passwordRecoverForm').style.display='block'">Forgot Password</button></p> -->
+              
+            </p>
+
+            </div>
+       <div id= "signupForm"class ="well well-sm" style="display: none;"> 
+            <p>Student Email: <input type="text" id="studentSignUpEmail"> <span>Password: <input type="text"id="studentSignUpPassword">
+            <button class="btn btn-primary" id="studentSignupButton">Sign Up</button></p>
+       </div>
+       <div id= "signupForm"class ="well well-sm" style="display: none;"> 
+        <p>Student Email: <input type="text"></p>
+        <button class="btn btn-primary" id="passwordRecover">Sign Up</button></p>
+       </div>
+    
+    
+
+      <div class = "well well-sm" id = "testApp" style="display: block;text-align:center";>    
+           <div class="well well-sm">
+             <button class= "btn btn-danger" id="LoadTestButton" disabled > Load Test(Login Required)</button></h3>
+             <h3 class="well well-sm"> Time Remaining:  <span class id="time">00:00 minutes </span></h3>
+             <p id="messageReview"></p>  
+             <button class= "btn centre" style="display: none;" id="StartTestButton">START TEST</button></h3>
+              
+           </div>  
+
+           <div id="testArea" style="display: none;text-align:center">    
+                        <div name="questionDisplay"class="well well-sm">
+                        
+                        <h4 class="well well-sm" id = "questionNumber">Instructions:</h4>
+                          
+                          <p  id = "question" style="text-align: left;background-color:bisque;">1. Click Start when you are ready.  <br/>
+                            2. After Solving the Question, click next to solve another question.<br/>
+                            3. At the last question a Submit Button will appear to SUBMIT the test</p>
+                        
+                        </div>
+
+                        <img id ="image"class="img-responsive">
+                      
+                      <div name="Options" class="well well-sm">
+                        <p class = "well well-sm" id="lastQuestionStatus">Your Answer</p>
+                        <div id=singleOptionTypeAnswer>
+                          <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionAButton">Option A</button>
+                          <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionBButton">Option B</button>
+                          <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionCButton">Option C</button>
+                          <button type="button" style="margin: 10px " class="btn btn-primary" id="OptionDButton">Option D</button>
+                        </div>
+                        <div id= "integerTypeAnswer">
+                            Integer Type Answer: <input id="integerAnswer"><button id="integerButton">Submit</button>
+                        </div>
+                      </div>                        
+
+                      <div name="nextPrevious"class="well well-sm"> 
+                        
+                        <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="previousQuestionButton">Previous</button>
+                        <button type="button" style="margin: 10px; width:150px " onclick="MathJax.typeset()" class="btn btn-success" id="nextQuestionButton">  Next  </button>
+                      </div>
+                      
+                      <div name="Submission"class="well well-sm">
+                          <button type="button" style="margin: 10px; " onclick="MathJax.typeset()" class="btn btn-primary" id="submitTestButton">Submit All Answers</button>
+                          <span style = "display:inline-block" id ="confirmationMenu"> 
+                          <button type="button" style="margin: 10px;display:none " onclick="MathJax.typeset()" class="btn btn-danger" id="cancelSubmitButton">No</button>
+                          <button type="button" style="margin: 10px;display:none " onclick="MathJax.typeset()" class="btn btn-success" id="confirmSubmitButton">Confirm</button>
+                          </span>
+                      </div>
+            </div>
+
+
+      </div>              
+  </div>
 </body>
 
+<script src="/js/AllLoginSignup.js"></script>
+<script src="/js/testAsTest.js"></script>
 
+
+</html>

@@ -9,26 +9,25 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-  <link rel="stylesheet" href="css\studentlogin.css">
+  <link rel="stylesheet" href="css/studentlogin.css">
 </head>
-<body onselectstart="return false">
-  <div class="container-fluid">
-    <div class="well well-sm">
-      <div class = "row">
-        <div class = "col-sm-3">
-         <img class ="img-responsive" src="img/physicstree.png">     
-        </div>  
-        <div class = "col-sm-9">   
-          <h1>The Physics Tree</h1>
-          <h3>Best IIT JEE & NEET Coaching in Delhi (Janakpuri & Vikaspuri)</h2>
-          <h3>Providing 5000+ topic-wise Physics Questions with solutions for all students </h3>        
-          <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
-      </div>
+<div class="container-fluid">
+  <div class="well well-sm">
+    <div class = "row">
+      <div class = "col-sm-3">
+       <img class ="img-responsive" src="img/physicstree.png">     
+      </div>  
+      <div class = "col-sm-9">   
+        <h1>The Physics Tree</h1>
+        <h3>Best IIT JEE & NEET Coaching in Delhi (Janakpuri & Vikaspuri)</h2>
+        <h3>Providing 5000+ topic-wise Physics Questions with solutions for all students </h3>        
+        <h3>To Learn Physics or Chemistry from Best teachers please call or Whatsapp on 9560883948</h3>
     </div>
   </div>
 </div>
+</div>
       <div class= "container-fluid">
-      <h3 class="well well-sm" >Teacher's Section </h3>
+      <h1 class="well well-sm" >Teacher's Section </h1>
       </div>
   
       <div class="container-fluid" id = "loginForm">
@@ -51,9 +50,9 @@
       <div class="container-fluid" id ="teacherMenu" style="display: none;">
           <div name="menu"class = "well well-sm">
             <h4 style="display: none;"class ="well well-sm" id="intro"></h4>
-            <button class = "btn btn-primary" id="teacherProfileSectionButton">Profile</button>
-            <button class = "btn btn-primary" id="StudyMaterialSectionButton">Dpps & Tests</button>
-            <button class = "btn btn-primary" id="myStudentSectionButton">My Students</button>
+            <button class = "btn btn-success" id="teacherProfileSectionButton">Profile</button>
+            <button class = "btn btn-success" id="StudyMaterialSectionButton">Dpps & Tests</button>
+            <button class = "btn btn-success" id="myStudentSectionButton">My Students</button>
           </div>
           <div class="well well-sm" id= "myStudentSection" style="display: none;"> 
             
@@ -61,7 +60,7 @@
             <button id="getAllResultButton">Show  Results</button>
             <button id="hideResultButton">Hide Result</button>
             
-            <div class ="container-fluid" id="AllResultTableDiv">Cleck to see all Result </div>
+            <div class ="container-fluid" id="AllResultTableDiv">Click to see all Result </div>
             
             </div>
 
@@ -96,7 +95,7 @@
             </table>
             </div>
             
-            <div class ="well well-sm">
+            <div class ="well well-sm" style="display: none;">
               <input placeholder= "Name" id="newStudentName" type="text">              
               <input placeholder= "Email" id="newStudentEmail" type="text">              
               <input placeholder= "Password" id="newStudentPassword" type="text">

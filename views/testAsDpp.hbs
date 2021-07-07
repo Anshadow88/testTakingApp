@@ -28,14 +28,16 @@
     </div>
   </div>
   
-      <div class="container-fluid" id="quesDiv">
-        <div class= "well well-sm" id="chapterHeading">
-          <h3 id= "testName">{{testName}}</h3>
+      <div class="container-fluid" style="text-align: center;" id="quesDiv">
+        <h2 class="well well-sm" ><img class="icon" src="/img/DPP.png">Solution Section </h2>
+      
+        <div style ="text-align:centre" class= "well well-sm" id="chapterHeading">
+          <h4 id= "testName">Test Name:{{testName}}</h4>
           
           <div class = "well well-sm" id="quesDiv">
-            <p id="questionText">What is your name?</p>
+            <p style="text-align:left;background-color:bisque" id="questionText">Loading.........</p>
             <img id="questionImage">
-            <p id="questionAnswer"><button id="showAnswer">Show Answer</button>Answer: Anshul</p>     
+            <button id="showAnswerButton">Show Answer</button><p id="questionAnswer">Answer: ....</p>
             <div class="well well-sm">            
             <button class = "btn btn-primary" id="previousQuestion">Previous</button>   
             <button class ="btn btn-primary" id="nextQuestion">Next</button>
@@ -48,7 +50,7 @@
           <div class="well well-sm">
             {{#if testQuesIDs}}
                     <ul class="list-group list-group-horizontal">
-                      <h3>ANSWER KEY (Hint: 1+3=4 )</h3>
+                      <h3>Solutions (Hint: 1+3=4 )</h3>
                         {{#each testQuesIDs}}
                         <li class="list-group-item">
                           <a href="/question/{{this.questionID}}">Q.No. {{@index}}+1</a></li>
@@ -73,7 +75,7 @@
 
 
 
-    <script src="/js/test.js"></script>
+    <script src="/js/testAsDpp.js"></script>
     
 </body>
 

@@ -445,18 +445,39 @@ router.post('/teacherGetTestResults/:id',async(req,res)=>{
 
 //     })
 // }
-// async function OneUserUpdateTheirTeacherID(id,teacherID)
-// {
-//     const user = await User.findOne({_id:id})
-//     if(!user) return('Cant find this user')
-//     else
-//     {
-//         user.teachers=[]
-//         user.teachers.push({'teacherID':teacherID})
-//     }
 
-//     await user.save()
-// }
+//OneUserUpdateTheirTeacherID('60e48ecd6e3d441fc4c5670b','60e489c2166e8f001510e2eb')
+async function OneUserUpdateTheirTeacherID(id,teacherID)
+{
+    const user = await User.findOne({_id:id})
+    if(!user) return('Cant find this user')
+    else
+    {
+        user.teachers=[]
+        user.teachers.push({'teacherID':teacherID})
+    }
+
+    await user.save()
+}
+
+OneTeacherAddStudnetToBatch('60e489c2166e8f001510e2eb','60e48ecd6e3d441fc4c5670b','Batch-A')
+async function OneTeacherAddStudnetToBatch(teacherID,studentID,batchName)
+{
+    const teacher = await User.findOne({_id:teacherID})
+    const student = await User.findOne({_id:studentID})
+    
+    if(!teacher||!student) return('Cant find this user')
+    else
+    {
+        student.teachers.push({'teacherID':teacherID})
+        teacher.students.push({'studentName':student.name,'studentID':studentID,'batch':batchName})
+    }
+
+    await teacher.save()
+    await student.save()
+}
+
+
 
 
 

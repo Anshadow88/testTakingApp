@@ -51,9 +51,10 @@
                             <div class ="text-center">
                               <h4 >{{this.name}}</h4>
                               <p >{{this.description}}</p>
-                              <button class="btn btn-primary" onclick="SetTestName('{{this.name}}')">Take Test</button>
+                              <p>Question Count: {{this.questions.length}}</p>
+                              <h5><a class="centreFull" target="_blank" href="/testAsTest/{{this.name}}">Take the Test</a></h5>
                               <p>OR</p>
-                              <a class="centreFull" href="/testAsDPP/{{this.name}}">Open As DPP</a></li>
+                              <h5><a class="centreFull" target="_blank" href="/testAsDPP/{{this.name}}">Open As DPP</a></h5>
                             </div>
                           </div>
                         </div>
