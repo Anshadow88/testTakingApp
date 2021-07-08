@@ -32,10 +32,17 @@ $myStudentSectionButton.addEventListener('click',(e)=>{
     SwitchSections(3)
     getAllMyStudents(USERID)
 })
+const $openChapterWise = document.getElementById('openChapterWise')
+$openChapterWise.addEventListener('click',()=>{
+    SwitchStudentSections(4)
+})
+
 function SwitchSections(count){
     document.getElementById("teacherProfileSection").style.display="none";
     document.getElementById('myStudentSection').style.display='none'
     document.getElementById('StudyMaterialSection').style.display='none'
+     
+    document.getElementById('chapterWise').style.display='none'
 
 
     if(count==1)document.getElementById('teacherProfileSection').style.display= 'block'
@@ -44,6 +51,8 @@ function SwitchSections(count){
         getAllMyTests()
     }
     else if(count==3)document.getElementById('myStudentSection').style.display='block'
+       
+    else if(count==4)document.getElementById('chapterWise').style.display='block'
 }
 
 
