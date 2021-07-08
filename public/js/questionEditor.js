@@ -252,7 +252,7 @@ async function getQuestionOfTests(testName){
 
 async function showCurrentQuestion(){
     //Remove Selected image for last update  
-    //console.log(QuestionsOFChapters)
+    console.log(QuestionsOFChapters[QuestionCount])
     inputImage.value=''   
     inputImageSolution.value=''
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
@@ -278,6 +278,7 @@ async function showCurrentQuestion(){
      imageSolution.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].solutionImage)     
     }
 
+    $newSolutionTyped.value = ''
     if(QuestionsOFChapters[QuestionCount].solution)
     {
         $newSolutionTyped.value = QuestionsOFChapters[QuestionCount].solution
