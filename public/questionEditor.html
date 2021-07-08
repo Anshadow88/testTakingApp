@@ -11,11 +11,11 @@
   <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 </head>
 <body>
-  <div class= "container">
+  <div class= "container-fluid">
     <h3 class="well well-sm" >Editing Section </h3>
   </div>
     
-    <div class="container">
+    <div class="container-fluid">
       <div class="well well-sm">
         <div style = "display: none">
         Chapter
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="well well-sm">
         <div class = "row">
         <div class = "col-sm-6">
@@ -98,7 +98,7 @@
     </div>
 
 
-  <div class = "container">
+  <div class = "container-fluid">
     <div class = "well well-sm">
       <div class="row">          
           <div class="col-sm-6">
@@ -119,7 +119,7 @@
 
   </div>
 
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6">
         <div class="well well-sm">To change Image: 
@@ -142,9 +142,29 @@
 
   </div>
   
-<div class="container">
-       
+<!-- SOLUTION SECTION -->
+<div class="container-fluid">
+  <div class = "well well-sm">
+    <div class="row">          
+        <div class="col-sm-6">
+        <p>Solution </p>
+        <p class= "well well-sm"  id="newSolutionWithMaths">Solution With Maths</p>
+        
         </div>
+        <div class="col-sm-6">
+        <textarea id="newSolutionTyped" placeholder ="Solution" class="form-control" rows="12"></textarea>
+        
+        </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="showSolutionMathButton" onclick=setTimeout(function(){MathJax.typeset()},500)>Check MATH</button>
+      
+    <image class="well well-sm" id="imageSolution"></image>    
+   </div>
+   <div class="well well-sm">To change Solution Image: 
+    <input type="file" id="inputImageSolution">
+ </div>
+       
+</div>
 
 </body>
 

@@ -23,6 +23,7 @@ const $newQuestionText = document.querySelector('#newQuestionTyped')
 let inputQuestionText =""
 let modifiedText=""
 let imageKeyAWS
+let imageSolutionAWS
 
 const $showMathButton = document.querySelector('#showMathButton')
 const $writeMathsButton = document.querySelector('#writeMathsButton')
@@ -250,6 +251,7 @@ async function postQuestion(){
         chapter: selectedChapter,
         author: nameOfTypist,
         image: imageKeyAWS,
+       // solutionImage:imageSolutionAWS,
         exam: examName,
         year: yearOfExam,
         type: questionType,

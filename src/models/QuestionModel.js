@@ -14,8 +14,9 @@ const QuestionSchema = new mongoose.Schema({
     image:{type:String},
     exam:{type:String,default:'0'},//0:none, 1: NEET, 2: Mains/AIEEE, 3: Advanced, 4: state pmt
     year:{type:Number},
-    solutionText:{type:String},    
-    solutionLink:[{type:String}]
+    solution:{type:String},    
+    solutionLink:[{type:String}],
+    solutionImage: {type:String}
     
 })
 

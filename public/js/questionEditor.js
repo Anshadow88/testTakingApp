@@ -16,6 +16,8 @@ const $correctAnswer = document.querySelector('#correctAnswer')
 const $chapterNumber = document.querySelector('#chapterNumber')
 const $questionType = document.getElementById('questionType') 
 const $subjectName = document.getElementById('subjectName')
+
+const $newSolutionTyped = document.querySelector('#newSolutionTyped')
     
 
 
@@ -31,7 +33,10 @@ let QUESID
 let QuestionsOFChapters
 let QuestionCount=0
 let imageKeyAWS
+let imageSolutionAWS
+
 const $questionTextWithMath = document.querySelector('#newQuestionWithMaths')
+const $newSolutionWithMaths = document.querySelector('#newSolutionWithMaths')
 
 
 let selectedChapter = ""
@@ -43,6 +48,15 @@ let imageFile
 // add event listener
 inputImage.addEventListener('change', () => {
     imageFile = inputImage.files[0]
+});
+
+let $imageSolution = document.getElementById('imageSolution')
+const inputImageSolution = document.getElementById('inputImageSolution');
+let imageFileSolution
+// add event listener
+inputImageSolution.addEventListener('change', () => {
+    imageFileSolution = inputImageSolution.files[0]
+    console.log('imageFileSolution'+imageFileSolution)
 });
 
 $FindQuestionByIDButton.addEventListener('click',(e)=>{
@@ -70,9 +84,14 @@ $showMathButton.addEventListener('click',(e)=>{
 
    modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
    $questionTextWithMath.innerHTML = modifiedText   
-
-
 })
+
+let $showSolutionMathButton = document.getElementById('showSolutionMathButton')
+$showSolutionMathButton.addEventListener('click',(e)=>{
+
+    modifiedSolutionText = $newSolutionTyped.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
+    document.getElementById('newSolutionWithMaths').innerHTML = modifiedSolutionText   
+ })
 
 $nextButton.addEventListener('click',(e)=>{
     QuestionCount++
@@ -99,10 +118,19 @@ $previousBigButton.addEventListener('click',(e)=>{
 })
 
 $postQuestionButton.addEventListener('click',(e)=>{    
+
+    console.log('imageFileSolution'+imageFileSolution)
+    console.log('imageFile'+imageFile)
     if(imageFile)
-    uploadFile(imageFile)
+    {console.log('Reacher 0')
+        uploadFile(imageFile)}
+    else if(imageFileSolution)
+    {   console.log('Reacher 1')
+        uploadSolutionFile(imageFileSolution)}
     else
-    UpdateAQuestion()
+    {
+        console.log('Reacher 3')
+        UpdateAQuestion()}
 })
 
 async function getQuestion(quesID){     
@@ -225,7 +253,8 @@ async function getQuestionOfTests(testName){
 async function showCurrentQuestion(){
     //Remove Selected image for last update  
     //console.log(QuestionsOFChapters)
-    inputImage.value=''    
+    inputImage.value=''   
+    inputImageSolution.value=''
     if(QuestionCount>=QuestionsOFChapters.length)QuestionCount=QuestionsOFChapters.length-1
     if(QuestionCount<0) QuestionCount=0
     $questionNumber.innerHTML = 'Question No.&nbsp'+(QuestionCount+1)+'/'+QuestionsOFChapters.length+ '&nbsp&nbsp&nbspID:'+QuestionsOFChapters[QuestionCount]._id
@@ -237,14 +266,29 @@ async function showCurrentQuestion(){
     $image.style.display='none'
     if(QuestionsOFChapters[QuestionCount].image&&QuestionsOFChapters[QuestionCount].image!='')
     {
-     console.log('ARE WE LOOKING FOR AWS')
+     console.log('ARE WE LOOKING FOR AWS Question')
      $image.style.display=''
-     image.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].image)  
-     
+     image.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].image)       
+    }
+    $imageSolution.style.display='none'
+    if(QuestionsOFChapters[QuestionCount].solutionImage&&QuestionsOFChapters[QuestionCount].solutionImage!='')
+    {
+     console.log('ARE WE LOOKING FOR AWS for Solution')
+     $imageSolution.style.display=''
+     imageSolution.src = ('/uploads/'+QuestionsOFChapters[QuestionCount].solutionImage)     
+    }
+
+    if(QuestionsOFChapters[QuestionCount].solution)
+    {
+        $newSolutionTyped.value = QuestionsOFChapters[QuestionCount].solution
     }
 
     modifiedText = $newQuestionText.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
-    $questionTextWithMath.innerHTML = modifiedText   
+    $questionTextWithMath.innerHTML = modifiedText  
+    
+    
+    modifiedSolutionText = $newSolutionTyped.value.replace(/(?:\r\n|\r|\n)/g, "<br>")    
+    $newSolutionWithMaths.innerHTML = modifiedSolutionText  
 
 }
 
@@ -267,12 +311,36 @@ async function uploadFile(file) {
     var data = await response.json()
     console.log(data.filename)
     imageKeyAWS = data.filename
+
+    
+    UpdateAQuestion()
+
+}
+async function uploadSolutionFile(file) {
+    console.log('Reacher 4')
+    imageSolutionAWS=''
+    // add file to FormData object
+    const fd = new FormData();
+    fd.append('avatar', file);
+
+    // send `POST` request
+    const response = await fetch('/questions/'+QUESID+'/image', {
+        method: 'POST',
+        body: fd
+    })
+    .then()
+    .then()
+    .catch()
+    
+    
+    var data = await response.json()
+    console.log(data.filename)
+    imageSolutionAWS = data.filename
     UpdateAQuestion()
 
 }
 
-async function UpdateAQuestion(){    
-        
+async function UpdateAQuestion(){            
         
         //console.log(questionwiseResut)
         const response  = await fetch("/questionUpdate/"+QuestionsOFChapters[QuestionCount]._id, {          
@@ -286,10 +354,14 @@ async function UpdateAQuestion(){
         body: JSON.stringify({
             question: $newQuestionText.value,
             answer: $correctAnswer.value,
+            solution: $newSolutionTyped.value,
             chapter: $chapterNumber.value,
             image : imageKeyAWS,
+            solutionImage : imageSolutionAWS,
             type: $questionType.value,
-            subject: $subjectName.value
+            subject: $subjectName.value,
+            
+
         }),
         // Adding headers to the request
         headers: {
